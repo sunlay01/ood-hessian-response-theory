@@ -55,14 +55,14 @@ The penalty is blind at first order to any direction in the nullspace of the sta
 
 ## CORAL
 
-Let \(h_\theta(X)\in\mathbb R^p\), \(\mu_e=E_e[h_\theta]\), and \(C_e=E_e[(h_\theta-\mu_e)(h_\theta-\mu_e)^\top]\). For weights \(W_e\), define
+Let \(h_\theta(X)\in\mathbb R^p\), \(\mu_e=E_e[h_\theta]\), and \(C_e=E_e[(h_\theta-\mu_e)(h_\theta-\mu_e)^\top]\). For a common positive-semidefinite metric \(W\), define
 \[
-\Omega_C=\frac1{2E}\sum_e\|W_e^{1/2}(C_e-\bar C)W_e^{1/2}\|_F^2,
+\Omega_C=\frac1{2E}\sum_e\|W^{1/2}(C_e-\bar C)W^{1/2}\|_F^2,
 \quad \bar C=E^{-1}\sum_eC_e.
 \]
 Using the Frobenius inner product,
 \[
-\boxed{\nabla\Omega_C=\frac1E\sum_e J_e^\ast\!\left[W_e(C_e-\bar C)W_e\right],}
+\boxed{\nabla\Omega_C=\frac1E\sum_e J_e^\ast\!\left[W(C_e-\bar C)W\right],}
 \]
 where \(J_e[\delta\theta]=D_\theta C_e[\delta\theta]\) and \(J_e^\ast\) is its adjoint. In coordinates, if \(c_e=\operatorname{vec}C_e\), this is the generic statistic formula \(E^{-1}\sum_e2J_e^\top M(c_e-\bar c)\), up to the chosen factor convention. The Hessian contains
 \[
@@ -72,9 +72,9 @@ Population covariance shifts produce an \(O(1)\) response even when the covarian
 
 ## Fishr
 
-Let per-example parameter gradients be \(g_e(Z;\theta)=\nabla_\theta\ell(Z;\theta)\), with mean \(m_e=E_eg_e\) and covariance \(V_e=E_e[(g_e-m_e)(g_e-m_e)^\top]\). For a weighted covariance matching penalty,
+Let per-example parameter gradients be \(g_e(Z;\theta)=\nabla_\theta\ell(Z;\theta)\), with mean \(m_e=E_eg_e\) and covariance \(V_e=E_e[(g_e-m_e)(g_e-m_e)^\top]\). For a covariance matching penalty with a common positive-semidefinite metric \(W\),
 \[
-\Omega_F=\frac1{2E}\sum_e\|W_e^{1/2}(V_e-\bar V)W_e^{1/2}\|_F^2.
+\Omega_F=\frac1{2E}\sum_e\|W^{1/2}(V_e-\bar V)W^{1/2}\|_F^2.
 \]
 Set \(v_e=\operatorname{vec}V_e\), \(K_e=D_\theta v_e\). Then
 \[
@@ -114,16 +114,16 @@ For the centered spectral penalty
 the chain rule gives
 \[
 \boxed{\nabla\Omega_\Phi
-=\sum_e\pi_eL_e^\ast[W(s_e-\bar s)].}
+=\sum_e\pi_eT_e^*L_e^\ast[W(s_e-\bar s)].}
 \]
 Since \(D_\theta H_e[v]=T_e[v]\), the path force and learned task-Hessian response are
 \[
 \dot\theta_\Phi
-=-A^{-1}\sum_e\pi_eL_e^\ast[W(s_e-\bar s)],
+=-A^{-1}\sum_e\pi_eT_e^*L_e^\ast[W(s_e-\bar s)],
 \]
 \[
 \dot H_j^\Phi
-=-T_j\left[A^{-1}\sum_e\pi_eL_e^\ast[W(s_e-\bar s)]\right].
+=-T_j\left[A^{-1}\sum_e\pi_eT_e^*L_e^\ast[W(s_e-\bar s)]\right].
 \]
 
 For pure shrinkage \(\Omega_f=\sum_e\pi_e\operatorname{tr}f(H_e)\), the residual term is absent and

@@ -27,7 +27,7 @@ For a third-order tensor, \(T[u,v]\) is the vector with coordinates \(\sum_{jk}T
 Differentiating \(F(\theta_\lambda,\lambda)=0\) once gives
 \[
 \bigl(\nabla^2\bar R(\theta_\lambda)+\lambda\nabla^2\Omega(\theta_\lambda)\bigr)\dot\theta_\lambda
-\nabla\Omega(\theta_\lambda)=0.
++\nabla\Omega(\theta_\lambda)=0.
 \]
 At zero,
 \[

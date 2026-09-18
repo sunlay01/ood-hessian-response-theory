@@ -40,23 +40,40 @@
 \xi\in\mathcal X.
 \]
 
-transfer-relevant geometry 由线性算子
+transfer-relevant tangent geometry 由线性算子
 
 \[
 G:\mathcal X\to\mathcal Z
 \]
 
-提取。默认取
+提取。对局部 mechanism path
+\[
+P_\varepsilon=P_0+\varepsilon\xi+o(\varepsilon),
+\]
+默认取一阶导数
 
 \[
-G\xi=(\Delta g,\Delta H),
+G\xi=(G_g\xi,G_H\xi),
 \qquad
 \Delta g=g_T-\bar g_S,\quad
 \Delta H=H_T-\bar H_S.
 \]
 
 除非另有说明，\(g_T,\bar g_S,H_T,\bar H_S\) 都在当前 learned
-\(\theta\) 处评价；\(G\) 是对局部机制 shift 的一阶线性化。
+\(\theta\) 处评价。对有限 \(\varepsilon\)，真实 discrepancy 不是无条件等于
+\(G\xi\)，而是
+\[
+\Delta g=\varepsilon G_g\xi+r_g(\varepsilon,\xi),\qquad
+\Delta H=\varepsilon G_H\xi+r_H(\varepsilon,\xi).
+\]
+若 mechanism map 二阶可微，则在局部邻域内
+\[
+\|r_g\|+\|r_H\|\le \epsilon_{\rm lin}(\varepsilon,\xi),
+\qquad
+\epsilon_{\rm lin}=O(\varepsilon^2\|\xi\|^2).
+\]
+因此把 \(G\xi\) 代入有限 target discrepancy 时，必须保留
+\(\epsilon_{\rm lin}\)，或者明确声明定理只是一阶 tangent theorem。
 
 为避免和 penalty 的标量函数混淆，记每个算法自己的 shift observation map 为
 
@@ -280,7 +297,9 @@ R_T(\theta)-R_T(\theta_T^\star)
 :=\rho\|a\|+\frac{\rho^2}{2}\|B\|_{\rm op}.
 \]
 
-则 (T) 的 transfer 部分就是 \(\|G\xi_T\|_\rho\)。
+在严格的 tangent 版本中，(T) 的 transfer 部分为
+\(\varepsilon\|G\xi_T\|_\rho+\epsilon_{\rm lin}\)；只有把
+\(\xi_T\) 定义成 exact discrepancy coordinates 时，才能省略该余项。
 
 ---
 
@@ -362,8 +381,9 @@ remainder 的统一解释。
 R_T(\theta)-R_T(\theta_T^\star)
 \le{}&
 \bar R_S(\theta)-\bar R_S(\theta_S^\star)\\
-&+\kappa_\Omega\|\mathcal O_\Omega\xi_T\|
-+ B_\Omega(\xi_T)
+&+\varepsilon\kappa_\Omega\|\mathcal O_\Omega\xi_T\|
++\varepsilon B_\Omega(\xi_T)
++\epsilon_{\rm lin}(\xi_T)
 +\frac{M_3}{6}\rho^3,
 \end{aligned}}
 \tag{M}
@@ -405,7 +425,7 @@ B_\Omega(\xi)=\|G P_{\ker \mathcal O_\Omega}\xi\|_\rho.
 \]
 
 \[
-\epsilon_{\rm unseen}:=\|G\xi_\perp\|_\rho.
+\epsilon_{\rm unseen}:=\varepsilon\|G\xi_\perp\|_\rho.
 \]
 
 因此 source-only 上界为
@@ -416,10 +436,11 @@ B_\Omega(\xi)=\|G P_{\ker \mathcal O_\Omega}\xi\|_\rho.
 R_T(\theta)-R_T(\theta_T^\star)
 \le{}&
 \bar R_S(\theta)-\bar R_S(\theta_S^\star)\\
-&+\|\alpha\|_1\kappa_\Omega
+&+\varepsilon\|\alpha\|_1\kappa_\Omega
 \max_e\|\mathcal O_\Omega\xi_e\|\\
-&+\|\alpha\|_1\max_eB_\Omega(\xi_e)
+&+\varepsilon\|\alpha\|_1\max_eB_\Omega(\xi_e)
 + \epsilon_{\rm unseen}
++\epsilon_{\rm lin}(\xi_T)
 +\frac{M_3}{6}\rho^3.
 \end{aligned}}
 \tag{SO}
@@ -643,33 +664,37 @@ B_C(\xi)
 \[
 F=H+\Xi,
 \qquad
-K_F=K_H+K_\Xi,
+K_F^\theta=K_H^\theta+K_\Xi^\theta,
 \]
 
-其中 \(K\) 是对 mechanism shift 的导数。对 centered statistic，force 展开为
+其中上标 \(\theta\) 表示参数 Jacobian。mechanism observation 使用独立的
+\(K_F^\xi=D_\xi F\)、\(K_H^\xi=D_\xi H\)，不能直接代替 parameter
+Jacobian。对 centered statistic，force 展开为
 
 \[
-K_F^*\widetilde F
+\left(K_F^\theta\right)^*\widetilde F
 =
-K_H^*\widetilde H
+\left(K_H^\theta\right)^*\widetilde H
 +
-K_H^*\widetilde\Xi
+\left(K_H^\theta\right)^*\widetilde\Xi
 +
-K_\Xi^*\widetilde H
+\left(K_\Xi^\theta\right)^*\widetilde H
 +
-K_\Xi^*\widetilde\Xi.
+\left(K_\Xi^\theta\right)^*\widetilde\Xi.
 \]
 
 定义
 
 \[
-v_{HH}=\bar H^{-1}K_H^*\widetilde H,
+v_{HH}=\bar H^{-1}\left(K_H^\theta\right)^*\widetilde H,
 \qquad
 v_{\rm defect}
 =\bar H^{-1}
-(K_H^*\widetilde\Xi
-+K_\Xi^*\widetilde H
-+K_\Xi^*\widetilde\Xi).
+\left(
+\left(K_H^\theta\right)^*\widetilde\Xi
++\left(K_\Xi^\theta\right)^*\widetilde H
++\left(K_\Xi^\theta\right)^*\widetilde\Xi
+\right).
 \]
 
 则

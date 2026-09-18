@@ -16,6 +16,11 @@ displayed statement is already a theorem under minimal assumptions.  Analytic
 conditions (differentiability, eigengaps, local branches, and coverage) are
 made explicit instead of being hidden inside the Lean companion.
 
+The finite-shift transfer estimate is local: a mechanism tangent map contributes
+its first-order term plus an explicit `epsilon_lin = O(epsilon^2 ||xi||^2)`
+remainder.  The source-only form also retains blind and unseen-coverage
+remainders.
+
 ## Main idea
 
 The unified interface keeps three objects distinct:
@@ -51,6 +56,11 @@ different observation/actuation mechanisms.  In particular, zero-residual
 IRMv1 is treated through constraint-manifold geometry; it is not incorrectly
 represented as a nonzero first-order path response.
 
+The raw-feature logistic CORAL example is intentionally observation-only:
+because its covariance does not depend on classifier weights, its classifier
+force is zero.  A learnable representation is required for a CORAL actuation
+experiment.
+
 ## Reproduce the checks
 
 From the repository root:
@@ -74,4 +84,6 @@ the target-risk estimate is conditional on local smoothness and exposure
 assumptions.  In particular, an observation kernel is not automatically an
 empirical error certificate: if a target shift lies in that kernel and remains
 transfer-relevant, the blind term must be retained or bounded by an additional
-assumption.
+assumption.  The Lean files are an algebraic companion and consistency check;
+they do not yet formalize the implicit-function, constant-rank, eigengap, or
+probabilistic coverage arguments.

@@ -74,10 +74,18 @@ If risk differences are driven mainly by \(\mu_{S,e}\), V-REx produces an \(O(1)
 
 For CORAL with raw feature covariance, the population covariance of \(X\) is
 \[
-\operatorname{Cov}_e(X)=\operatorname{diag}(1+\mu_I^2,1+\mu_{S,e}^2,\sigma_{N,e}^2)+\mu_e\mu_e^\top,
+\operatorname{Cov}_e(X)=\operatorname{diag}(1,1,\sigma_{N,e}^2)+\mu_e\mu_e^\top,
 \qquad \mu_e=(\mu_I,\mu_{S,e},0)^\top.
 \]
-The rank-one term is the label-induced cross covariance, and it varies with \(\mu_{S,e}\); it must not be silently discarded. A change in \(\sigma_{N,e}\) still produces an \(O(1)\) CORAL pressure even though \(X_N\) is label-independent. Conversely, a spurious mechanism with matched full second moments can have zero CORAL mismatch. Its response is \(B_C=E^{-1}\sum_eJ_e^\top M(C_e-\bar C)\), followed by \(\dot H_e^C=-T_e[A^{-1}B_C]\).
+The rank-one term is the label-induced cross covariance, and it varies with \(\mu_{S,e}\); it must not be silently discarded. A change in \(\sigma_{N,e}\) still produces an \(O(1)\) CORAL observation even though \(X_N\) is label-independent. Conversely, a spurious mechanism with matched full second moments can have zero CORAL mismatch.
+
+In this raw-feature model the trainable parameter is only the classifier \(w\), while \(C_e(X)\) is independent of \(w\). Therefore \(D_wC_e=0\) and raw-feature CORAL has no classifier actuation here:
+
+\[
+\boxed{\nabla_w\Omega_{\mathrm{CORAL}}=0.}
+\]
+
+The model is therefore an observation-only CORAL counterexample. To study CORAL's parameter force, introduce a learnable representation, for example \(z=M_\phi X\) (or \(z=\operatorname{diag}(a_I,a_S,a_N)X\)), and use \(\theta=(\phi,w)\). Then \(D_\phi\operatorname{Cov}(z)\) is generally nonzero and the representation-level CORAL response formula applies.
 
 For Fishr, the per-example gradient is \(g_e=-\sigma(-t)YX\). Its covariance is
 \[
@@ -98,7 +106,7 @@ and the penalty detection ratio \(\pi_I(\delta)=\|B_I(\delta)\|\). A concrete ph
 \]
 while increasing \(\delta=|\mu_{S,1}-\mu_{S,2}|\) beyond a model-dependent threshold should increase \(\pi_I\) and reduce \(\chi_I\), if the environment variation exposes the spurious component.
 
-The closed-form expectations are one-dimensional Gaussian integrals after conditioning on \(Y\); they are smooth and can be evaluated by Gauss-Hermite quadrature. The accompanying script `work/logistic_sanity.py` uses Monte Carlo automatic differentiation and finite differences to verify the identities. Its small ridge term is included in the base source objective solely to make \(A\) well-conditioned, so the reported \(A\) is the Hessian of that regularized base objective. In the current baseline (\(\mu_I=1.5\), \(\mu_{S,1}=0.35-\delta/2\), \(\mu_{S,2}=0.35+\delta/2\), nuisance scales 1 and 1.6), the measured IRM response has a nonzero \(I/S\) entry (about \(-4.0\times10^{-3}\) at \(\delta=0\), becoming more negative as \(\delta\) grows), whereas V-REx is near zero at \(\delta=0\) and grows with risk mismatch. These numbers are a sanity check, not a theorem or a CMNIST reproduction.
+The closed-form expectations are one-dimensional Gaussian integrals after conditioning on \(Y\); they are smooth and can be evaluated by Gauss-Hermite quadrature. The accompanying script `experiments/logistic_sanity.py` uses Monte Carlo automatic differentiation and finite differences to verify the identities. Its small ridge term is included in the base source objective solely to make \(A\) well-conditioned, so the reported \(A\) is the Hessian of that regularized base objective. The script separates a spurious-correlation sweep with equal nuisance scales from a nuisance sweep with fixed correlation. These numbers are a sanity check for the nonzero-residual response, not a theorem or a CMNIST reproduction.
 
 ## Finite-difference check
 

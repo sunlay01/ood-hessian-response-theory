@@ -267,7 +267,7 @@ s_e=\Phi(H_e),\qquad
 
 \[
 \nabla\Omega_\Phi
-=\sum_e\pi_e L_e^*[W(s_e-\bar s)],
+=\sum_e\pi_e T_e^*L_e^*[W(s_e-\bar s)],
 \qquad L_e=D_H\Phi(H_e),
 \]
 

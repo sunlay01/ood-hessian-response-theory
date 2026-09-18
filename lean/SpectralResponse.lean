@@ -82,6 +82,19 @@ def spectralForce {n : Nat}
     (T : Fin n → Fin n → Fin n → ℝ) (B : Mat n) : Vec n :=
   tensorAdjoint T B
 
+/-! A spectral-alignment force has two adjoints: the spectral differential
+    maps statistic residuals back to Hessian space, and the task third
+    derivative maps Hessian sensitivity back to parameter space. -/
+def spectralAlignmentForce {n : Nat}
+    (T : Fin n → Fin n → Fin n → ℝ)
+    (Lstar : Mat n → Mat n) (B : Mat n) : Vec n :=
+  tensorAdjoint T (Lstar B)
+
+theorem spectralAlignmentForce_eq_composed {n : Nat}
+    (T : Fin n → Fin n → Fin n → ℝ)
+    (Lstar : Mat n → Mat n) (B : Mat n) :
+    spectralAlignmentForce T Lstar B = tensorAdjoint T (Lstar B) := rfl
+
 theorem tensorAdjoint_add {n : Nat}
     (T : Fin n → Fin n → Fin n → ℝ) (A B : Mat n) :
     tensorAdjoint T (A + B) = tensorAdjoint T A + tensorAdjoint T B := by

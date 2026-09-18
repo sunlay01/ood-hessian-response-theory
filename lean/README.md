@@ -16,6 +16,8 @@ regularization derivation:
 - matrix multiplication, trace, and associativity;
 - cyclic trace `tr (AB) = tr (BA)` and zero trace of a commutator;
 - the tensor adjoint (T^*[B]) and linear spectral parameter force;
+- the composed spectral-alignment force (T^*L^*[B]), keeping the
+  Hessian-space differential separate from the parameter-space actuation;
 - an explicit rotation-blindness theorem for the trace functional and an
   interface for general eigenvalue-only differentials.
 

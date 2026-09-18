@@ -295,7 +295,7 @@ s_e^\Phi=\Phi(H_e),\qquad H_e=\nabla^2R_e.
 令 \(L_e=D_H\Phi(H_e)\)。则
 \[
 \nabla\Omega_\Phi
-=\sum_e\pi_eL_e^*[W(s_e^\Phi-\bar s^\Phi)],
+=\sum_e\pi_eT_e^*L_e^*[W(s_e^\Phi-\bar s^\Phi)],
 \]
 并使用同一个 \(A^{-1}\) 和 \(T_e\) 得到路径与 task-Hessian response。若谱 residual 为零，则切换到谱约束集合几何。
 

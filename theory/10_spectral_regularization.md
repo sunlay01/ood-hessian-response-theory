@@ -36,24 +36,25 @@ L_e=D_H\Phi(H_e),
 \qquad
 D_\theta s_e[v]=L_e[T_e[v]],
 \]
-其中 \(T_e=\nabla^3R_e\)。由链式法则，
+其中 \(T_e=\nabla^3R_e\)。这里 \(L_e^*\) 仍输出 Hessian-space
+sensitivity，必须再经过 \(T_e^*\) 才得到 parameter-space force。由链式法则，
 \[
 \boxed{
 \nabla_\theta\Omega_{\Phi,\mathrm{align}}
-=\sum_e\pi_e L_e^*[W r_e].
+=\sum_e\pi_e T_e^*L_e^*[W r_e].
 }
 \]
 因此在 ERM 点、\(A=\bar H\) 可逆的非零-residual regime 中，
 \[
 \boxed{
 \dot\theta_{\Phi,\mathrm{align}}
-=-A^{-1}\sum_e\pi_eL_e^*[Wr_e],
+=-A^{-1}\sum_e\pi_eT_e^*L_e^*[Wr_e],
 }
 \]
 \[
 \boxed{
 \dot H_j^{\Phi,\mathrm{align}}
-=-T_j\left[A^{-1}\sum_e\pi_eL_e^*[Wr_e]\right].
+=-T_j\left[A^{-1}\sum_e\pi_eT_e^*L_e^*[Wr_e]\right].
 }
 \]
 这是之前 generic statistic theorem 的 Hessian-observation 特例。
