@@ -1,0 +1,11 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+
+# Lean/Lake build products
+lean/.lake/
+lean/.elan/
+lean/.cache/
+lean/*.olean
+lean/*.ilean
+lean/*.c
