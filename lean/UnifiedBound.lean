@@ -81,4 +81,33 @@ theorem source_span_bound
           (hEach e) (norm_nonneg _))
       · exact hUnseen
 
+/-!
+  Algebraic assembly of the local theorem in
+  `12_rigorous_local_blind_transfer_theorem.md`.  The analytic Taylor bounds
+  enter as `hBridge`; this theorem checks that the epsilon scaling and the
+  visible/blind terms are combined without dropping a remainder.
+-/
+theorem local_visible_blind_risk_bound
+    {n m p : Nat}
+    (G : Vec n →ₗ[ℝ] Vec p)
+    (A : Vec n →ₗ[ℝ] Vec m)
+    (xi xiVisible xiBlind : Vec n)
+    (hdecomp : xi = xiVisible + xiBlind)
+    (ε κ sourceExcess linRemainder thirdRemainder riskExcess : ℝ)
+    (hε : 0 ≤ ε)
+    (hVisible : ‖G xiVisible‖ ≤ κ * ‖A xi‖)
+    (hBridge : riskExcess ≤
+      sourceExcess + ε * ‖G xi‖ + linRemainder + thirdRemainder) :
+    riskExcess ≤ sourceExcess
+      + ε * (κ * ‖A xi‖ + ‖G xiBlind‖)
+      + linRemainder + thirdRemainder := by
+  have hTransfer : ‖G xi‖ ≤ κ * ‖A xi‖ + ‖G xiBlind‖ := by
+    apply visible_blind_bound G A xi xiVisible xiBlind hdecomp κ ‖G xiBlind‖
+    · exact hVisible
+    · exact le_rfl
+  have hScaled : ε * ‖G xi‖ ≤
+      ε * (κ * ‖A xi‖ + ‖G xiBlind‖) :=
+    mul_le_mul_of_nonneg_left hTransfer hε
+  linarith
+
 end OODResponse

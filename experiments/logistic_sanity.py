@@ -33,9 +33,10 @@ def base_obj_np(w, samples, ridge):
     g=torch.autograd.grad(val,wt)[0]
     return float(val.detach()),g.detach().numpy()
 
-def metrics(delta, method='IRM', n=12000, seed=17, ridge=.05, h=1e-4,
-            nuisance_scales=(1.0, 1.0)):
-    cs=[.35-delta/2,.35+delta/2]
+def metrics(corr_delta=0.0, nuisance_delta=0.0, method='IRM', n=12000,
+            seed=17, ridge=.05, h=1e-4):
+    cs=[.35-corr_delta/2,.35+corr_delta/2]
+    nuisance_scales=[1.3-nuisance_delta/2,1.3+nuisance_delta/2]
     samples=[make_env(c,n,nuisance_scales[i],seed+i) for i,c in enumerate(cs)]
     opt=minimize(lambda w:base_obj_np(w,samples,ridge), np.zeros(3),jac=True,method='BFGS',options={'gtol':1e-11})
     w=torch.tensor(opt.x,requires_grad=True)
@@ -61,7 +62,8 @@ def metrics(delta, method='IRM', n=12000, seed=17, ridge=.05, h=1e-4,
         dots.append(fd.detach().numpy())
         analytic.append(analytic_task_hessian_direction(w,v,x,y).detach().numpy())
         Hs.append(He.detach().numpy())
-    return {'delta':delta,'w':w.detach().numpy(),'g':g.detach().numpy(),'v':v.detach().numpy(),
+    return {'corr_delta':corr_delta,'nuisance_delta':nuisance_delta,
+            'w':w.detach().numpy(),'g':g.detach().numpy(),'v':v.detach().numpy(),
             'dotH':np.mean(dots,axis=0),'dotH_analytic':np.mean(analytic,axis=0),
             'fd_err':float(np.max(np.abs(np.mean(dots,axis=0)-np.mean(analytic,axis=0)))),
             'dotH_env':dots,'H':np.mean(Hs,axis=0),
@@ -71,12 +73,14 @@ if __name__=='__main__':
     # Separate correlation and nuisance sweeps so delta=0 has an unambiguous
     # interpretation.  This is a calculus sanity check, not a zero-residual
     # IRMv1 mixed-branch experiment.
-    for label, scales in [('correlation_sweep_equal_nuisance', (1.0, 1.0)),
-                          ('nuisance_sweep_fixed_correlation', (1.0, 1.6))]:
+    for label, swept_parameter in [
+            ('correlation_sweep_equal_nuisance', 'corr_delta'),
+            ('nuisance_sweep_fixed_correlation', 'nuisance_delta')]:
       print('\n', label)
       for method in ['IRM','VREx']:
         print(method)
         for d in [0,.1,.3,.6,1.0,1.5]:
-          z=metrics(d,method=method,nuisance_scales=scales)
+          kwargs={swept_parameter:d}
+          z=metrics(method=method,**kwargs)
           print('delta %.2f w=(%.3f,%.3f,%.3f) q=%s dotH_IS=%.3e dotH_SS=%.3e fd_err=%.3e'%
             (d,*z['w'],np.round(z['q'],4),z['dotH'][0,1],z['dotH'][1,1],z['fd_err']))

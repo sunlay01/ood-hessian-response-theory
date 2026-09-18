@@ -17,9 +17,10 @@ conditions (differentiability, eigengaps, local branches, and coverage) are
 made explicit instead of being hidden inside the Lean companion.
 
 The finite-shift transfer estimate is local: a mechanism tangent map contributes
-its first-order term plus an explicit `epsilon_lin = O(epsilon^2 ||xi||^2)`
-remainder.  The source-only form also retains blind and unseen-coverage
-remainders.
+its first-order term plus an explicit weighted
+`epsilon_lin^(rho) = O_rho(epsilon^2 ||xi||^2)` remainder.  The source-span
+form retains blind and unseen-coverage remainders and is conditional unless
+the blind term is bounded from source data.
 
 ## Main idea
 
@@ -46,7 +47,8 @@ important for explaining why different methods fail in different ways.
 ## Repository layout
 
 * `theory/` contains the derivations and comparisons.  The latest synthesis is
-  `theory/11_mechanism_to_generalization_bound.md`.
+  `theory/11_mechanism_to_generalization_bound.md`; the closed theorem and
+  line-by-line proof are in `theory/12_rigorous_local_blind_transfer_theorem.md`.
 * `lean/` contains the Lean 4 algebraic companion for the response identities,
   spectral layer, and visible-plus-blind bound.
 * `experiments/` contains a small logistic sanity check and its recorded output.
@@ -78,12 +80,14 @@ response with a finite difference calculation.
 
 ## Scope and caveats
 
-The mechanism theorem is the primary contribution of this scaffold.  The
-transfer-response calculation is the bridge to target-relevant geometry, and
-the target-risk estimate is conditional on local smoothness and exposure
-assumptions.  In particular, an observation kernel is not automatically an
-empirical error certificate: if a target shift lies in that kernel and remains
-transfer-relevant, the blind term must be retained or bounded by an additional
-assumption.  The Lean files are an algebraic companion and consistency check;
+The proved core is the local visible/blind target-risk theorem in `theory/12`.
+Its nontrivial concrete instance is the isospectral-rotation witness with an
+explicit positive target-risk derivative.  The broader algorithm-specific
+mechanism claims remain a research scaffold until each method has its own
+blind witness and optimization-selection proof.  In particular, an
+observation kernel is not automatically an empirical error certificate: if a
+target shift lies in that kernel and remains transfer-relevant, the blind term
+must be retained or bounded by an additional assumption.  The Lean files are
+an algebraic companion and consistency check;
 they do not yet formalize the implicit-function, constant-rank, eigengap, or
 probabilistic coverage arguments.

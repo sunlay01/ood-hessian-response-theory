@@ -28,6 +28,9 @@ corresponding norm bound. The Taylor remainder, pseudoinverse conditioning,
 and source-coverage assumptions remain analytic hypotheses in the Markdown.
 It also records the zero-blindness kernel implication and a finite source-span
 aggregation bound.
+`local_visible_blind_risk_bound` checks the final algebraic assembly of the
+local theorem, including the finite-shift scale and both analytic remainders;
+the Taylor estimates themselves remain in the Markdown proof.
 
 The analytic parts are intentionally represented in the Markdown files rather than hidden behind axioms: differentiability and the implicit-function theorem for the local branch, the constant-rank theorem for the zero-penalty manifold, and the source-to-target exposure assumption for transfer. These need a separate formal-analysis layer with explicit finite-dimensional derivatives and probability spaces.
 

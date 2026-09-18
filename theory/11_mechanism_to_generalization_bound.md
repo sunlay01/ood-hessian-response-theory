@@ -34,7 +34,9 @@
 
 ## 1. 三个空间和三个算子
 
-在固定参数 \(\theta\) 附近，用一个有限维机制空间 \(\mathcal X\) 表示 source-to-target shift。它可以是 distributional tangent、风险/梯度/曲率 shift，或者在谱特例中直接取 Hessian shift：
+在固定参数 \(\theta\) 附近，令环境属于光滑有限维参数族
+\(\{P_\eta:\eta\in U\subset\mathbb R^q\}\)，并用机制空间
+\(\mathcal X=\mathbb R^q\) 表示 source-to-target tangent：
 
 \[
 \xi\in\mathcal X.
@@ -48,7 +50,7 @@ G:\mathcal X\to\mathcal Z
 
 提取。对局部 mechanism path
 \[
-P_\varepsilon=P_0+\varepsilon\xi+o(\varepsilon),
+P_\varepsilon=P_{\eta_0+\varepsilon\xi}.
 \]
 默认取一阶导数
 
@@ -66,14 +68,16 @@ G\xi=(G_g\xi,G_H\xi),
 \Delta g=\varepsilon G_g\xi+r_g(\varepsilon,\xi),\qquad
 \Delta H=\varepsilon G_H\xi+r_H(\varepsilon,\xi).
 \]
-若 mechanism map 二阶可微，则在局部邻域内
+若 mechanism map 二阶可微，则在局部邻域内定义与 target-risk bridge
+相容的加权余项
 \[
-\|r_g\|+\|r_H\|\le \epsilon_{\rm lin}(\varepsilon,\xi),
-\qquad
-\epsilon_{\rm lin}=O(\varepsilon^2\|\xi\|^2).
+\epsilon_{\rm lin}^{(\rho)}(\varepsilon,\xi)
+:=\rho\|r_g(\varepsilon,\xi)\|
++\frac{\rho^2}{2}\|r_H(\varepsilon,\xi)\|_{\rm op}
+=O_\rho(\varepsilon^2\|\xi\|^2).
 \]
 因此把 \(G\xi\) 代入有限 target discrepancy 时，必须保留
-\(\epsilon_{\rm lin}\)，或者明确声明定理只是一阶 tangent theorem。
+\(\epsilon_{\rm lin}^{(\rho)}\)，或者明确声明定理只是一阶 tangent theorem。
 
 为避免和 penalty 的标量函数混淆，记每个算法自己的 shift observation map 为
 
@@ -151,6 +155,11 @@ J_\lambda(\theta)=\bar R_S(\theta)+\lambda\Omega_\Omega(\theta),
 
 ### 2.2 zero-residual regime
 
+本节限定 equality-style squared penalty
+\[
+\Omega_\Omega(\theta)=\frac12\|r_\Omega(\theta)\|_{W_\Omega}^2,
+\qquad W_\Omega\succeq0.
+\]
 若 residual map \(r_\Omega(\theta)\) 在 \(\theta_\star\) 满足
 
 \[
@@ -159,7 +168,8 @@ r_\Omega(\theta_\star)=0,
 \bar g_S(\theta_\star)=0,
 \]
 
-且 \(Dr_\Omega\) 常秩，则
+则 \(\nabla\Omega_\Omega(\theta_\star)=0\)。若进一步假设
+\(Dr_\Omega\) 常秩，则
 
 \[
 \mathcal M_\Omega=r_\Omega^{-1}(0),
@@ -298,7 +308,7 @@ R_T(\theta)-R_T(\theta_T^\star)
 \]
 
 在严格的 tangent 版本中，(T) 的 transfer 部分为
-\(\varepsilon\|G\xi_T\|_\rho+\epsilon_{\rm lin}\)；只有把
+\(\varepsilon\|G\xi_T\|_\rho+\epsilon_{\rm lin}^{(\rho)}\)；只有把
 \(\xi_T\) 定义成 exact discrepancy coordinates 时，才能省略该余项。
 
 ---
@@ -383,7 +393,7 @@ R_T(\theta)-R_T(\theta_T^\star)
 \bar R_S(\theta)-\bar R_S(\theta_S^\star)\\
 &+\varepsilon\kappa_\Omega\|\mathcal O_\Omega\xi_T\|
 +\varepsilon B_\Omega(\xi_T)
-+\epsilon_{\rm lin}(\xi_T)
++\epsilon_{\rm lin}^{(\rho)}(\varepsilon,\xi_T)
 +\frac{M_3}{6}\rho^3,
 \end{aligned}}
 \tag{M}
@@ -401,7 +411,7 @@ B_\Omega(\xi)=\|G P_{\ker \mathcal O_\Omega}\xi\|_\rho.
 
 ---
 
-## 6. Source-span 版本：区分 algorithmic blindness 和 data coverage
+## 6. Source-span conditional bound：区分 algorithmic blindness 和 data coverage
 
 假设 target mechanism shift 可以写成
 
@@ -412,9 +422,9 @@ B_\Omega(\xi)=\|G P_{\ker \mathcal O_\Omega}\xi\|_\rho.
 其中 \(\xi_e\) 是 source-exposed shifts，\(\xi_\perp\) 是 source span 未覆盖的部分。线性化下
 
 \[
-\|G\xi_T\|_\rho
+\varepsilon\|G\xi_T\|_\rho
 \le
-\|\alpha\|_1
+\varepsilon\|\alpha\|_1
 \left[
 \kappa_\Omega\max_e\|\mathcal O_\Omega\xi_e\|
 +
@@ -428,7 +438,7 @@ B_\Omega(\xi)=\|G P_{\ker \mathcal O_\Omega}\xi\|_\rho.
 \epsilon_{\rm unseen}:=\varepsilon\|G\xi_\perp\|_\rho.
 \]
 
-因此 source-only 上界为
+因此得到 source-span conditional bound
 
 \[
 \boxed{
@@ -440,7 +450,7 @@ R_T(\theta)-R_T(\theta_T^\star)
 \max_e\|\mathcal O_\Omega\xi_e\|\\
 &+\varepsilon\|\alpha\|_1\max_eB_\Omega(\xi_e)
 + \epsilon_{\rm unseen}
-+\epsilon_{\rm lin}(\xi_T)
++\epsilon_{\rm lin}^{(\rho)}(\varepsilon,\xi_T)
 +\frac{M_3}{6}\rho^3.
 \end{aligned}}
 \tag{SO}
