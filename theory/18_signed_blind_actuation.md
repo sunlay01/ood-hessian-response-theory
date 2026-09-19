@@ -200,3 +200,32 @@ Beta may be reported as a blindness diagnostic. It should not be used alone as
 an algorithm selector, objective, or success criterion. A nonzero-residual
 action rule requires a signed quantity such as (q_\Omega) or (\chi_\Omega);
 an exact zero-residual regime requires a separate constraint-manifold analysis.
+
+## 6. Minimum-norm single-direction correction
+
+Let (a=G_gh_{\rm harm}) and (q=-\langle a,v_\Omega\rangle>0).  The local
+single-direction correction problem is
+
+\[
+\min_u\|u\|^2
+\quad\text{subject to}\quad
+-\langle a,v_\Omega+u\rangle\le0.
+\]
+
+Equivalently, (\langle a,u\rangle\ge q).  Its minimum-norm solution is
+
+\[
+\boxed{
+u^\star=\frac{q}{\|a\|^2}a,
+}
+\]
+
+with a **positive** sign.  Indeed,
+
+\[
+-\langle a,v_\Omega+u^\star\rangle=q-q=0.
+\]
+
+A negative sign would give (q+q=2q) and double the first-order harm.  At an
+exact zero-residual point, (v_\Omega=q=u^\star=0), so this correction has no
+effect and cannot replace constraint-manifold selection.
