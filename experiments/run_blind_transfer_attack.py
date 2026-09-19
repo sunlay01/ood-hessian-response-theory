@@ -300,6 +300,22 @@ def null_projector(observation: np.ndarray) -> np.ndarray:
     return np.eye(observation.shape[1]) - np.linalg.pinv(observation) @ observation
 
 
+def shuffled_null_projector(observation: np.ndarray, rng: np.random.Generator) -> np.ndarray:
+    """Random rank-matched projector used as a direction-shuffle null.
+
+    The shift norm and the dimension of the nominal blind space are preserved,
+    but the projector is made independent of the regularizer observation.
+    """
+
+    dimension = observation.shape[1]
+    null_dim = dimension - np.linalg.matrix_rank(observation, tol=1e-8)
+    if null_dim <= 0:
+        return np.zeros((dimension, dimension), dtype=float)
+    basis, _ = np.linalg.qr(rng.normal(size=(dimension, dimension)))
+    null_basis = basis[:, :null_dim]
+    return null_basis @ null_basis.T
+
+
 def normalized(vector: np.ndarray) -> np.ndarray:
     vector = np.asarray(vector, dtype=float)
     return vector / max(np.linalg.norm(vector), 1e-12)
@@ -362,6 +378,7 @@ def shift_metrics(
     xi: np.ndarray,
     observation: np.ndarray,
     response: np.ndarray,
+    shuffled_projector: np.ndarray,
     kappa: float,
     eps: float,
     radius: float,
@@ -377,13 +394,16 @@ def shift_metrics(
     )
     visible = kappa * float(np.linalg.norm(observation @ xi))
     blind = float(np.linalg.norm(response @ projector @ xi))
+    blind_shuffled = float(np.linalg.norm(response @ shuffled_projector @ xi))
     total = visible + blind
     return {
         "kind": kind,
         "index": index,
         "xi": [float(value) for value in xi],
         "visible": visible,
+        "visible_unscaled": float(np.linalg.norm(observation @ xi)),
         "blind": blind,
+        "blind_shuffled": blind_shuffled,
         "certificate": total,
         "observation_abs": float(np.linalg.norm(observation @ xi)),
         "response_norm": float(np.linalg.norm(response @ xi)),
@@ -462,6 +482,10 @@ def run_model(
         model, source_latents, eta0, method, fd_step, attack_radius
     )
     projector = null_projector(observation)
+    method_offset = {"erm": 0, "irm": 1, "vrex": 2}[method]
+    shuffled_projector = shuffled_null_projector(
+        observation, np.random.default_rng(seed + 54321 + method_offset)
+    )
     blind_matrix = response @ projector
     _, _, right = np.linalg.svd(blind_matrix, full_matrices=False)
     blind_xi = normalized(right[0])
@@ -480,6 +504,7 @@ def run_model(
             blind_xi,
             observation,
             response,
+            shuffled_projector,
             geometry_diag["kappa"],
             shift_eps,
             attack_radius,
@@ -496,6 +521,7 @@ def run_model(
             visible_xi,
             observation,
             response,
+            shuffled_projector,
             geometry_diag["kappa"],
             shift_eps,
             attack_radius,
@@ -517,6 +543,7 @@ def run_model(
                 xi,
                 observation,
                 response,
+                shuffled_projector,
                 geometry_diag["kappa"],
                 shift_eps,
                 attack_radius,
@@ -533,6 +560,7 @@ def run_model(
         "geometry": geometry_diag,
         "blind_xi": blind_xi.tolist(),
         "visible_xi": visible_xi.tolist(),
+        "shuffled_projector": shuffled_projector.tolist(),
         "rows": rows,
         "matched_pair": choose_matched_pair(rows),
     }
@@ -565,6 +593,18 @@ def summarize(models: list[dict[str, object]]) -> dict[str, object]:
                     [row["attack_gap"] for row in random_rows],
                 )[0, 1]
             ),
+            "random_visible_unscaled_corr": float(
+                np.corrcoef(
+                    [row["visible_unscaled"] for row in random_rows],
+                    [row["attack_gap"] for row in random_rows],
+                )[0, 1]
+            ),
+            "random_blind_shuffled_corr": float(
+                np.corrcoef(
+                    [row["blind_shuffled"] for row in random_rows],
+                    [row["attack_gap"] for row in random_rows],
+                )[0, 1]
+            ),
             "random_correlation_gain": float(
                 np.corrcoef(
                     [row["certificate"] for row in random_rows],
@@ -572,6 +612,16 @@ def summarize(models: list[dict[str, object]]) -> dict[str, object]:
                 )[0, 1]
                 - np.corrcoef(
                     [row["visible"] for row in random_rows],
+                    [row["attack_gap"] for row in random_rows],
+                )[0, 1]
+            ),
+            "random_kappa_gain": float(
+                np.corrcoef(
+                    [row["visible"] for row in random_rows],
+                    [row["attack_gap"] for row in random_rows],
+                )[0, 1]
+                - np.corrcoef(
+                    [row["visible_unscaled"] for row in random_rows],
                     [row["attack_gap"] for row in random_rows],
                 )[0, 1]
             ),
