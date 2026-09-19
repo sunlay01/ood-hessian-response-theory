@@ -364,7 +364,7 @@ def train_method(
         else:
             for (weights_plus, weights_minus, _), head in zip(pairs, adversarial_heads):
                 gap = pair_gap(model, source, weights_plus, weights_minus, head)
-                transfer_penalty = transfer_penalty + gap.pow(2)
+                transfer_penalty = transfer_penalty + gap.abs()
             if pairs:
                 transfer_penalty = transfer_penalty / len(pairs)
         if adversarial_heads:
