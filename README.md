@@ -103,6 +103,9 @@ python experiments/run_hidden_env_finite_sample_tsr.py --sample-sizes 256 1024 4
 python experiments/run_hidden_env_finite_sample_tsr.py --sample-sizes 256 1024 4096 --gammas 0 0.5 1 --seeds 0 1 2 3 4 --target-shift-modes nuisance --sketch-modes gradient gradient_hvp
 python experiments/run_blind_response_finite_sample.py --sample-sizes 256 1024 4096 --gammas 0 0.5 1 --seeds 0 1 2 3 4 --target-shift-modes predictive
 python experiments/run_feature_subspace_suppression.py --sample-sizes 256 1024 4096 --gammas 0 0.5 1 --seeds 0 1 2 3 4 --target-shift-modes predictive --subspace-lambda 0.1
+python experiments/run_curvature_response_witness.py --target-sign -1 --source-design symmetric
+python experiments/run_curvature_response_witness.py --target-sign 1 --source-design symmetric
+python experiments/run_hessian_response_regularization.py --n-per-env 256 --gammas 0 0.5 1 --seeds 0 1 2 3 4
 ```
 
 The Lean project pins Mathlib to a public Git revision in `lean/lakefile.lean`
@@ -156,3 +159,15 @@ aligned with the theory and essentially ties IRMv1, but does not yet improve
 OOD risk. The current algorithm status is therefore not publication-ready.
 `lean/TransferSufficiency.lean` also formalizes the kernel-to-factorization
 theorem for surjective observation maps.
+
+The current algorithm probe is Hessian-Response Regularization (HRR), specified
+in `theory/19_hessian_response_algorithm.md` and implemented by
+`experiments/run_hessian_response_regularization.py`. HRR directly penalizes
+the source-estimated response maps of the risk gradient and risk Hessian; it
+does not use IRMv1, `beta`, blind-direction suppression, or a constraint
+manifold as an action rule. The scalar population witness is in
+`experiments/run_curvature_response_witness.py` and
+`results/hessian_response_witness/report.md`. It gives a positive covered-
+direction Hessian ablation and a required direction-reversal negative result.
+The neural smoke grid is currently only a `PROBE`: V-REx still wins on the
+existing hidden-environment generator, so no broad OOD claim is made.

@@ -1,0 +1,57 @@
+{
+  "configuration": {
+    "a": 0.4,
+    "json": "experiments/results/hessian_response_witness/reversed.json",
+    "lambda_g": 0.2,
+    "lambda_h": 2.0,
+    "lr": 0.02,
+    "rho": 1.0,
+    "source_design": "symmetric",
+    "start": 0.0,
+    "steps": 2000,
+    "target_multiplier": 1.5,
+    "target_sign": 1
+  },
+  "rows": [
+    {
+      "gradient_response": 0.3046376705169678,
+      "hessian_response": 0.16798971593379974,
+      "method": "erm",
+      "source_risk": 0.0,
+      "target_excess": 0.08031927049160004,
+      "target_optimum": 0.6549999117851257,
+      "target_risk": 0.26026856899261475,
+      "theta": 1.0000001192092896
+    },
+    {
+      "gradient_response": 0.29852113127708435,
+      "hessian_response": 0.17721283435821533,
+      "method": "gradient_response",
+      "source_risk": 0.0006280839443206787,
+      "target_excess": 0.06491273641586304,
+      "target_optimum": 0.6549999117851257,
+      "target_risk": 0.24486203491687775,
+      "theta": 0.9645574688911438
+    },
+    {
+      "gradient_response": 0.333791583776474,
+      "hessian_response": 0.1214580088853836,
+      "method": "hessian_response",
+      "source_risk": 0.020545370876789093,
+      "target_excess": 0.1981648951768875,
+      "target_optimum": 0.6549999117851257,
+      "target_risk": 0.3781141936779022,
+      "theta": 1.2027084827423096
+    },
+    {
+      "gradient_response": 0.33134105801582336,
+      "hessian_response": 0.12553274631500244,
+      "method": "hrr",
+      "source_risk": 0.01671968400478363,
+      "target_excess": 0.1844397336244583,
+      "target_optimum": 0.6549999117851257,
+      "target_risk": 0.364389032125473,
+      "theta": 1.1828643083572388
+    }
+  ]
+}
