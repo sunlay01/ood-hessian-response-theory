@@ -83,7 +83,7 @@ def response_geometry(
     contrasts: np.ndarray,
     strategy: str,
     seed: int,
-) -> tuple[np.ndarray | None, dict[str, float]]:
+) -> tuple[np.ndarray | None, dict[str, object]]:
     """Estimate a fixed contrast direction and its beta/raw diagnostics."""
 
     gradients = environment_gradient_matrix(model, estimate_envs, False)
@@ -93,15 +93,20 @@ def response_geometry(
     projector = null_projector(observation[None, :])
     blind = g @ projector
 
+    # Compute both directions at every call, even when only one is used for
+    # training.  This makes the raw-vs-blind diagnostic an explicit object
+    # rather than an inference from the final target loss.
+    _, raw_singular_values, raw_right = np.linalg.svd(g, full_matrices=False)
+    raw_vector = raw_right[0]
+    matrix = projector @ g.T @ g @ projector
+    _, eigenvectors = np.linalg.eigh((matrix + matrix.T) / 2.0)
+    blind_vector = projector @ eigenvectors[:, -1]
+    blind_vector /= max(np.linalg.norm(blind_vector), 1e-12)
+
     if strategy == "blind":
-        matrix = projector @ g.T @ g @ projector
-        eigenvalues, eigenvectors = np.linalg.eigh(
-            (matrix + matrix.T) / 2.0
-        )
-        vector = projector @ eigenvectors[:, -1]
+        vector = blind_vector
     elif strategy == "raw":
-        _, _, right = np.linalg.svd(g, full_matrices=False)
-        vector = right[0]
+        vector = raw_vector
     elif strategy == "random":
         rng = np.random.default_rng(seed)
         vector = rng.normal(size=g.shape[1])
@@ -114,7 +119,11 @@ def response_geometry(
         vector = np.asarray(vector, dtype=float)
         vector /= max(np.linalg.norm(vector), 1e-12)
     beta = float(np.linalg.svd(blind, compute_uv=False)[0])
-    raw = float(np.linalg.svd(g, compute_uv=False)[0])
+    raw = float(raw_singular_values[0])
+    raw_vector = np.asarray(raw_vector, dtype=float)
+    raw_vector /= max(np.linalg.norm(raw_vector), 1e-12)
+    raw_blind_alignment = float(abs(raw_vector @ blind_vector))
+    raw_blind_projection = float(np.linalg.norm(projector @ raw_vector) ** 2)
     diagnostics = {
         "beta": beta,
         "raw_response": raw,
@@ -126,8 +135,40 @@ def response_geometry(
         "vector_response": (
             float(np.linalg.norm(g @ vector)) if vector is not None else 0.0
         ),
+        "raw_blind_a": raw_blind_projection,
+        "raw_blind_cv": raw_blind_alignment,
+        # Internal-only vectors used to compute the penalty-gradient cosine.
+        "_raw_vector": raw_vector,
+        "_blind_vector": blind_vector,
     }
     return vector, diagnostics
+
+
+def penalty_gradient_cosine(
+    model: MLP,
+    envs: list[tuple[torch.Tensor, torch.Tensor]],
+    contrasts: np.ndarray,
+    raw_vector: np.ndarray,
+    blind_vector: np.ndarray,
+) -> float:
+    """Cosine between the raw and blind double-backprop gradients."""
+
+    gradients = environment_gradient_matrix(model, envs, True)
+    contrast_tensor = torch.tensor(contrasts, dtype=gradients.dtype)
+    response = gradients @ contrast_tensor
+    raw = torch.tensor(raw_vector, dtype=gradients.dtype)
+    blind = torch.tensor(blind_vector, dtype=gradients.dtype)
+    raw_penalty = (response @ raw).pow(2).sum()
+    blind_penalty = (response @ blind).pow(2).sum()
+    params = parameters_tuple(model)
+    raw_grad = flatten_tensors(
+        torch.autograd.grad(raw_penalty, params, retain_graph=True)
+    )
+    blind_grad = flatten_tensors(torch.autograd.grad(blind_penalty, params))
+    denominator = float(raw_grad.norm() * blind_grad.norm())
+    if denominator <= 1e-12:
+        return 0.0
+    return float(torch.dot(raw_grad, blind_grad) / (raw_grad.norm() * blind_grad.norm()))
 
 
 def objective(
@@ -200,6 +241,21 @@ def train_method(
         if vector_np is not None
         else None
     )
+    alignment_history = [
+        {
+            "stage": "initial",
+            "step": 0,
+            "a_raw": initial_diag["raw_blind_a"],
+            "c_v": initial_diag["raw_blind_cv"],
+            "c_g": penalty_gradient_cosine(
+                model,
+                estimate_source,
+                contrasts,
+                initial_diag["_raw_vector"],
+                initial_diag["_blind_vector"],
+            ),
+        }
+    ]
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
     refresh_count = 0
     turnover = 0
@@ -208,12 +264,27 @@ def train_method(
     steps = max(0, epochs - warmup_epochs)
     for step in range(steps):
         if method in ("blind", "raw") and step % refresh_every == 0:
-            new_vector, _ = response_geometry(
+            new_vector, refresh_diag = response_geometry(
                 model,
                 estimate_source,
                 contrasts,
                 method,
                 seed + 5000 + step,
+            )
+            alignment_history.append(
+                {
+                    "stage": "refresh",
+                    "step": step,
+                    "a_raw": refresh_diag["raw_blind_a"],
+                    "c_v": refresh_diag["raw_blind_cv"],
+                    "c_g": penalty_gradient_cosine(
+                        model,
+                        estimate_source,
+                        contrasts,
+                        refresh_diag["_raw_vector"],
+                        refresh_diag["_blind_vector"],
+                    ),
+                }
             )
             if last_vector is not None and new_vector is not None:
                 # Sign is immaterial to the squared response; use absolute
@@ -259,11 +330,24 @@ def train_method(
         "initial_raw_response": initial_diag["raw_response"],
         "initial_vector_response": initial_diag["vector_response"],
         "initial_vector_observation_abs": initial_diag["vector_observation_abs"],
+        "initial_a_raw": initial_diag["raw_blind_a"],
+        "initial_c_v": initial_diag["raw_blind_cv"],
+        "initial_c_g": alignment_history[0]["c_g"],
         "final_beta": final_diag["beta"],
         "final_raw_response": final_diag["raw_response"],
         "final_vector_response": final_diag["vector_response"],
         "refresh_count": refresh_count,
         "vector_turnover": turnover,
+        "alignment_history": alignment_history,
+        "refresh_a_raw_mean": float(
+            np.mean([item["a_raw"] for item in alignment_history])
+        ),
+        "refresh_c_v_mean": float(
+            np.mean([item["c_v"] for item in alignment_history])
+        ),
+        "refresh_c_g_mean": float(
+            np.mean([item["c_g"] for item in alignment_history])
+        ),
         "epochs_after_warmup": steps,
         "history_last": history[-1] if history else {},
     }
