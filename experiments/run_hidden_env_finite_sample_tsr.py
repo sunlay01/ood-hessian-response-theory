@@ -165,6 +165,13 @@ def make_datasets(
         target_a = target_parallel + gamma * geometry.target_perp
         target_offset = np.zeros(SPURIOUS_DIM)
         target_extra_noise = None
+    elif target_shift_mode == "sign_reversal":
+        # Evaluation-only counterfactual: the unseen predictive direction has
+        # the opposite sign from the source-compatible direction.  Selection
+        # still sees only source tensors and environment IDs.
+        target_a = target_parallel - gamma * geometry.target_perp
+        target_offset = np.zeros(SPURIOUS_DIM)
+        target_extra_noise = None
     elif target_shift_mode == "nuisance":
         target_a = target_parallel
         target_offset = np.zeros(SPURIOUS_DIM)
@@ -775,7 +782,7 @@ def main() -> None:
     parser.add_argument(
         "--target-shift-modes",
         nargs="+",
-        choices=["predictive", "nuisance"],
+        choices=["predictive", "nuisance", "sign_reversal"],
         default=["predictive"],
     )
     parser.add_argument("--sketch-modes", nargs="+", choices=["gradient", "gradient_hvp"], default=["gradient_hvp"])
