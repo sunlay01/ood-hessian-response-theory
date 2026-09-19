@@ -92,14 +92,48 @@ approximate 95% interval ([-0.00322,0.00343]).  Thus the predictive result
 does not come from a simple failure of the nuisance-only target control, but
 neither control establishes a reliable OOD improvement.
 
+## Direction-overlap diagnostic
+
+The near tie is not caused by an implementation that silently chooses the
+same direction. At every response refresh the code records
+
+\[
+a_{\rm raw}=\|P_{\ker O}v_{\rm raw}\|^2,
+\qquad
+c_v=|\langle v_{\rm raw},v_{\rm blind}\rangle|,
+\]
+
+and the signed cosine (c_g) between the two double-backprop penalty
+gradients. Averaged over the 45 matched settings, the common initial state
+has:
+
+| diagnostic | mean |
+|---|---:|
+| (a_{\rm raw}) | 0.4909 |
+| (c_v) | 0.5404 |
+| (c_g) | 0.7321 |
+
+Thus the raw response direction is neither almost entirely in the IRM blind
+space nor equal to the blind singular direction. During refreshes, the means
+on the blind trajectory are (a_{\rm raw}=0.6065), (c_v=0.6838), and
+(c_g=0.7852); on the raw trajectory they are (0.6335), (0.6874), and
+(0.7683). The directions become somewhat closer after actuation, but remain
+distinguishable.
+
+This rules out the benign explanation that the experiment failed to test the
+projection. Even when (P_{\ker O}) selects a genuinely different direction,
+suppressing it does not improve target loss over raw suppression or IRMv1 in
+this finite-sample model. The theorem's \(\beta\) is supported as a
+diagnostic of unobserved transfer response, but not as a sufficient actuation
+principle.
+
 ## Verdict
 
-`PARTIAL_SIGNAL / THEORY-GUIDED CANDIDATE`.
+`DIAGNOSTIC RESULT / SUPERSEDED BY FEATURE-SUBSPACE DESIGN`.
 
-The direct objective is implementable, lowers the estimated blind response, and
-is more competitive than the earlier statistic-actuation TSR in this setting.
-However, it does not beat IRMv1 on predictive target loss, and raw
-worst-response is nearly indistinguishable from blind-response.  The current
-evidence supports continuing only with a narrow ablation that separates the
-projection from raw response sensitivity; it does not support an ICLR-level
-algorithm claim or replacing the theory/diagnostic positioning.
+The direct objective is implementable and lowers the estimated blind response;
+it is also more competitive than the earlier statistic-actuation TSR. But it
+does not beat IRMv1 on predictive target loss, and the direction diagnostic
+shows that the raw/blind tie is not due to identical directions. This motivates
+the corrected mechanism-to-feature experiment rather than another parameter-
+response variant. The direct objective itself is not a validated OOD method.

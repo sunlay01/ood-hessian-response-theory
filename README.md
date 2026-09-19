@@ -78,6 +78,9 @@ matrix is in experiments/run_tsr_trap_stress_matrix.py.
 The direct blind-response candidate is specified in
 `method/blind_response_regularization.md` and implemented by
 `experiments/run_blind_response_finite_sample.py`.
+The corrected mechanism-to-feature construction is specified in
+`method/feature_subspace_suppression.md` and implemented by
+`experiments/run_feature_subspace_suppression.py`.
 
 The raw-feature logistic CORAL example is intentionally observation-only:
 because its covariance does not depend on classifier weights, its classifier
@@ -99,6 +102,7 @@ python experiments/run_tsr_trap_stress_matrix.py
 python experiments/run_hidden_env_finite_sample_tsr.py --sample-sizes 256 1024 4096 --gammas 0 0.5 1 --seeds 0 1 2 3 4 --sketch-modes gradient gradient_hvp
 python experiments/run_hidden_env_finite_sample_tsr.py --sample-sizes 256 1024 4096 --gammas 0 0.5 1 --seeds 0 1 2 3 4 --target-shift-modes nuisance --sketch-modes gradient gradient_hvp
 python experiments/run_blind_response_finite_sample.py --sample-sizes 256 1024 4096 --gammas 0 0.5 1 --seeds 0 1 2 3 4 --target-shift-modes predictive
+python experiments/run_feature_subspace_suppression.py --sample-sizes 256 1024 4096 --gammas 0 0.5 1 --seeds 0 1 2 3 4 --target-shift-modes predictive --subspace-lambda 0.1
 ```
 
 The Lean project pins Mathlib to a public Git revision in `lean/lakefile.lean`
@@ -142,8 +146,13 @@ produce a TSR advantage, so the current method status remains negative/diagnosti
 rather than publication-ready.
 The direct blind-response probe lowers the estimated blind term and beats
 random/full response alignment in the controlled grid, but it does not beat
-IRMv1 and its raw worst-response control is nearly tied. Its detailed result
-is in `results/blind_response_finite_sample_report.md`; this is a partial
-algorithmic signal, not an ICLR-level method claim.
+IRMv1; its raw worst-response control is also not distinguishable by target
+loss. The direction diagnostic shows that this is not merely identical
+directions, so the direct objective is retained as a negative diagnostic in
+`results/blind_response_finite_sample_report.md`.
+The corrected mechanism-to-feature subspace probe is recorded in
+`results/feature_subspace_suppression_report.md`: it is conceptually better
+aligned with the theory and essentially ties IRMv1, but does not yet improve
+OOD risk. The current algorithm status is therefore not publication-ready.
 `lean/TransferSufficiency.lean` also formalizes the kernel-to-factorization
 theorem for surjective observation maps.

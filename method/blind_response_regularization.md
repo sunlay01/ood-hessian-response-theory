@@ -1,4 +1,10 @@
-# Blind-Response Regularization
+# Blind-Response Regularization (superseded diagnostic)
+
+This was the first direct translation of the theorem's \(\beta\) term.  It is
+kept as an ablation and negative diagnostic, not as the final algorithm: a
+mechanism-space singular vector is not itself a predictive feature direction.
+The corrected mechanism-to-feature construction is documented in
+`method/feature_subspace_suppression.md`.
 
 Blind-Response Regularization (BRR) is the direct algorithmic translation of
 the theorem's blind-transfer term.  At a current parameter value, let
