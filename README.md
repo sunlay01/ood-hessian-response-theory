@@ -128,5 +128,9 @@ honest negative control: automatically generated source statistics and
 refreshing do not yet beat IRMv1, and the gradient+HVP sketch adds little in
 this setting. These remain controlled proxies; realistic finite-sample
 imperfect-coverage validation is required before any publication-level claim.
+The bounded nuisance-only target rerun is recorded in
+`results/hidden_env_finite_sample_tsr_nuisance_report.md`; it also fails to
+produce a TSR advantage, so the current method status remains negative/diagnostic
+rather than publication-ready.
 `lean/TransferSufficiency.lean` also formalizes the kernel-to-factorization
 theorem for surjective observation maps.
