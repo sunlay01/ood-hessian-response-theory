@@ -251,7 +251,7 @@ def observation_and_response(
                 model, latent, eta0, direction, fd_step, geometry=False
             )
         )
-    observation = np.stack(columns, axis=1).reshape(1, MECHANISM_DIM)
+    observation = np.asarray(columns, dtype=float).reshape(1, MECHANISM_DIM)
 
     response_columns = []
     for j in range(MECHANISM_DIM):
