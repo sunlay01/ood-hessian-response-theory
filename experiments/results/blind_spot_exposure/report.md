@@ -49,13 +49,17 @@ versus Random-BSE, and 0.0172 versus IRMv1.
 
 `STOP_ALGORITHM_LINE` for the current frozen-direction, rank-one IRM-only BSE.
 
-The mechanism diagnostics move in the intended direction: Blind-BSE reduces
-the blind certificate more than the controls and lowers its selected source
-transfer attack gap. That change does not yield a better target predictor.
-Therefore this experiment supports neither the pre-registered selector-value
-criterion nor an OOD improvement claim. It is evidence that identifying an
-IRM blind contrast, even when followed by an actual transfer-gap action rather
-than feature suppression, is not sufficient to choose a beneficial training
-intervention in this finite-sample model.
+This is a conceptual failure, not a hyperparameter failure. BSE still uses the
+top singular direction of `G P_ker(O)`, so it is a beta-driven action rule even
+though beta is not written directly in its loss. The mechanism diagnostics
+move in the intended direction: Blind-BSE reduces the blind certificate more
+than the controls and lowers its selected source transfer attack gap. That
+change does not yield a better target predictor. The experiment directly
+rejects the unsupported implication `beta down => OOD risk down` in this
+finite-sample model.
+
+Beta is retained only as an identifiability diagnostic. Any subsequent action
+test must include the actual regularizer actuation direction and its signed
+risk effect; BSE itself should not be repaired or tuned further.
 
 No target-based hyperparameter rescue was attempted.
