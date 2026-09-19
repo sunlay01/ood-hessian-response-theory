@@ -121,3 +121,45 @@ with the same finite-step scale used by the selector and outer evaluation.
 Only after this mechanism is active should E2E-FO and E2E-CCRA be compared for
 OOD performance. If CCRA does not beat FO in that matched regime, this
 algorithm line should be stopped.
+
+## Environment-level meta repair
+
+The original probe used independent samples from the same source environments
+for inner and outer batches. That tests sample-level action harm, not transfer
+to a new environment. The repaired mode uses paired source mechanisms: the
+inner selector sees the first three environments, while the outer objective
+uses independent copies of the three mechanisms. It also optimizes the held-
+out perturbed risk directly:
+
+\[
+\mathcal L_{m meta}
+ = R_{m out}(\theta)
+ +\gamma R_{m out}(\theta+\operatorname{sg}(d^\star)).
+\]
+
+Command:
+
+```sh
+python experiments/run_e2e_ccra.py \
+  --target-shift-mode curvature --outer-objective meta \
+  --gammas 0 --seeds 0 1 2 3 4 --n-per-env 64 \
+  --warmup-epochs 0 --steps 8 --batch-size 64 --lr 0.01 \
+  --alpha 1.0 --selector-steps 100 --selector-lr 0.05 \
+  --selector-lambda 10 --selector-temperature 0.05 --outer-gamma 1.0 \
+  --json experiments/results/e2e_ccra/loo_ccra_curvature_probe.json
+```
+
+Fixed paired-split five-seed averages:
+
+| method | held-out curvature risk | outer positive-response penalty |
+|---|---:|---:|
+| V-REx | 0.6975 | 0 |
+| E2E-FO | 0.7129 | 0.1124 |
+| E2E-CCRA | **0.6948** | **0.0020** |
+
+This is evidence that the environment-level outer objective repairs part of
+the original mismatch: CCRA now beats V-REx and FO in the source-covered
+paired mechanism. It is still not a universal OOD theorem; the target is an
+independent copy of a source-covered mechanism, and a coverage/action-alignment
+assumption is required before translating this result to arbitrary target
+domains.

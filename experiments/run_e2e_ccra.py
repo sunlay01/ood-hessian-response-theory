@@ -79,7 +79,17 @@ def make_curvature_datasets(
     y3 = torch.tensor([0.5 - residual, 0.5 + residual], dtype=torch.float32).repeat(
         (count + 1) // 2
     )[:count]
-    source = [(env1, y1), (env2, y2), (env3, y3)]
+    # Duplicate the mechanism with independent tensors.  The first triplet is
+    # available to the inner selector; the second triplet is held out for the
+    # environment-level outer objective.
+    source = [
+        (env1, y1),
+        (env2, y2),
+        (env3, y3),
+        (env1.clone(), y1.clone()),
+        (env2.clone(), y2.clone()),
+        (env3.clone(), y3.clone()),
+    ]
     return source, (env3.clone(), y3.clone())
 
 
@@ -189,6 +199,42 @@ def sample_split(
     return inner, outer
 
 
+def sample_environment_split(
+    source: list[tuple[torch.Tensor, torch.Tensor]],
+    batch_size: int,
+    generator: torch.Generator,
+    holdout_fraction: float = 0.5,
+    fixed_halves: bool = False,
+) -> tuple[list[tuple[torch.Tensor, torch.Tensor]], list[tuple[torch.Tensor, torch.Tensor]]]:
+    """Split source environments, then sample independently within each.
+
+    Environment-level splitting is essential for the meta objective: the
+    outer risk must represent a held-out environment mechanism, not another
+    minibatch from the same environment seen by the selector.
+    """
+    count = len(source)
+    holdout = max(1, min(count - 1, int(round(count * holdout_fraction))))
+    if fixed_halves:
+        split = count // 2
+        inner_indices = list(range(split))
+        outer_indices = list(range(split, count))
+    else:
+        permutation = torch.randperm(count, generator=generator)
+        inner_indices = permutation[:-holdout].tolist()
+        outer_indices = permutation[-holdout:].tolist()
+
+    def sample(indices):
+        batches = []
+        for index in indices:
+            x, y = source[index]
+            take = min(batch_size, x.shape[0])
+            order = torch.randperm(x.shape[0], generator=generator)[:take]
+            batches.append((x[order], y[order]))
+        return batches
+
+    return sample(inner_indices), sample(outer_indices)
+
+
 def step_erm_or_vrex(
     model: MLP,
     outer: list[tuple[torch.Tensor, torch.Tensor]],
@@ -216,6 +262,7 @@ def step_e2e(
     selector_lambda: float,
     selector_temperature: float,
     outer_gamma: float,
+    outer_objective: str,
 ) -> dict[str, float]:
     current_head = head_vector(model)
     inner_features = [model.feature(x).detach() for x, _ in inner]
@@ -261,12 +308,19 @@ def step_e2e(
         )
     # Only harmful exact finite-step responses should shape the encoder.
     response_penalty = F.relu(response).pow(2).mean()
-    objective = base_risks.mean() + outer_gamma * response_penalty
+    if outer_objective == "meta":
+        # Environment-level held-out risk is the transfer signal.  The
+        # response penalty remains a diagnostic/constraint, not the target
+        # surrogate that the old sample-split objective incorrectly used.
+        objective = base_risks.mean() + outer_gamma * perturbed_risks.mean()
+    else:
+        objective = base_risks.mean() + outer_gamma * response_penalty
     objective.backward()
     optimizer.step()
     diagnostics.update(
         {
             "outer_loss": float(base_risks.mean().detach()),
+            "outer_perturbed_loss": float(perturbed_risks.mean().detach()),
             "outer_response_penalty": float(response_penalty.detach()),
             "actual_response_mean": float(response.mean().detach()),
             "actual_response_max": float(response.max().detach()),
@@ -340,6 +394,8 @@ def run_method(
     selector_lambda: float,
     selector_temperature: float,
     outer_gamma: float,
+    outer_objective: str,
+    target_shift_mode: str,
     vrex_lambda: float,
     seed: int,
 ) -> dict[str, float]:
@@ -349,7 +405,15 @@ def run_method(
     generator = torch.Generator().manual_seed(seed + 12000)
     history = []
     for _ in range(steps):
-        inner, outer = sample_split(source, batch_size, generator)
+        if outer_objective == "meta" or target_shift_mode == "curvature":
+            inner, outer = sample_environment_split(
+                source,
+                batch_size,
+                generator,
+                fixed_halves=target_shift_mode == "curvature",
+            )
+        else:
+            inner, outer = sample_split(source, batch_size, generator)
         if method == "erm":
             info = step_erm_or_vrex(model, outer, optimizer, 0.0)
         elif method == "vrex":
@@ -377,6 +441,7 @@ def run_method(
                 selector_lambda,
                 selector_temperature,
                 outer_gamma,
+                outer_objective,
             )
         history.append(info)
     source_eval = evaluate(
@@ -393,6 +458,7 @@ def run_method(
     }
     for key in (
         "outer_response_penalty",
+        "outer_perturbed_loss",
         "actual_response_mean",
         "actual_response_max",
         "predicted_sign_reversals",
@@ -463,6 +529,8 @@ def run_one(args, seed: int, gamma: float) -> dict[str, object]:
             args.selector_lambda,
             args.selector_temperature,
             args.outer_gamma,
+            args.outer_objective,
+            args.target_shift_mode,
             args.vrex_lambda,
             seed,
         )
@@ -486,6 +554,9 @@ def main() -> None:
     parser.add_argument("--selector-lambda", type=float, default=4.0)
     parser.add_argument("--selector-temperature", type=float, default=0.01)
     parser.add_argument("--outer-gamma", type=float, default=2.0)
+    parser.add_argument(
+        "--outer-objective", choices=["response", "meta"], default="response"
+    )
     parser.add_argument("--vrex-lambda", type=float, default=1.0)
     parser.add_argument(
         "--target-shift-mode",
