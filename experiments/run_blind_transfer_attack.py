@@ -380,14 +380,40 @@ def choose_matched_pair(rows: list[dict]) -> dict[str, object] | None:
     random_rows = [row for row in rows if row["kind"] == "random"]
     if len(random_rows) < 2:
         return None
+    observation_scale = max(
+        max(float(row["observation_abs"]) for row in random_rows), 1e-12
+    )
+    blind_scale = max(max(float(row["blind"]) for row in random_rows), 1e-12)
     candidates = []
     for left, right in itertools.combinations(random_rows, 2):
         visible_gap = abs(float(left["observation_abs"]) - float(right["observation_abs"]))
         blind_gap = abs(float(left["blind"]) - float(right["blind"]))
-        attack_gap = float(left["attack_gap"]) - float(right["attack_gap"])
-        candidates.append((visible_gap, -blind_gap, -abs(attack_gap), left, right))
-    candidates.sort(key=lambda item: item[:3])
-    _, _, _, left, right = candidates[0]
+        # Select the pair from theorem-side quantities only.  Outcome-dependent
+        # pair selection would leak the transfer attack into the control.
+        normalized_visible_gap = visible_gap / observation_scale
+        normalized_blind_gap = blind_gap / blind_scale
+        candidates.append(
+            (
+                normalized_visible_gap,
+                normalized_blind_gap,
+                visible_gap,
+                blind_gap,
+                left,
+                right,
+            )
+        )
+    eligible = [item for item in candidates if item[0] <= 0.10]
+    if eligible:
+        # Among shifts matched to within 10% of the observed visible range,
+        # maximize the blind contrast before looking at attack outcomes.
+        selected = max(eligible, key=lambda item: (item[1], -item[0]))
+    else:
+        # Deterministic fallback: best blind-separation per visible mismatch.
+        selected = max(
+            candidates,
+            key=lambda item: (item[1] - item[0], item[1], -item[0]),
+        )
+    _, _, _, _, left, right = selected
     if left["blind"] < right["blind"]:
         left, right = right, left
     return {
@@ -404,7 +430,6 @@ def choose_matched_pair(rows: list[dict]) -> dict[str, object] | None:
 def run_model(
     method: str,
     model: DigitMLP,
-    source_data: list[tuple[torch.Tensor, torch.Tensor]],
     source_latents: Latents,
     eval_latents: Latents,
     eta0: np.ndarray,
@@ -424,12 +449,10 @@ def run_model(
     _, _, right = np.linalg.svd(blind_matrix, full_matrices=False)
     blind_xi = normalized(right[0])
     visible_xi = normalized(observation.reshape(-1))
-    source_mean = np.mean(
-        np.stack([data[0].numpy() for data in source_data], axis=0), axis=0
-    )
-    source_label = torch.cat([data[1] for data in source_data])
-    source_x = torch.cat([data[0] for data in source_data])
-    source_eval_data = (source_x, source_label)
+    # The response map is local at eta0, so the empirical transfer measure must
+    # compare R_eta0 against R_{eta0 + eps xi}.  Reusing the same latent sample
+    # on both sides isolates the mechanism shift from sampling noise.
+    source_eval_data = make_environment(eval_latents, eta0)
 
     rows = [
         shift_metrics(
@@ -507,7 +530,7 @@ def summarize(models: list[dict[str, object]]) -> dict[str, object]:
             "blind_attack_gap": next(row["attack_gap"] for row in rows if row["kind"] == "blind"),
             "visible_attack_gap": next(row["attack_gap"] for row in rows if row["kind"] == "visible"),
             "random_attack_gap_mean": float(np.mean([row["attack_gap"] for row in random_rows])),
-            "random_visible_blind_corr": float(
+            "random_certificate_corr": float(
                 np.corrcoef(
                     [row["certificate"] for row in random_rows],
                     [row["attack_gap"] for row in random_rows],
@@ -519,9 +542,19 @@ def summarize(models: list[dict[str, object]]) -> dict[str, object]:
                     [row["attack_gap"] for row in random_rows],
                 )[0, 1]
             ),
-            "random_certificate_corr": float(
+            "random_blind_corr": float(
+                np.corrcoef(
+                    [row["blind"] for row in random_rows],
+                    [row["attack_gap"] for row in random_rows],
+                )[0, 1]
+            ),
+            "random_correlation_gain": float(
                 np.corrcoef(
                     [row["certificate"] for row in random_rows],
+                    [row["attack_gap"] for row in random_rows],
+                )[0, 1]
+                - np.corrcoef(
+                    [row["visible"] for row in random_rows],
                     [row["attack_gap"] for row in random_rows],
                 )[0, 1]
             ),
@@ -569,7 +602,6 @@ def main() -> None:
             run_model(
                 method,
                 trained,
-                source,
                 source_latents,
                 eval_latents,
                 eta0,
