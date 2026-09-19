@@ -1,4 +1,4 @@
-"""Hessian-Response Regularization (HRR) controlled experiment.
+"""Signed Hessian-Response Regularization (HRR) controlled experiment.
 
 HRR is the direct algorithmic instantiation of the local target-risk bridge:
 
@@ -9,16 +9,20 @@ At each source-only training step, it forms the centered environment maps
   G_g  = [g_e-g_bar] C,
   G_H  = [H_e-H_bar] C,
 
-where C is an orthonormal source-environment contrast basis.  The objective is
+where C is an orthonormal source-environment contrast basis.  The legacy
+unsigned objective is
 
   mean_e R_e + lambda_g rho ||G_g||_F
                  + lambda_H rho^2/2 ||G_H||_F.
 
-The Hessian term is the proposed mechanism.  ``gradient_response`` removes it
-and is the signal-removal ablation.  ERM and V-REx are controls.  The encoder
-is warmed up once and frozen; the classifier head is trained with exact
-per-environment logistic gradients and Hessians, so the experiment is a clean
-test of the theory rather than a Hessian-sketch implementation artifact.
+The theory-aligned HRR variant instead declares a normalized mean-gradient
+actuation d and penalizes only harmful source responses
+
+  mean_e [g_e^T d + 1/2 d^T H_e d]_+^2.
+
+``unsigned_hrr`` is retained as a negative control for the old norm-only
+design.  The encoder is warmed up once and frozen; the classifier head is
+trained with exact per-environment logistic gradients and Hessians.
 
 No target samples, target labels, latent target coordinates, or IRM statistic
 are used by HRR.  IRMv1 is intentionally not part of the proposed method.
@@ -117,6 +121,40 @@ def response_penalties(
     }, gradient_component, hessian_component
 
 
+def signed_actuation_penalty(
+    head: torch.Tensor,
+    features,
+    labels,
+    rho: float,
+    include_curvature: bool,
+) -> tuple[torch.Tensor, dict[str, float]]:
+    """Penalize harmful response of the actual declared virtual actuation.
+
+    This is the theory-aligned HRR objective.  The actuation is the normalized
+    mean source-gradient step, and only positive predicted risk changes are
+    penalized.  The step is detached so the penalty evaluates the response of
+    a fixed action rather than learning an artificial action through the
+    response term.
+    """
+    gradients, hessians = per_environment_geometry(head, features, labels)
+    mean_gradient = gradients.mean(dim=0)
+    actuation = (-rho * mean_gradient / mean_gradient.norm().clamp_min(1e-8)).detach()
+    first = gradients @ actuation
+    predicted = first
+    if include_curvature:
+        predicted = predicted + 0.5 * torch.einsum(
+            "eij,i,j->e", hessians, actuation, actuation
+        )
+    positive = F.relu(predicted).pow(2)
+    return positive.mean(), {
+        "signed_first_response_max": float(first.max().detach()),
+        "signed_predicted_response_max": float(predicted.max().detach()),
+        "signed_positive_response": float(positive.mean().detach()),
+        "signed_actuation_norm": float(actuation.norm().detach()),
+        "signed_candidate_reversals": float(((first < 0) & (predicted > 0)).sum()),
+    }
+
+
 def objective(
     model: MLP,
     features,
@@ -128,19 +166,27 @@ def objective(
     vrex_lambda: float,
     include_gradient: bool,
     include_hessian: bool,
+    signed_response: bool = False,
 ) -> tuple[torch.Tensor, dict[str, float]]:
     head = head_vector(model)
     risks = head_risks(head, features, labels)
     source = risks.mean()
-    response, response_info, gradient_component, hessian_component = response_penalties(
-        head,
-        features,
-        labels,
-        contrasts,
-        rho,
-        include_gradient,
-        include_hessian,
-    )
+    if signed_response:
+        response, response_info = signed_actuation_penalty(
+            head, features, labels, rho, include_hessian
+        )
+        gradient_component = torch.zeros_like(response)
+        hessian_component = response
+    else:
+        response, response_info, gradient_component, hessian_component = response_penalties(
+            head,
+            features,
+            labels,
+            contrasts,
+            rho,
+            include_gradient,
+            include_hessian,
+        )
     # V-REx control is kept separate from the response objective.
     vrex = (risks - source).pow(2).mean()
     total = source + lambda_g * gradient_component + lambda_h * hessian_component + vrex_lambda * vrex
@@ -185,6 +231,11 @@ def train_method(
                 model, features, labels, contrasts, rho, lambda_g, 0.0, 0.0, True, False
             )
         elif method == "hrr":
+            total, info = objective(
+                model, features, labels, contrasts, rho, 0.0, lambda_h, 0.0, False, True,
+                signed_response=True,
+            )
+        elif method == "unsigned_hrr":
             total, info = objective(
                 model, features, labels, contrasts, rho, lambda_g, lambda_h, 0.0, True, True
             )
@@ -239,7 +290,14 @@ def run_one(
     labels = [y for _, y in source]
     contrasts = torch.tensor(contrast_matrix(len(source)), dtype=torch.float32)
     rows = []
-    for method in ("erm", "vrex", "gradient_response", "hessian_only", "hrr"):
+    for method in (
+        "erm",
+        "vrex",
+        "gradient_response",
+        "hessian_only",
+        "unsigned_hrr",
+        "hrr",
+    ):
         model, train_info = train_method(
             warmup,
             features,

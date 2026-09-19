@@ -1,8 +1,7 @@
-# HRR on the source-covered curvature regime
+# Unsigned HRR audit and signed HRR repair
 
-This is a direct test of whether the earlier Hessian-Response Regularization
-(HRR) objective survives the same signed curvature witness used by E2E-CCRA.
-HRR minimizes unsigned source response norms,
+The earlier Hessian-Response Regularization objective (now called
+`unsigned_hrr`) minimizes unsigned source response norms,
 
 \[
 \bar R_S + \lambda_g\rho\|G_g\|
@@ -30,7 +29,7 @@ python experiments/run_hessian_response_regularization.py \
 | V-REx | **0.717** | 0.641 | 2.939 |
 | gradient-response only | **0.700** | 0.385 | 3.156 |
 | Hessian-only | 2.126 | 1.627 | 0.169 |
-| HRR | 1.809 | 1.418 | **0.376** |
+| unsigned HRR | 1.809 | 1.418 | **0.376** |
 
 The result is deterministic across the five seeds because the witness is a
 population-style finite source construction. HRR successfully reduces the
@@ -48,7 +47,7 @@ is precisely the direction whose first-order response is negative while its
 finite-step response is harmful. Penalizing its norm indiscriminately removes
 the signal needed to distinguish that direction from a benign one.
 
-Therefore the previous HRR claim must be narrowed:
+Therefore the previous unsigned-HRR claim must be narrowed:
 
 \[
 \text{response-norm reduction} \not\Rightarrow \text{OOD improvement}.
@@ -58,4 +57,29 @@ HRR remains a diagnostic/bridge surrogate, not the algorithmic solution for
 the signed curvature regime. The current evidence favors response-sign-aware
 actuation (CCRA) over unsigned Hessian-response regularization.
 
-Status: `STOP_HRR_AS_PRIMARY_ALGORITHM` for this failure mode.
+## Signed HRR repair
+
+The implementation now defines a declared normalized mean-gradient action
+
+\[
+d=-\rho\bar g/\|\bar g\|
+\]
+
+and penalizes only its positive first- or second-order responses. This is the
+minimal HRR repair that matches the theory's signed actuation semantics. On
+the same five-seed witness (`hrr_signed_curvature_probe.json`):
+
+| method | held-out curvature risk | mean signed positive response |
+|---|---:|---:|
+| V-REx | 0.717 | 0 |
+| signed HRR | 1.068 | 0.0028 |
+| E2E-CCRA | **0.696** | **0.0006 exact outer penalty** |
+
+Signed HRR is substantially better than the unsigned design, confirming that
+the semantic correction matters. It is still weaker than CCRA because one
+fixed mean-gradient actuation cannot choose among source candidate directions.
+Thus signed HRR is now the theory-consistent single-action baseline, while
+CCRA remains the stronger candidate-selection algorithm.
+
+Status: `SIGNED_HRR_BASELINE`; `unsigned_hrr` is retained only as a negative
+control.

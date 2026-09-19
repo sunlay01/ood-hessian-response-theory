@@ -1,0 +1,462 @@
+{
+  "configuration": {
+    "epochs": 80,
+    "feature_lr": 0.002,
+    "gammas": [
+      0.0
+    ],
+    "head_lr": 0.03,
+    "json": "experiments/results/e2e_ccra/hrr_signed_curvature_probe.json",
+    "lambda_g": 1.0,
+    "lambda_h": 1.0,
+    "n_per_env": 64,
+    "rho": 1.5,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ],
+    "target_shift_mode": "curvature",
+    "vrex_lambda": 1.0,
+    "warmup_epochs": 0
+  },
+  "records": [
+    {
+      "gamma": 0.0,
+      "n_per_env": 64,
+      "rows": [
+        {
+          "gradient_response": 0.6745278239250183,
+          "hessian_response": 2.8605849742889404,
+          "method": "erm",
+          "objective": 0.5000860691070557,
+          "source_accuracy": 0.5,
+          "source_loss": 0.5000860691070557,
+          "target_accuracy": 0.0,
+          "target_loss": 0.7275546193122864,
+          "vrex_penalty": 0.06405843049287796,
+          "weighted_gradient_response": 1.011791706085205,
+          "weighted_hessian_response": 3.218158006668091
+        },
+        {
+          "gradient_response": 0.6406822800636292,
+          "hessian_response": 2.9392201900482178,
+          "method": "vrex",
+          "objective": 0.5680767893791199,
+          "source_accuracy": 0.5,
+          "source_loss": 0.5166180729866028,
+          "target_accuracy": 0.0,
+          "target_loss": 0.7167472839355469,
+          "vrex_penalty": 0.0514586977660656,
+          "weighted_gradient_response": 0.9610234498977661,
+          "weighted_hessian_response": 3.3066227436065674
+        },
+        {
+          "gradient_response": 0.38535076379776,
+          "hessian_response": 3.155587911605835,
+          "method": "gradient_response",
+          "objective": 1.1010992527008057,
+          "source_accuracy": 0.5,
+          "source_loss": 0.523073136806488,
+          "target_accuracy": 0.0,
+          "target_loss": 0.6999889612197876,
+          "vrex_penalty": 0.06754983216524124,
+          "weighted_gradient_response": 0.5780261754989624,
+          "weighted_hessian_response": 3.5500364303588867
+        },
+        {
+          "gradient_response": 1.627101182937622,
+          "hessian_response": 0.1688167005777359,
+          "method": "hessian_only",
+          "objective": 1.0540393590927124,
+          "source_accuracy": 0.6666666865348816,
+          "source_loss": 0.8641205430030823,
+          "target_accuracy": 0.0,
+          "target_loss": 2.125869035720825,
+          "vrex_penalty": 0.8000875115394592,
+          "weighted_gradient_response": 2.4406518936157227,
+          "weighted_hessian_response": 0.18991878628730774
+        },
+        {
+          "gradient_response": 1.417685627937317,
+          "hessian_response": 0.3760162889957428,
+          "method": "unsigned_hrr",
+          "objective": 3.6136937141418457,
+          "source_accuracy": 0.3333333432674408,
+          "source_loss": 1.064146876335144,
+          "target_accuracy": 0.0,
+          "target_loss": 1.808788776397705,
+          "vrex_penalty": 0.45323777198791504,
+          "weighted_gradient_response": 2.12652850151062,
+          "weighted_hessian_response": 0.42301833629608154
+        },
+        {
+          "method": "hrr",
+          "objective": 0.7158679366111755,
+          "signed_actuation_norm": 1.5000001192092896,
+          "signed_candidate_reversals": 1.0,
+          "signed_first_response_max": -0.010709207504987717,
+          "signed_positive_response": 0.0028029533568769693,
+          "signed_predicted_response_max": 0.09169983863830566,
+          "source_accuracy": 0.3333333432674408,
+          "source_loss": 0.713064968585968,
+          "target_accuracy": 0.0,
+          "target_loss": 1.0676807165145874,
+          "vrex_penalty": 0.17393404245376587
+        }
+      ],
+      "seed": 0,
+      "target_shift_mode": "curvature"
+    },
+    {
+      "gamma": 0.0,
+      "n_per_env": 64,
+      "rows": [
+        {
+          "gradient_response": 0.6745278239250183,
+          "hessian_response": 2.8605849742889404,
+          "method": "erm",
+          "objective": 0.5000860691070557,
+          "source_accuracy": 0.5,
+          "source_loss": 0.5000860691070557,
+          "target_accuracy": 0.0,
+          "target_loss": 0.7275546193122864,
+          "vrex_penalty": 0.06405843049287796,
+          "weighted_gradient_response": 1.011791706085205,
+          "weighted_hessian_response": 3.218158006668091
+        },
+        {
+          "gradient_response": 0.6406822800636292,
+          "hessian_response": 2.9392201900482178,
+          "method": "vrex",
+          "objective": 0.5680767893791199,
+          "source_accuracy": 0.5,
+          "source_loss": 0.5166180729866028,
+          "target_accuracy": 0.0,
+          "target_loss": 0.7167472839355469,
+          "vrex_penalty": 0.0514586977660656,
+          "weighted_gradient_response": 0.9610234498977661,
+          "weighted_hessian_response": 3.3066227436065674
+        },
+        {
+          "gradient_response": 0.38535076379776,
+          "hessian_response": 3.155587911605835,
+          "method": "gradient_response",
+          "objective": 1.1010992527008057,
+          "source_accuracy": 0.5,
+          "source_loss": 0.523073136806488,
+          "target_accuracy": 0.0,
+          "target_loss": 0.6999889612197876,
+          "vrex_penalty": 0.06754983216524124,
+          "weighted_gradient_response": 0.5780261754989624,
+          "weighted_hessian_response": 3.5500364303588867
+        },
+        {
+          "gradient_response": 1.627101182937622,
+          "hessian_response": 0.1688167005777359,
+          "method": "hessian_only",
+          "objective": 1.0540393590927124,
+          "source_accuracy": 0.6666666865348816,
+          "source_loss": 0.8641205430030823,
+          "target_accuracy": 0.0,
+          "target_loss": 2.125869035720825,
+          "vrex_penalty": 0.8000875115394592,
+          "weighted_gradient_response": 2.4406518936157227,
+          "weighted_hessian_response": 0.18991878628730774
+        },
+        {
+          "gradient_response": 1.417685627937317,
+          "hessian_response": 0.3760162889957428,
+          "method": "unsigned_hrr",
+          "objective": 3.6136937141418457,
+          "source_accuracy": 0.3333333432674408,
+          "source_loss": 1.064146876335144,
+          "target_accuracy": 0.0,
+          "target_loss": 1.808788776397705,
+          "vrex_penalty": 0.45323777198791504,
+          "weighted_gradient_response": 2.12652850151062,
+          "weighted_hessian_response": 0.42301833629608154
+        },
+        {
+          "method": "hrr",
+          "objective": 0.7158679366111755,
+          "signed_actuation_norm": 1.5000001192092896,
+          "signed_candidate_reversals": 1.0,
+          "signed_first_response_max": -0.010709207504987717,
+          "signed_positive_response": 0.0028029533568769693,
+          "signed_predicted_response_max": 0.09169983863830566,
+          "source_accuracy": 0.3333333432674408,
+          "source_loss": 0.713064968585968,
+          "target_accuracy": 0.0,
+          "target_loss": 1.0676807165145874,
+          "vrex_penalty": 0.17393404245376587
+        }
+      ],
+      "seed": 1,
+      "target_shift_mode": "curvature"
+    },
+    {
+      "gamma": 0.0,
+      "n_per_env": 64,
+      "rows": [
+        {
+          "gradient_response": 0.6745278239250183,
+          "hessian_response": 2.8605849742889404,
+          "method": "erm",
+          "objective": 0.5000860691070557,
+          "source_accuracy": 0.5,
+          "source_loss": 0.5000860691070557,
+          "target_accuracy": 0.0,
+          "target_loss": 0.7275546193122864,
+          "vrex_penalty": 0.06405843049287796,
+          "weighted_gradient_response": 1.011791706085205,
+          "weighted_hessian_response": 3.218158006668091
+        },
+        {
+          "gradient_response": 0.6406822800636292,
+          "hessian_response": 2.9392201900482178,
+          "method": "vrex",
+          "objective": 0.5680767893791199,
+          "source_accuracy": 0.5,
+          "source_loss": 0.5166180729866028,
+          "target_accuracy": 0.0,
+          "target_loss": 0.7167472839355469,
+          "vrex_penalty": 0.0514586977660656,
+          "weighted_gradient_response": 0.9610234498977661,
+          "weighted_hessian_response": 3.3066227436065674
+        },
+        {
+          "gradient_response": 0.38535076379776,
+          "hessian_response": 3.155587911605835,
+          "method": "gradient_response",
+          "objective": 1.1010992527008057,
+          "source_accuracy": 0.5,
+          "source_loss": 0.523073136806488,
+          "target_accuracy": 0.0,
+          "target_loss": 0.6999889612197876,
+          "vrex_penalty": 0.06754983216524124,
+          "weighted_gradient_response": 0.5780261754989624,
+          "weighted_hessian_response": 3.5500364303588867
+        },
+        {
+          "gradient_response": 1.627101182937622,
+          "hessian_response": 0.1688167005777359,
+          "method": "hessian_only",
+          "objective": 1.0540393590927124,
+          "source_accuracy": 0.6666666865348816,
+          "source_loss": 0.8641205430030823,
+          "target_accuracy": 0.0,
+          "target_loss": 2.125869035720825,
+          "vrex_penalty": 0.8000875115394592,
+          "weighted_gradient_response": 2.4406518936157227,
+          "weighted_hessian_response": 0.18991878628730774
+        },
+        {
+          "gradient_response": 1.417685627937317,
+          "hessian_response": 0.3760162889957428,
+          "method": "unsigned_hrr",
+          "objective": 3.6136937141418457,
+          "source_accuracy": 0.3333333432674408,
+          "source_loss": 1.064146876335144,
+          "target_accuracy": 0.0,
+          "target_loss": 1.808788776397705,
+          "vrex_penalty": 0.45323777198791504,
+          "weighted_gradient_response": 2.12652850151062,
+          "weighted_hessian_response": 0.42301833629608154
+        },
+        {
+          "method": "hrr",
+          "objective": 0.7158679366111755,
+          "signed_actuation_norm": 1.5000001192092896,
+          "signed_candidate_reversals": 1.0,
+          "signed_first_response_max": -0.010709207504987717,
+          "signed_positive_response": 0.0028029533568769693,
+          "signed_predicted_response_max": 0.09169983863830566,
+          "source_accuracy": 0.3333333432674408,
+          "source_loss": 0.713064968585968,
+          "target_accuracy": 0.0,
+          "target_loss": 1.0676807165145874,
+          "vrex_penalty": 0.17393404245376587
+        }
+      ],
+      "seed": 2,
+      "target_shift_mode": "curvature"
+    },
+    {
+      "gamma": 0.0,
+      "n_per_env": 64,
+      "rows": [
+        {
+          "gradient_response": 0.6745278239250183,
+          "hessian_response": 2.8605849742889404,
+          "method": "erm",
+          "objective": 0.5000860691070557,
+          "source_accuracy": 0.5,
+          "source_loss": 0.5000860691070557,
+          "target_accuracy": 0.0,
+          "target_loss": 0.7275546193122864,
+          "vrex_penalty": 0.06405843049287796,
+          "weighted_gradient_response": 1.011791706085205,
+          "weighted_hessian_response": 3.218158006668091
+        },
+        {
+          "gradient_response": 0.6406822800636292,
+          "hessian_response": 2.9392201900482178,
+          "method": "vrex",
+          "objective": 0.5680767893791199,
+          "source_accuracy": 0.5,
+          "source_loss": 0.5166180729866028,
+          "target_accuracy": 0.0,
+          "target_loss": 0.7167472839355469,
+          "vrex_penalty": 0.0514586977660656,
+          "weighted_gradient_response": 0.9610234498977661,
+          "weighted_hessian_response": 3.3066227436065674
+        },
+        {
+          "gradient_response": 0.38535076379776,
+          "hessian_response": 3.155587911605835,
+          "method": "gradient_response",
+          "objective": 1.1010992527008057,
+          "source_accuracy": 0.5,
+          "source_loss": 0.523073136806488,
+          "target_accuracy": 0.0,
+          "target_loss": 0.6999889612197876,
+          "vrex_penalty": 0.06754983216524124,
+          "weighted_gradient_response": 0.5780261754989624,
+          "weighted_hessian_response": 3.5500364303588867
+        },
+        {
+          "gradient_response": 1.627101182937622,
+          "hessian_response": 0.1688167005777359,
+          "method": "hessian_only",
+          "objective": 1.0540393590927124,
+          "source_accuracy": 0.6666666865348816,
+          "source_loss": 0.8641205430030823,
+          "target_accuracy": 0.0,
+          "target_loss": 2.125869035720825,
+          "vrex_penalty": 0.8000875115394592,
+          "weighted_gradient_response": 2.4406518936157227,
+          "weighted_hessian_response": 0.18991878628730774
+        },
+        {
+          "gradient_response": 1.417685627937317,
+          "hessian_response": 0.3760162889957428,
+          "method": "unsigned_hrr",
+          "objective": 3.6136937141418457,
+          "source_accuracy": 0.3333333432674408,
+          "source_loss": 1.064146876335144,
+          "target_accuracy": 0.0,
+          "target_loss": 1.808788776397705,
+          "vrex_penalty": 0.45323777198791504,
+          "weighted_gradient_response": 2.12652850151062,
+          "weighted_hessian_response": 0.42301833629608154
+        },
+        {
+          "method": "hrr",
+          "objective": 0.7158679366111755,
+          "signed_actuation_norm": 1.5000001192092896,
+          "signed_candidate_reversals": 1.0,
+          "signed_first_response_max": -0.010709207504987717,
+          "signed_positive_response": 0.0028029533568769693,
+          "signed_predicted_response_max": 0.09169983863830566,
+          "source_accuracy": 0.3333333432674408,
+          "source_loss": 0.713064968585968,
+          "target_accuracy": 0.0,
+          "target_loss": 1.0676807165145874,
+          "vrex_penalty": 0.17393404245376587
+        }
+      ],
+      "seed": 3,
+      "target_shift_mode": "curvature"
+    },
+    {
+      "gamma": 0.0,
+      "n_per_env": 64,
+      "rows": [
+        {
+          "gradient_response": 0.6745278239250183,
+          "hessian_response": 2.8605849742889404,
+          "method": "erm",
+          "objective": 0.5000860691070557,
+          "source_accuracy": 0.5,
+          "source_loss": 0.5000860691070557,
+          "target_accuracy": 0.0,
+          "target_loss": 0.7275546193122864,
+          "vrex_penalty": 0.06405843049287796,
+          "weighted_gradient_response": 1.011791706085205,
+          "weighted_hessian_response": 3.218158006668091
+        },
+        {
+          "gradient_response": 0.6406822800636292,
+          "hessian_response": 2.9392201900482178,
+          "method": "vrex",
+          "objective": 0.5680767893791199,
+          "source_accuracy": 0.5,
+          "source_loss": 0.5166180729866028,
+          "target_accuracy": 0.0,
+          "target_loss": 0.7167472839355469,
+          "vrex_penalty": 0.0514586977660656,
+          "weighted_gradient_response": 0.9610234498977661,
+          "weighted_hessian_response": 3.3066227436065674
+        },
+        {
+          "gradient_response": 0.38535076379776,
+          "hessian_response": 3.155587911605835,
+          "method": "gradient_response",
+          "objective": 1.1010992527008057,
+          "source_accuracy": 0.5,
+          "source_loss": 0.523073136806488,
+          "target_accuracy": 0.0,
+          "target_loss": 0.6999889612197876,
+          "vrex_penalty": 0.06754983216524124,
+          "weighted_gradient_response": 0.5780261754989624,
+          "weighted_hessian_response": 3.5500364303588867
+        },
+        {
+          "gradient_response": 1.627101182937622,
+          "hessian_response": 0.1688167005777359,
+          "method": "hessian_only",
+          "objective": 1.0540393590927124,
+          "source_accuracy": 0.6666666865348816,
+          "source_loss": 0.8641205430030823,
+          "target_accuracy": 0.0,
+          "target_loss": 2.125869035720825,
+          "vrex_penalty": 0.8000875115394592,
+          "weighted_gradient_response": 2.4406518936157227,
+          "weighted_hessian_response": 0.18991878628730774
+        },
+        {
+          "gradient_response": 1.417685627937317,
+          "hessian_response": 0.3760162889957428,
+          "method": "unsigned_hrr",
+          "objective": 3.6136937141418457,
+          "source_accuracy": 0.3333333432674408,
+          "source_loss": 1.064146876335144,
+          "target_accuracy": 0.0,
+          "target_loss": 1.808788776397705,
+          "vrex_penalty": 0.45323777198791504,
+          "weighted_gradient_response": 2.12652850151062,
+          "weighted_hessian_response": 0.42301833629608154
+        },
+        {
+          "method": "hrr",
+          "objective": 0.7158679366111755,
+          "signed_actuation_norm": 1.5000001192092896,
+          "signed_candidate_reversals": 1.0,
+          "signed_first_response_max": -0.010709207504987717,
+          "signed_positive_response": 0.0028029533568769693,
+          "signed_predicted_response_max": 0.09169983863830566,
+          "source_accuracy": 0.3333333432674408,
+          "source_loss": 0.713064968585968,
+          "target_accuracy": 0.0,
+          "target_loss": 1.0676807165145874,
+          "vrex_penalty": 0.17393404245376587
+        }
+      ],
+      "seed": 4,
+      "target_shift_mode": "curvature"
+    }
+  ]
+}

@@ -1,54 +1,82 @@
-# Hessian-Response Regularization (HRR)
+# Signed Hessian-Response Regularization (HRR)
 
-HRR turns the local transfer-risk expansion into a source-only training
-objective. It is not an IRM constraint, a blind-space penalty, or a beta
-minimizer.
+HRR is the actuation-aware version of the local transfer-risk bridge. It is
+not an IRM constraint, a blind-space penalty, or a beta minimizer.
 
-For source risks (R_e(	heta)), choose an orthonormal environment contrast
-matrix (C). At the current (	heta), form
+For source risks (R_e(\theta)), define
 
 \[
-G_g=[g_e-\bar g]C,
+g_e=\nabla R_e(\theta),\qquad H_e=\nabla^2R_e(\theta).
+\]
+
+The old unsigned surrogate
+
+\[
+\bar R_S+\lambda_g\rho\|G_g\|
+ +\lambda_H\frac{\rho^2}{2}\|G_H\|
+\]
+
+is retained only as the `unsigned_hrr` negative control. Response magnitude
+does not determine whether an actuation helps or harms an environment.
+
+## Signed algorithm
+
+Declare the normalized source actuation
+
+\[
+d(\theta)=-\rho\frac{\bar g(\theta)}{\|\bar g(\theta)\|+\epsilon},
 \qquad
-G_H h=\sum_e C_{eh}(H_e-\bar H).
+\bar g=E^{-1}\sum_e g_e.
 \]
 
-The update minimizes
+For every source environment compute the first- and second-order response of
+that same action:
 
 \[
-\bar R_S(\theta)
- +\lambda_g\rho\|G_g\|_F
- +\lambda_H\frac{\rho^2}{2}
-       \left(\sum_h\|G_Hh\|_{\mathrm{op}}^2\right)^{1/2}.
+r_e^{(1)}=g_e^\top d,
+\qquad
+r_e^{(2)}=g_e^\top d+\frac12d^\top H_ed.
 \]
 
-The first response term is optional; the Hessian term is the proposed
-component. A practical implementation may estimate (g_e,H_e) with minibatch
-gradients/HVPs and use a power iteration for each (G_Hh). The controlled
-probe uses exact logistic head Hessians to remove estimator ambiguity.
+The signed HRR objective is
+
+\[
+\boxed{
+\mathcal L_{\rm HRR}
+=\bar R_S
+ +\lambda_g E^{-1}\sum_e[r_e^{(1)}]_+^2
+ +\lambda_H E^{-1}\sum_e[r_e^{(2)}]_+^2.
+}
+\]
+
+Only positive responses are penalized. A negative response is already locally
+helpful. The actuation is detached while evaluating the response, so the
+penalty measures the effect of a declared update rather than learning an
+artificial action through the penalty.
+
+The Hessian therefore has the intended semantic role: it detects when an
+update that looks safe at first order becomes harmful at finite step.
 
 ## Pseudocode
 
 ```text
 initialize theta from source ERM warm-up
 for each source-only step:
-    for each environment e:
-        compute R_e(theta), g_e(theta), H_e(theta)
-    center gradients and Hessians across e
-    Gg <- centered_gradients @ C
-    GH[h] <- sum_e C[e,h] * centered_hessian[e]
-    L <- mean_e R_e
-    if lambda_g > 0: L <- L + lambda_g * rho * frobenius(Gg)
-    if lambda_h > 0: L <- L + lambda_h * rho^2/2
-                       * l2_h(opnorm(GH[h]))
+    compute R_e(theta), g_e(theta), H_e(theta)
+    d <- stop_gradient(-rho * mean_e(g_e) / (||mean_e(g_e)|| + eps))
+    first_e <- g_e^T d
+    second_e <- first_e + 1/2 * d^T H_e d
+    L <- mean_e R_e(theta)
+    L <- L + lambda_g * mean_e relu(first_e)^2
+    L <- L + lambda_H * mean_e relu(second_e)^2
     theta <- optimizer_step(theta, grad_theta L)
 ```
 
 ## Complexity and controls
 
 For a (p)-parameter head and (E) source environments, exact Hessians cost
-(O(Ep^2)) storage/time per step. HVP sketches reduce this to the declared
-number of Hessian-vector products. The required controls are ERM, V-REx,
-gradient-response-only ((lambda_H=0)), and Hessian-response-only
-((lambda_g=0)). A target shift outside the source tangent span must be
-reported as an unseen-coverage failure, not hidden in the method claim.
+(O(Ep^2)) storage/time. HVP sketches can replace exact Hessians. The
+required controls are ERM, V-REx, signed first-order response, signed HRR,
+Hessian-only, and the legacy `unsigned_hrr`. A target shift outside the
+source-covered tangent span must be reported as a coverage failure, not hidden
+in the method claim.
