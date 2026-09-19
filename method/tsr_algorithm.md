@@ -87,19 +87,42 @@ P_\tau(A)=I-A^\top(AA^\top+\tau I)^{-1}A,
 and optimize
 
 \[
-\widehat\beta_\tau(\phi)
+\widehat J_{\tau}(\phi)
+ =\widehat\beta_\tau(\phi)
+ +\lambda_{\rm cert}\,
+   \widehat\kappa_\tau(\phi)\,\|A_\phi\|_{\rm op}
  =\|\widehat E_{\rm blind}P_\tau(A_\phi)\|_F
+ +\lambda_{\rm cert}\,
+   \left\|\widehat G_S A_\phi^\dagger\right\|_{\rm op}
+   \|A_\phi\|_{\rm op}
  +\lambda_{\rm budget}\,\bigl(\sum_j a_j-r\bigr)^2
  +\lambda_{\rm comp}\sum_j a_j,
 \tag{C.2}
 \]
 
 where \(a_j\in[0,1]\) are hard-concrete/group gates and every active row is
-unit-normalized. The normalization and budget term are essential: without
-them, scaling a row or selecting all rows can make a soft surrogate appear to
-improve for a purely numerical reason. The exact projector is used for final
-selection and for reporting \(\beta\); the soft projector is only an
-optimization device.
+unit-normalized. The product
+\(\widehat\kappa_\tau\|A_\phi\|_{\rm op}\) is scale-invariant under
+\(A_\phi\mapsto cA_\phi\), matching the visible term
+\(\kappa_\Omega\|\mathcal O_\Omega h\|\) in the risk bound. The normalization
+and budget term are still essential: without them, selecting all rows can make
+a soft surrogate improve for a purely numerical reason. The exact projector is
+used for final selection and for reporting \(\beta\); the soft projector is
+only an optimization device.
+
+The easy-to-compute certificate
+\[
+J_{\rm cert}(A)
+ =\beta(A)+\lambda_{\rm cert}\kappa(A)\|A\|_{\rm op}
+\]
+upper-bounds the directional expression
+\[
+J_{\rm dir}(A)
+ =\sup_{\|h\|\le1}
+\left[\kappa(A)\|Ah\|+\|G P_{\ker A}h\|_\rho\right].
+\]
+The latter can be used as a diagnostic on a small source tangent frame; the
+former is the default optimization objective.
 
 The population oracle is recovered only in the special case that
 \(\mathfrak C\) contains the right-singular rows of
@@ -118,7 +141,7 @@ actual statistic, not merely its tangent row. A source-only TSR objective is
 \bar R_S(\theta)
  +\lambda_0\,\Omega_0(\theta)
  +\gamma\,\Omega_\phi(\theta)
- +\lambda_\kappa\,\widehat\kappa_\phi,
+ +\gamma_{\rm cert}\,\widehat J_{\rm cert,\phi},
 \tag{C.3}
 \]
 
@@ -131,12 +154,15 @@ where
  \left\|S_\phi(\theta,\eta_e)-\overline S_\phi(\theta)\right\|^2
 \]
 
-and \(\widehat\kappa_\phi\) is the visible-channel conditioning diagnostic
+and \(\widehat J_{\rm cert,\phi}\) is the scale-invariant certificate
 
 \[
-\widehat\kappa_\phi
- =\left\|\widehat G_S
- [\widehat{\mathcal O}_0;C_\phi]^\dagger\right\|.
+\widehat J_{\rm cert,\phi}
+ =\widehat\beta_\phi
+ +\lambda_{\rm cert}
+ \left\|\widehat G_S
+ [\widehat{\mathcal O}_0;C_\phi]^\dagger\right\|_{\rm op}
+ \|[\widehat{\mathcal O}_0;C_\phi]\|_{\rm op}.
 \]
 
 In a finite-difference implementation, stop-gradient is used through the
@@ -163,7 +189,7 @@ for outer update t = 1,...,T:
           + budget/complexity penalties
 
     update theta using source risk + lambda0*Omega0
-        + gamma*Omega_phi + lambda_kappa*kappa_hat_phi
+        + gamma*Omega_phi + gamma_cert*J_cert_hat_phi
     refresh phi and response estimates every K steps
 return theta, selected statistic C_phi, and the certificate tuple
     (beta_hat, kappa_hat, epsilon_est, epsilon_fd, epsilon_cov).

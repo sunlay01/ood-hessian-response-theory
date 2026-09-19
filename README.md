@@ -67,7 +67,9 @@ restricted statistic-dictionary version of Transfer-Sufficient Regularization
 (TSR), intentionally presented as a candidate algorithm rather than an
 established new method.  The completion probe is
 experiments/run_transfer_sufficiency_completion.py, with its raw JSON and
-interpretation in results/.
+interpretation in results/.  The high-dimensional joint-training probe is
+experiments/run_tsr_nonlinear_end_to_end.py, with its separate report in
+results/tsr_nonlinear_end_to_end_report.md.
 
 The raw-feature logistic CORAL example is intentionally observation-only:
 because its covariance does not depend on classifier weights, its classifier
@@ -83,6 +85,7 @@ From the repository root:
 python experiments/logistic_sanity.py
 python experiments/closed_corollaries_check.py
 python experiments/run_transfer_sufficiency_completion.py --seeds 0 1 2 3 4
+python experiments/run_tsr_nonlinear_end_to_end.py --seeds 0 1 2 3 4
 ```
 
 The Lean project pins Mathlib to a public Git revision in `lean/lakefile.lean`
@@ -106,5 +109,9 @@ must be retained or bounded by an additional assumption.  The Lean files are
 an algebraic companion and consistency check;
 they do not yet formalize the implicit-function, constant-rank, eigengap, or
 probabilistic coverage arguments.
+The high-dimensional nonlinear probe now supplies a controlled joint-training
+target-risk result; the current synthesis therefore records a
+THEORY-GUIDED CANDIDATE status. Finite-sample imperfect-coverage validation is
+still required before any publication-level claim.
 `lean/TransferSufficiency.lean` also formalizes the kernel-to-factorization
 theorem for surjective observation maps.

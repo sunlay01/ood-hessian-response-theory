@@ -114,47 +114,66 @@ experiment exhibits exactly this gap.
 ## 4. Does this already give a new OOD algorithm?
 
 The proposed TSR interface is now specified: estimate the source response,
-select at most \(r\) rows from a declared statistic dictionary, include a
-conditioning term, and train with the selected source statistic. The minimal
-experiments show that this procedure can lower the measured \(\widehat\beta\)
-and that it correctly selects the mixed IRMv1 row in the closed witness.
+select at most \(r\) rows from a declared statistic dictionary, optimize the
+scale-invariant certificate
+\[
+J_{\rm cert}(A)=\beta(A)+\lambda_{\rm cert}\kappa(A)\|A\|_{\rm op},
+\]
+and train with the selected source statistic. The original probes showed lower
+\(\widehat\beta\) and correct selection of the mixed IRMv1 row.
 
-They do not yet establish a distinct end-to-end OOD method:
+The new high-dimensional nonlinear probe in
+results/tsr_nonlinear_end_to_end_report.md now closes the missing training link
+in a controlled population model: \(q=6\), \(\operatorname{rank}\mathcal O_0=1\),
+\(r\le2\), exact source tangent coverage, matched statistic-gradient budget,
+and joint retraining. TSR beats random completion in target excess risk in
+four of five seeds for both \(r=1\) and \(r=2\), while leaving a nonzero blind
+space. This is evidence for a theory-guided method candidate, not merely a
+certificate improvement.
+
+It still does not establish a publication-ready OOD method:
 
 * the unrestricted completion is classical sensor/width optimization;
 * a restricted dictionary can be viewed as response-aware statistic/sensor
   selection, so the novelty is not automatic;
 * the linear and logistic probes use exact source tangent coverage;
 * completion can increase \(\kappa\) and therefore worsen the visible channel;
-* the fixed-\(\theta\) IRMv1 target gap is unchanged by a certificate, and no
-  matched-compute joint retraining experiment has yet shown a target-risk gain.
+* the controlled nonlinear model has exact source coverage and a declared
+  population risk;
+* the candidate bank is still a synthetic, response-aware dictionary;
+* full alignment remains better when it is allowed four rows;
+* finite-sample imperfect-coverage behavior and realistic neural retraining
+  remain untested.
 
-Consequently the current result is **THEORY-ONLY**, not ADVANCE:
+Consequently the current research status is **THEORY-GUIDED CANDIDATE
+(pre-ADVANCE)**. This is not an ICLR-readiness claim:
 
 \[
 \boxed{
-\text{closed transfer-sufficiency theory + source-side probe, but no proven
- nontrivial new OOD optimizer yet}.}
+\text{closed theory + source-side estimator + controlled joint-training
+ evidence, but realistic OOD validation is still missing}.}
 \]
 
-To change the status, a next experiment must compare baseline, random
-completion, full-alignment, and TSR at matched statistic/compute budgets while
-jointly retraining \(\theta\), and must report target excess risk together with
+To reach an ADVANCE/publication gate, the same comparison must now be repeated
+in a finite-sample nonlinear model with imperfect source coverage, while
+reporting target excess risk together with
 \(\widehat\beta,\widehat\kappa,\epsilon_{\rm stat},\epsilon_{\rm fd},
 \epsilon_{\rm cov}\).
 
 ## Decision ledger
 
-* **Evidence:** theory/12--theory/16, the five-seed control, IRMv1, and
-  logistic probes in results/transfer_sufficiency_completion_report.md.
+* **Evidence:** theory/12--theory/17, the source-side completion report, and
+  the five-seed nonlinear joint-training report.
 * **Closest overlaps:** singular-value min--max, Gelfand widths, sensor
   placement/observability, active subspaces, and moment-alignment OOD methods.
 * **Selected mechanism:** source-estimated completion of the current
-  observation kernel, with explicit coverage and conditioning diagnostics.
+  observation kernel, with the scale-invariant blindness--conditioning
+  certificate and explicit coverage diagnostics.
 * **Divergent prediction:** response-aware restricted completion should beat a
   random statistic of the same rank when the bank contains a dominant blind
   direction; it should fail when coverage is poor or \(\kappa\) dominates.
 * **Adversarial findings:** \(\kappa\) can explode for nearly redundant rows;
-  a lower \(\widehat\beta\) alone is not a target-risk theorem; the restricted
-  bank need not attain the singular-value oracle.
-* **Status:** THEORY-ONLY.
+  a lower \(\widehat\beta\) alone is not a target-risk theorem; full alignment
+  still wins in the controlled probe; exact coverage can hide source-only
+  failure.
+* **Status:** THEORY-GUIDED CANDIDATE (pre-ADVANCE).
