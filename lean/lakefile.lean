@@ -14,3 +14,7 @@ lean_lib OODResponse
 lean_lib SpectralResponse
 
 lean_lib UnifiedBound
+
+lean_lib TransferSufficiency
+
+lean_lib AlgorithmCorollaries

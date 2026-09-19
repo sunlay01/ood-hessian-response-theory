@@ -62,13 +62,16 @@ G_Hh=D_\eta\nabla_\vartheta^2R(\theta,\eta_0)[h].
 :=\rho\|a\|_2+\frac{\rho^2}{2}\|B\|_{\rm op}.
 \]
 
-算法只观察线性 statistic
-
+若算法的原始环境 statistic 为 \(S_\Omega(\theta,\eta)\)，则本地分析中的
+观察算子定义为其环境切向导数
 \[
-\mathcal O:\mathbb R^q\to\mathcal Y,
+\mathcal O_\Omega:=D_\eta S_\Omega(\theta,\eta_0):
+\mathbb R^q\to\mathcal Y.
 \]
-
-其中 \(\mathcal Y\) 是有限维 Hilbert 空间。记
+因此 \(\mathcal O_\Omega\) 在线性上是 tangent map；原始 \(S_\Omega\) 本身
+不需要在全局上是线性的。为简化记号，下面在主证明中写
+\(\mathcal O=\mathcal O_\Omega\)。其中 \(\mathcal Y\) 是有限维 Hilbert 空间。
+记
 
 \[
 P=\mathcal O^\dagger\mathcal O
@@ -83,6 +86,31 @@ P=\mathcal O^\dagger\mathcal O
 \qquad
 B_\mathcal O(h)=\|GP^\perp h\|_\rho.
 \]
+
+假设从现在起 \(\rho>0\)。定义算子级 blind defect
+
+\[
+E_\mathcal O:=G P^\perp,
+\qquad
+\beta_\mathcal O:=\|E_\mathcal O\|_{\mathrm{op},\rho},
+\]
+
+对任意线性 \(A:\mathbb R^q\to\mathbb R^d\times\mathbb S^d\)，约定
+\[
+\|A\|_{\mathrm{op},\rho}:=
+\sup_{\|x\|_2=1}\|Ax\|_\rho .
+\]
+其中定义域使用 Euclidean norm，值域使用 \(\|\cdot\|_\rho\)。于是
+\(B_\mathcal O(h)\le \beta_\mathcal O\|h\|_2\)。称 \(\mathcal O\) 对 \(G\)
+**locally transfer-sufficient**，若
+
+\[
+\operatorname{LTS}(\mathcal O,G):\Longleftrightarrow
+\ker\mathcal O\subseteq\ker G.
+\]
+
+有限维下，\(\operatorname{LTS}(\mathcal O,G)\) 等价于存在线性映射
+\(L\) 使 \(G=L\mathcal O\)；可取 \(L=G\mathcal O^\dagger\)。
 
 ## 2. 主定理
 
@@ -131,6 +159,22 @@ R_T(\theta)-R_T(\theta_T^\star)
 \left(\rho M_g+\frac{\rho^2}{2}M_H\right).
 }
 \tag{2}
+\]
+
+由定义 \(B_\mathcal O(h)\le\beta_\mathcal O\|h\|_2\)，同一个定理立即给出
+算子级版本
+
+\[
+\boxed{
+\begin{aligned}
+R_T(\theta)-R_T(\theta_T^\star)
+\le{}&R_S(\theta)-R_S(\theta_S^\star)\\
+&+\varepsilon\kappa_\mathcal O\|\mathcal Oh\|_\mathcal Y\\
+&+\varepsilon\beta_\mathcal O\|h\|_2\\
+&+\epsilon_{\rm lin}^{(\rho)}(\varepsilon,h)\\
+&+\frac{M_3}{6}\rho^3 .
+\end{aligned}}
+\tag{2'}
 \]
 
 ## 3. 完整证明

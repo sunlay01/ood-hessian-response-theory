@@ -32,6 +32,16 @@ aggregation bound.
 local theorem, including the finite-shift scale and both analytic remainders;
 the Taylor estimates themselves remain in the Markdown proof.
 
+TransferSufficiency.lean defines local transfer sufficiency as the kernel
+condition and proves its equivalence with a linear factorization
+(G=L\circ\mathcal O) for surjective observation maps.  The explicit
+(beta_Omega) and (kappa_Omega) norm calculations are kept in the
+Markdown companion, where the weighted transfer norm is defined.
+
+AlgorithmCorollaries.lean checks the exact two-dimensional IRMv1 mixed and
+V-REx spurious kernel witnesses and the positivity of the displayed quadratic
+target-risk gaps.
+
 The analytic parts are intentionally represented in the Markdown files rather than hidden behind axioms: differentiability and the implicit-function theorem for the local branch, the constant-rank theorem for the zero-penalty manifold, and the source-to-target exposure assumption for transfer. These need a separate formal-analysis layer with explicit finite-dimensional derivatives and probability spaces.
 
 ## Verification
@@ -48,6 +58,8 @@ The spectral and unified libraries can also be built individually:
 ```sh
 lake build SpectralResponse
 lake build UnifiedBound
+lake build TransferSufficiency
+lake build AlgorithmCorollaries
 ```
 
 The analytic assumptions (eigengaps, differentiability of eigenvalue maps,

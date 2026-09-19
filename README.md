@@ -49,6 +49,9 @@ important for explaining why different methods fail in different ways.
 * `theory/` contains the derivations and comparisons.  The latest synthesis is
   `theory/11_mechanism_to_generalization_bound.md`; the closed theorem and
   line-by-line proof are in `theory/12_rigorous_local_blind_transfer_theorem.md`.
+  The six-step closure (local transfer sufficiency, factorization,
+  beta/kappa, and explicit IRMv1/V-REx witnesses) is in
+  `theory/13_transfer_sufficiency_algorithm_corollaries.md`.
 * `lean/` contains the Lean 4 algebraic companion for the response identities,
   spectral layer, and visible-plus-blind bound.
 * `experiments/` contains a small logistic sanity check and its recorded output.
@@ -70,6 +73,7 @@ From the repository root:
 ```sh
 (cd lean && lake build)
 python experiments/logistic_sanity.py
+python experiments/closed_corollaries_check.py
 ```
 
 The Lean project pins Mathlib to a public Git revision in `lean/lakefile.lean`
@@ -81,13 +85,17 @@ response with a finite difference calculation.
 ## Scope and caveats
 
 The proved core is the local visible/blind target-risk theorem in `theory/12`.
-Its nontrivial concrete instance is the isospectral-rotation witness with an
-explicit positive target-risk derivative.  The broader algorithm-specific
-mechanism claims remain a research scaffold until each method has its own
-blind witness and optimization-selection proof.  In particular, an
+Its nontrivial concrete instances now include the isospectral-rotation witness
+and the explicit population IRMv1/V-REx corollaries in `theory/13`, each with a
+blind witness and target-risk consequence.  These two corollaries are local
+population/equality-constraint results; finite-λ optimizer selection and
+finite-sample claims remain separate obligations.  The broader algorithm-specific
+mechanism claims remain a research scaffold.  In particular, an
 observation kernel is not automatically an empirical error certificate: if a
 target shift lies in that kernel and remains transfer-relevant, the blind term
 must be retained or bounded by an additional assumption.  The Lean files are
 an algebraic companion and consistency check;
 they do not yet formalize the implicit-function, constant-rank, eigengap, or
 probabilistic coverage arguments.
+`lean/TransferSufficiency.lean` also formalizes the kernel-to-factorization
+theorem for surjective observation maps.
