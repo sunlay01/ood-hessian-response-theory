@@ -127,7 +127,7 @@ def geometry(
     elif strategy == "random":
         vector = rng.normal(size=transfer.shape[1])
     elif strategy == "full":
-        return [np.eye(transfer.shape[1])[:, j] for j in range(transfer.shape[1])], {
+        return [], {
             "beta": float(singular_values[0]),
             "raw_response": float(raw_singular_values[0]),
             "observation_norm": float(np.linalg.norm(observation)),
@@ -233,6 +233,48 @@ def adversarial_head(
     return head, float(abs(detached_gap(head).detach()))
 
 
+def full_transfer_adversarial_head(
+    model: MLP,
+    envs: list[tuple[torch.Tensor, torch.Tensor]],
+    radius: float,
+    steps: int,
+    attack_lr: float,
+) -> tuple[torch.Tensor, float]:
+    """Unrestricted max-environment minus min-environment head attack."""
+
+    features = [model.feature(x).detach() for x, _ in envs]
+    labels = [y for _, y in envs]
+    start = head_vector(model).detach()
+    delta = torch.zeros_like(start, requires_grad=True)
+
+    def gap(vector: torch.Tensor) -> torch.Tensor:
+        risks = torch.stack(
+            [head_risk(feature, label, vector) for feature, label in zip(features, labels)]
+        )
+        return risks.max() - risks.min()
+
+    for _ in range(steps):
+        objective = gap(start + delta)
+        gradient = torch.autograd.grad(objective, delta)[0]
+        delta = (delta + attack_lr * gradient / gradient.norm().clamp_min(1e-12)).detach()
+        delta = (
+            delta * min(1.0, radius / delta.norm().clamp_min(1e-12))
+        ).requires_grad_(True)
+    head = (start + delta.detach()).detach()
+    return head, float(gap(head).detach())
+
+
+def full_transfer_gap(
+    model: MLP,
+    envs: list[tuple[torch.Tensor, torch.Tensor]],
+    head: torch.Tensor,
+) -> torch.Tensor:
+    risks = torch.stack(
+        [head_risk(model.feature(x), y, head) for x, y in envs]
+    )
+    return risks.max() - risks.min()
+
+
 def base_objective(
     model: MLP,
     envs: list[tuple[torch.Tensor, torch.Tensor]],
@@ -294,27 +336,38 @@ def train_method(
         pairs = [contrast_pair(direction, contrasts, alpha) for direction in directions]
         adversarial_heads = []
         source_attack_gaps = []
-        for weights_plus, weights_minus, _ in pairs:
-            head, gap = adversarial_head(
-                model,
-                source,
-                weights_plus,
-                weights_minus,
-                attack_radius,
-                attack_steps,
-                attack_lr,
+        if method == "full-transfer":
+            head, gap = full_transfer_adversarial_head(
+                model, source, attack_radius, attack_steps, attack_lr
             )
             adversarial_heads.append(head)
             source_attack_gaps.append(gap)
+        else:
+            for weights_plus, weights_minus, _ in pairs:
+                head, gap = adversarial_head(
+                    model,
+                    source,
+                    weights_plus,
+                    weights_minus,
+                    attack_radius,
+                    attack_steps,
+                    attack_lr,
+                )
+                adversarial_heads.append(head)
+                source_attack_gaps.append(gap)
 
         optimizer.zero_grad(set_to_none=True)
         objective, metrics = base_objective(model, source, irm_lambda)
         transfer_penalty = torch.zeros_like(objective)
-        for (weights_plus, weights_minus, _), head in zip(pairs, adversarial_heads):
-            gap = pair_gap(model, source, weights_plus, weights_minus, head)
-            transfer_penalty = transfer_penalty + gap.pow(2)
-        if pairs:
-            transfer_penalty = transfer_penalty / len(pairs)
+        if method == "full-transfer":
+            transfer_penalty = full_transfer_gap(model, source, adversarial_heads[0])
+        else:
+            for (weights_plus, weights_minus, _), head in zip(pairs, adversarial_heads):
+                gap = pair_gap(model, source, weights_plus, weights_minus, head)
+                transfer_penalty = transfer_penalty + gap.pow(2)
+            if pairs:
+                transfer_penalty = transfer_penalty / len(pairs)
+        if adversarial_heads:
             objective = objective + transfer_lambda * transfer_penalty
         objective.backward()
         optimizer.step()
