@@ -93,6 +93,7 @@ python experiments/run_transfer_sufficiency_completion.py --seeds 0 1 2 3 4
 python experiments/run_tsr_nonlinear_end_to_end.py --seeds 0 1 2 3 4
 python experiments/run_tsr_nondiagonal_selection_trap.py --seeds 0 1 2 3 4
 python experiments/run_tsr_trap_stress_matrix.py
+python experiments/run_hidden_env_finite_sample_tsr.py --sample-sizes 256 1024 4096 --gammas 0 0.5 1 --seeds 0 1 2 3 4 --sketch-modes gradient gradient_hvp
 ```
 
 The Lean project pins Mathlib to a public Git revision in `lean/lakefile.lean`
@@ -122,8 +123,10 @@ THEORY-GUIDED CANDIDATE status. The conditioning-trap and stress-matrix probes
 add controlled evidence that (i) TSR can differ from raw response-magnitude
 selection, (ii) selected statistics can self-suppress and lose final
 observation rank, and (iii) selection degrades as coverage/noise error exceeds
-the certificate score gap. These are still population response-estimation
-proxies; finite-sample imperfect-coverage validation is required before any
-publication-level claim.
+the certificate score gap. The hidden-environment finite-sample probe adds an
+honest negative control: automatically generated source statistics and
+refreshing do not yet beat IRMv1, and the gradient+HVP sketch adds little in
+this setting. These remain controlled proxies; realistic finite-sample
+imperfect-coverage validation is required before any publication-level claim.
 `lean/TransferSufficiency.lean` also formalizes the kernel-to-factorization
 theorem for surjective observation maps.
