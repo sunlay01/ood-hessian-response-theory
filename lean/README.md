@@ -40,7 +40,10 @@ Markdown companion, where the weighted transfer norm is defined.
 
 AlgorithmCorollaries.lean checks the exact two-dimensional IRMv1 mixed and
 V-REx spurious kernel witnesses and the positivity of the displayed quadratic
-target-risk gaps.
+target-risk gaps.  It also checks that adding the rank-one difference row to
+the duplicated IRMv1 observation kills the two-dimensional completed kernel;
+the general singular-value/Gelfand-width theorem remains in Markdown because
+it is a classical min--max result rather than the analytic bottleneck.
 
 The analytic parts are intentionally represented in the Markdown files rather than hidden behind axioms: differentiability and the implicit-function theorem for the local branch, the constant-rank theorem for the zero-penalty manifold, and the source-to-target exposure assumption for transfer. These need a separate formal-analysis layer with explicit finite-dimensional derivatives and probability spaces.
 

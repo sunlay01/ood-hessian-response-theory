@@ -33,6 +33,31 @@ theorem vrex_spurious_is_blind :
 def identityTransfer : Mat 2 :=
   fun i j => if i = j then 1 else 0
 
+/- The rank-one difference row completes the duplicated IRMv1 observation. -/
+def irmDifferenceCompletion : Mat 2 :=
+  fun i j => if i = 0 then 1 else if j = 0 then 1 else -1
+
+theorem irm_difference_observes_mixed :
+    matVec irmDifferenceCompletion mixedWitness ≠ 0 := by
+  intro h
+  have h1 := congrFun h (1 : Fin 2)
+  simp [matVec, irmDifferenceCompletion, mixedWitness] at h1
+
+theorem irm_completed_kernel_zero {v : Vec 2}
+    (hSum : matVec irmObservation v = 0)
+    (hDiff : matVec irmDifferenceCompletion v = 0) :
+    v = 0 := by
+  funext i
+  fin_cases i
+  · have h0 := congrFun hSum (0 : Fin 2)
+    have h1 := congrFun hDiff (1 : Fin 2)
+    simp [matVec, irmObservation, irmDifferenceCompletion] at h0 h1
+    linarith
+  · have h0 := congrFun hSum (0 : Fin 2)
+    have h1 := congrFun hDiff (1 : Fin 2)
+    simp [matVec, irmObservation, irmDifferenceCompletion] at h0 h1
+    linarith
+
 theorem mixed_transfer_is_nonzero :
     matVec identityTransfer mixedWitness ≠ 0 := by
   intro h

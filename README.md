@@ -61,6 +61,14 @@ different observation/actuation mechanisms.  In particular, zero-residual
 IRMv1 is treated through constraint-manifold geometry; it is not incorrectly
 represented as a nonzero first-order path response.
 
+The rank-budget completion, source-estimability audit, novelty audit, and final
+decision are in theory/14--theory/17.  method/tsr_algorithm.md specifies a
+restricted statistic-dictionary version of Transfer-Sufficient Regularization
+(TSR), intentionally presented as a candidate algorithm rather than an
+established new method.  The completion probe is
+experiments/run_transfer_sufficiency_completion.py, with its raw JSON and
+interpretation in results/.
+
 The raw-feature logistic CORAL example is intentionally observation-only:
 because its covariance does not depend on classifier weights, its classifier
 force is zero.  A learnable representation is required for a CORAL actuation
@@ -74,6 +82,7 @@ From the repository root:
 (cd lean && lake build)
 python experiments/logistic_sanity.py
 python experiments/closed_corollaries_check.py
+python experiments/run_transfer_sufficiency_completion.py --seeds 0 1 2 3 4
 ```
 
 The Lean project pins Mathlib to a public Git revision in `lean/lakefile.lean`
