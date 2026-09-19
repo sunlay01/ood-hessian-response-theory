@@ -130,6 +130,19 @@ def normalized_baseline_row(theta: np.ndarray) -> np.ndarray:
     return row
 
 
+def actual_observation(theta: np.ndarray, selected: list[int]) -> np.ndarray:
+    """True D_eta S_phi(theta, eta_bar), including theta-dependent row scales."""
+    rows = []
+    base = np.zeros(Q)
+    base[5] = theta[5]
+    rows.append(base)
+    unit_bank = candidate_bank()
+    for bank_index in selected:
+        j = (1, 2, 3, 4)[bank_index]
+        rows.append(theta[j] * unit_bank[bank_index].reshape(-1))
+    return np.asarray(rows)
+
+
 def candidate_bank() -> list[np.ndarray]:
     return [np.eye(Q)[j : j + 1] for j in (1, 2, 3, 4)]
 
@@ -212,11 +225,16 @@ TARGET_THETA, TARGET_OPT_RISK = target_optimum()
 
 
 def evaluate(theta: np.ndarray, selected: list[int], g_true: np.ndarray) -> dict:
-    o0 = normalized_baseline_row(theta)
+    o0_unit = normalized_baseline_row(theta)
     bank = candidate_bank()
-    c = np.vstack([bank[i] for i in selected]) if selected else None
-    o_aug = augmented(o0, c)
-    cert = certificate(g_true, o0, c)
+    c_unit = np.vstack([bank[i] for i in selected]) if selected else None
+    selection_cert = certificate(g_true, o0_unit, c_unit)
+    o_actual = actual_observation(theta, selected)
+    actual_cert = certificate(
+        g_true,
+        o_actual[:1],
+        o_actual[1:] if selected else None,
+    )
     target_eta = np.zeros(Q)
     target_risk = risk(theta, target_eta)
     source_risk = float(np.mean([risk(theta, eta) for eta in SOURCE_ETAS]))
@@ -225,10 +243,13 @@ def evaluate(theta: np.ndarray, selected: list[int], g_true: np.ndarray) -> dict
         "source_risk": source_risk,
         "target_risk": target_risk,
         "target_excess": target_risk - TARGET_OPT_RISK,
-        "augmented_observation_rank": int(np.linalg.matrix_rank(o_aug)),
-        "remaining_blind_dimension": int(Q - np.linalg.matrix_rank(o_aug)),
+        "augmented_observation_rank": int(np.linalg.matrix_rank(o_actual)),
+        "remaining_blind_dimension": int(Q - np.linalg.matrix_rank(o_actual)),
         "selected": selected,
-        **cert,
+        **actual_cert,
+        "selection_beta": selection_cert["beta"],
+        "selection_kappa": selection_cert["kappa"],
+        "selection_j_cert": selection_cert["j_cert"],
     }
 
 

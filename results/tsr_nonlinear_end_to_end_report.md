@@ -41,7 +41,10 @@ J_{\rm cert}(A)
 =\widehat\beta(A)+0.05\,\widehat\kappa(A)\|A\|_{\rm op},
 \]
 
-which is invariant to \(A\mapsto cA\). All methods start from the same
+which is invariant to \(A\mapsto cA\). The reported post-training
+\((\beta,\kappa,J_{\rm cert})\) are recomputed from the actual
+\(D_\eta S_\phi(\theta_{\rm trained},\eta)\) rows; the normalized selection-time
+diagnostics are retained separately in the raw JSON. All methods start from the same
 initialization and use a matched budget of 6000 statistic-gradient
 evaluations. Full alignment uses all four candidate rows and therefore fewer
 optimization steps.
@@ -54,10 +57,10 @@ The target excess is measured relative to the nonlinear target optimum.
 
 | method | \(\widehat\beta\) | \(\widehat\kappa\) | \(J_{\rm cert}\) | target excess |
 |---|---:|---:|---:|---:|
-| baseline | 3.000 | 0.250 | 3.013 | 3.346 |
-| random row | 2.640 ± 0.720 | 1.240 ± 0.907 | 2.702 ± 0.794 | 2.829 ± 0.767 |
-| TSR | 1.200 | 3.000 | 1.350 | 1.303 |
-| full alignment | 0.184 | 3.000 | 0.334 | 0.827 |
+| baseline | 3.000 | 4.007 | 3.013 | 3.346 |
+| random row | 2.640 ± 0.720 | 4.007 | 2.725 ± 0.794 | 2.829 ± 0.767 |
+| TSR | 1.200 | 4.007 | 1.408 | 1.303 |
+| full alignment | 0.184 | 4.007 | 0.391 | 0.827 |
 
 TSR selects the dominant \(e_1\) response row in all five seeds. It beats the
 random row in four seeds and ties it once. The gain is not caused by filling the
@@ -68,15 +71,17 @@ dimension is \(4\), and \(\beta\) is still \(1.20\).
 
 | method | \(\widehat\beta\) | \(\widehat\kappa\) | \(J_{\rm cert}\) | target excess |
 |---|---:|---:|---:|---:|
-| baseline | 3.000 | 0.250 | 3.013 | 3.346 |
-| random rows | 1.480 ± 0.776 | 2.560 ± 0.880 | 1.608 ± 0.776 | 1.564 ± 0.800 |
-| TSR | 0.800 | 3.000 | 0.950 | 1.017 |
-| full alignment | 0.184 | 3.000 | 0.334 | 0.827 |
+| baseline | 3.000 | 4.007 | 3.013 | 3.346 |
+| random rows | 1.480 ± 0.776 | 4.007 | 1.657 ± 0.776 | 1.564 ± 0.800 |
+| TSR | 0.800 | 4.007 | 1.008 | 1.017 |
+| full alignment | 0.184 | 4.007 | 0.391 | 0.827 |
 
 TSR selects \(e_1,e_2\), giving observation rank \(3\) and blind dimension \(3\).
-It beats random in four seeds, and ties once. The
-blindness--conditioning tradeoff is visible: \(\widehat\kappa\) increases from
-0.25 to 3.0, but the certificate and target excess still decrease.
+It beats random in four seeds, and ties once.
+The normalized selection-time \(\widehat\kappa\) increases from \(0.25\) to
+\(3.0\). After retraining, the true theta-scaled observation rows give
+\(\widehat\kappa\approx4.007\) for baseline and completed models; the
+scale-aware \(J_{\rm cert}\) still decreases because the blind term drops.
 
 The finite-difference sensitivity proxy was
 \(2.15\times10^{-8}\); the injected source-response noise had mean operator
