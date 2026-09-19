@@ -316,6 +316,92 @@ def shuffled_null_projector(observation: np.ndarray, rng: np.random.Generator) -
     return null_basis @ null_basis.T
 
 
+def correlation(values: list[float], targets: list[float]) -> float:
+    values_array = np.asarray(values, dtype=float)
+    targets_array = np.asarray(targets, dtype=float)
+    if np.std(values_array) < 1e-12 or np.std(targets_array) < 1e-12:
+        return 0.0
+    return float(np.corrcoef(values_array, targets_array)[0, 1])
+
+
+def null_projector_correlation_distribution(
+    observation: np.ndarray,
+    response: np.ndarray,
+    rows: list[dict],
+    kappa: float,
+    rng: np.random.Generator,
+    count: int,
+) -> np.ndarray:
+    """Correlations for rank-matched projectors independent of O."""
+
+    attacks = [float(row["attack_gap"]) for row in rows]
+    correlations = []
+    for _ in range(count):
+        projector = shuffled_null_projector(observation, rng)
+        scores = [
+            kappa * float(np.linalg.norm(observation @ np.asarray(row["xi"])))
+            + float(np.linalg.norm(response @ projector @ np.asarray(row["xi"])))
+            for row in rows
+        ]
+        correlations.append(correlation(scores, attacks))
+    return np.asarray(correlations, dtype=float)
+
+
+def response_incremental_regression(rows: list[dict]) -> dict[str, float]:
+    """Held-out control for total response magnitude.
+
+    The base model uses total response and visible response; the full model
+    adds the regularizer-specific blind response.  The even/odd split is fixed
+    by row index and is only used for evaluation, not pair selection.
+    """
+
+    response_norm = np.asarray([row["response_norm"] for row in rows], dtype=float)
+    visible = np.asarray([row["visible"] for row in rows], dtype=float)
+    blind = np.asarray([row["blind"] for row in rows], dtype=float)
+    targets = np.asarray([row["attack_gap"] for row in rows], dtype=float)
+    base = np.column_stack([np.ones(len(rows)), response_norm, visible])
+    full = np.column_stack([base, blind])
+    fold_ids = np.arange(len(rows)) % 4
+
+    def cross_validated_mse(design: np.ndarray) -> float:
+        predictions = np.zeros(len(rows), dtype=float)
+        for fold in range(4):
+            train = fold_ids != fold
+            test = ~train
+            mean = design[train, 1:].mean(axis=0)
+            scale = design[train, 1:].std(axis=0)
+            scale = np.where(scale < 1e-8, 1.0, scale)
+            train_scaled = np.column_stack(
+                [np.ones(np.sum(train)), (design[train, 1:] - mean) / scale]
+            )
+            test_scaled = np.column_stack(
+                [np.ones(np.sum(test)), (design[test, 1:] - mean) / scale]
+            )
+            penalty = np.eye(train_scaled.shape[1]) * 1e-2
+            penalty[0, 0] = 0.0
+            coefficients = np.linalg.solve(
+                train_scaled.T @ train_scaled + penalty,
+                train_scaled.T @ targets[train],
+            )
+            predictions[test] = test_scaled @ coefficients
+        return float(np.mean((targets - predictions) ** 2))
+
+    base_mse = cross_validated_mse(base)
+    full_mse = cross_validated_mse(full)
+    target_variance = max(float(np.mean((targets - np.mean(targets)) ** 2)), 1e-12)
+    base_r2 = 1.0 - base_mse / target_variance
+    full_r2 = 1.0 - full_mse / target_variance
+    return {
+        "heldout_r2_base_response_visible": base_r2,
+        "heldout_r2_full_response_visible_blind": full_r2,
+        "heldout_r2_blind_gain": full_r2 - base_r2,
+        "heldout_mse_base": base_mse,
+        "heldout_mse_full": full_mse,
+        "heldout_mse_full_over_base": full_mse / max(base_mse, 1e-12),
+        "pooled_corr_response_norm": correlation(response_norm.tolist(), targets.tolist()),
+    }
+
+
 def normalized(vector: np.ndarray) -> np.ndarray:
     vector = np.asarray(vector, dtype=float)
     return vector / max(np.linalg.norm(vector), 1e-12)
@@ -413,6 +499,51 @@ def shift_metrics(
     }
 
 
+def epsilon_sweep_summary(
+    model: DigitMLP,
+    source_data: tuple[torch.Tensor, torch.Tensor],
+    eval_latents: Latents,
+    eta0: np.ndarray,
+    random_rows: list[dict],
+    observation: np.ndarray,
+    response: np.ndarray,
+    kappa: float,
+    epsilons: tuple[float, ...],
+    radius: float,
+    attack_steps: int,
+    attack_lr: float,
+) -> list[dict[str, float]]:
+    """Evaluate locality through T(epsilon, xi)/epsilon on fixed shifts."""
+
+    results = []
+    for eps in epsilons:
+        attacks = []
+        certificates = []
+        for row in random_rows:
+            xi = np.asarray(row["xi"], dtype=float)
+            target_data = make_environment(eval_latents, eta0 + eps * xi)
+            attack = transfer_attack(
+                model, source_data, target_data, radius, attack_steps, attack_lr
+            )
+            attacks.append(float(attack["attack_gap"]) / eps)
+            certificates.append(
+                kappa * float(np.linalg.norm(observation @ xi))
+                + float(
+                    np.linalg.norm(response @ null_projector(observation) @ xi)
+                )
+            )
+        results.append(
+            {
+                "epsilon": float(eps),
+                "mean_attack": float(np.mean(np.asarray(attacks) * eps)),
+                "mean_attack_over_epsilon": float(np.mean(attacks)),
+                "scaled_certificate_corr": correlation(attacks, certificates),
+                "scaled_attack_std": float(np.std(attacks)),
+            }
+        )
+    return results
+
+
 def choose_matched_pair(rows: list[dict]) -> dict[str, object] | None:
     random_rows = [row for row in rows if row["kind"] == "random"]
     if len(random_rows) < 2:
@@ -476,6 +607,8 @@ def run_model(
     attack_steps: int,
     attack_lr: float,
     num_random_shifts: int,
+    null_projectors: int,
+    epsilon_sweep: tuple[float, ...],
     seed: int,
 ) -> dict[str, object]:
     observation, response, geometry_diag = observation_and_response(
@@ -553,6 +686,34 @@ def run_model(
                 index,
             )
         )
+    random_rows = [row for row in rows if row["kind"] == "random"]
+    null_correlations = null_projector_correlation_distribution(
+        observation,
+        response,
+        random_rows,
+        geometry_diag["kappa"],
+        np.random.default_rng(seed + 60000 + method_offset),
+        null_projectors,
+    )
+    true_certificate_corr = correlation(
+        [row["certificate"] for row in random_rows],
+        [row["attack_gap"] for row in random_rows],
+    )
+    null_ge = int(np.sum(null_correlations >= true_certificate_corr))
+    epsilon_results = epsilon_sweep_summary(
+        model,
+        source_eval_data,
+        eval_latents,
+        eta0,
+        random_rows,
+        observation,
+        response,
+        geometry_diag["kappa"],
+        epsilon_sweep,
+        attack_radius,
+        attack_steps,
+        attack_lr,
+    ) if epsilon_sweep else []
     return {
         "method": method,
         "observation": observation.reshape(-1).tolist(),
@@ -561,6 +722,12 @@ def run_model(
         "blind_xi": blind_xi.tolist(),
         "visible_xi": visible_xi.tolist(),
         "shuffled_projector": shuffled_projector.tolist(),
+        "null_projector_correlations": null_correlations.tolist(),
+        "null_projector_count": int(null_projectors),
+        "null_percentile": float(np.mean(null_correlations < true_certificate_corr)),
+        "null_pvalue": float((1 + null_ge) / (null_projectors + 1)),
+        "response_regression": response_incremental_regression(random_rows),
+        "epsilon_sweep": epsilon_results,
         "rows": rows,
         "matched_pair": choose_matched_pair(rows),
     }
@@ -625,6 +792,10 @@ def summarize(models: list[dict[str, object]]) -> dict[str, object]:
                     [row["attack_gap"] for row in random_rows],
                 )[0, 1]
             ),
+            "null_percentile": model["null_percentile"],
+            "null_pvalue": model["null_pvalue"],
+            "response_regression": model["response_regression"],
+            "epsilon_sweep": model["epsilon_sweep"],
             "matched_pair": model["matched_pair"],
         }
     return result
@@ -644,8 +815,18 @@ def main() -> None:
     parser.add_argument("--attack-steps", type=int, default=DEFAULT_ATTACK_STEPS)
     parser.add_argument("--attack-lr", type=float, default=DEFAULT_ATTACK_LR)
     parser.add_argument("--random-shifts", type=int, default=24)
+    parser.add_argument("--null-projectors", type=int, default=500)
+    parser.add_argument(
+        "--epsilon-sweep",
+        type=str,
+        default="",
+        help="Comma-separated epsilon values for the locality sweep.",
+    )
     parser.add_argument("--json", type=Path, default=None)
     args = parser.parse_args()
+    epsilon_sweep = tuple(
+        float(value) for value in args.epsilon_sweep.split(",") if value.strip()
+    )
 
     set_seed(args.seed)
     eta0 = np.zeros(MECHANISM_DIM, dtype=float)
@@ -678,6 +859,8 @@ def main() -> None:
                 args.attack_steps,
                 args.attack_lr,
                 args.random_shifts,
+                args.null_projectors,
+                epsilon_sweep,
                 args.seed,
             )
         )
@@ -699,6 +882,8 @@ def main() -> None:
             "attack_steps": args.attack_steps,
             "attack_lr": args.attack_lr,
             "random_shifts": args.random_shifts,
+            "null_projectors": args.null_projectors,
+            "epsilon_sweep": list(epsilon_sweep),
             "target_used_for_training": False,
             "eta_used_for_training": False,
             "geometry_scope": "classifier_head_gradient_and_hessian",
