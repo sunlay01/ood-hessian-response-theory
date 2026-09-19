@@ -39,10 +39,19 @@ aligned with the already visible \(v_0\) direction. The blind candidate has a
 smaller raw response but removes the dominant remaining blind direction.
 
 All methods jointly retrain the same nonlinear rotated \(\log\cosh\) population
-model with a matched budget of 6000 statistic-gradient evaluations. Final
-\(\beta,\kappa,J_{\rm cert}\) are recomputed from the actual
-\(D_\eta S_\phi(\theta_{\rm trained},\eta)\) rows, not from unit-normalized
-selection rows.
+model with a matched budget of 6000 statistic-gradient evaluations. The raw
+JSON distinguishes two diagnostics:
+
+\[
+(\beta_{\rm select},\kappa_{\rm select},J_{\rm select})
+\quad\text{from }\widehat G(\theta_{\rm probe})\text{ and unit rows},
+\]
+
+and the final \((\beta,\kappa,J_{\rm cert})\) recomputed from
+\(G(\theta_{\rm trained})\) and the actual
+\(D_\eta S_\phi(\theta_{\rm trained},\bar\eta)\) rows. This separation makes
+the self-erasing-statistic effect observable rather than hiding it in a
+normalized certificate.
 
 ## Selection disagreement
 
@@ -57,6 +66,24 @@ Across all five seeds:
 
 Raw-magnitude ranking chooses the trap in every seed. TSR chooses the blind
 dominant row in every seed.
+
+## Selection versus final observation geometry
+
+The full-alignment method spans the tangent space at selection time, but its
+selected statistics can shrink their own row scales during actuation:
+
+| method | \(\beta_{\rm select}\) | final \(\beta\) | selection rank | final rank | selection blind dim. | final blind dim. |
+|---|---:|---:|---:|---:|---:|---:|
+| baseline | 4.005 | 4.000 | 1 | 1 | 4 | 4 |
+| raw magnitude | 4.005 | 4.000 | 2 | 2 | 3 | 3 |
+| TSR | 2.997 | 3.000 | 2 | 2 | 3 | 3 |
+| full alignment | \(\approx0\) | 1.000 | 5 | 3 | 0 | 2 |
+
+Thus the experiment supports the more precise claim
+\(\beta_{\rm select}\) can guide actuation, not that the final predictor must
+retain the same observation rank. In particular, full alignment is not a
+counterexample to the implementation: its unit-row certificate is zero while
+two blind directions reappear after the selected coordinates self-suppress.
 
 ## Joint-training results
 
@@ -74,6 +101,25 @@ Thus TSR is not winning by filling the kernel. It selects a different row than
 the naive heuristic and obtains lower target excess than both raw magnitude and
 random completion. In this construction full alignment is slightly worse than
 TSR because it also activates the near-visible, ill-conditioned trap statistic.
+
+## Converged-solution control
+
+The matched protocol controls statistic-gradient evaluations, not total source
+gradient evaluations. As a control, every fixed selected objective was also
+optimized until \(\|\nabla_\theta J\|_2\le10^{-10}\). The target excess remains
+essentially unchanged:
+
+| method | converged target excess | mean steps to tolerance |
+|---|---:|---:|
+| baseline | 4.921 | 470 |
+| random row | 3.111 \(\pm\) 1.500 | 417 |
+| raw magnitude | 4.975 | 470 |
+| TSR | 1.886 | 381 |
+| full alignment | 1.940 | 309 |
+
+This does not turn the population experiment into a compute-matched benchmark;
+it shows that the TSR/raw-magnitude separation is not caused solely by the
+matched-step cutoff.
 
 ## Statistic/operator consistency check
 

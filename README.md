@@ -69,7 +69,12 @@ established new method.  The completion probe is
 experiments/run_transfer_sufficiency_completion.py, with its raw JSON and
 interpretation in results/.  The high-dimensional joint-training probe is
 experiments/run_tsr_nonlinear_end_to_end.py, with its separate report in
-results/tsr_nonlinear_end_to_end_report.md.
+results/tsr_nonlinear_end_to_end_report.md.  The non-diagonal
+conditioning-trap probe compares TSR against raw-response ranking in
+experiments/run_tsr_nondiagonal_selection_trap.py; it records both
+selection-time and post-actuation observation geometry, plus a converged-
+solution control.  The finite-coverage/sample-size/response-noise stress
+matrix is in experiments/run_tsr_trap_stress_matrix.py.
 
 The raw-feature logistic CORAL example is intentionally observation-only:
 because its covariance does not depend on classifier weights, its classifier
@@ -86,6 +91,8 @@ python experiments/logistic_sanity.py
 python experiments/closed_corollaries_check.py
 python experiments/run_transfer_sufficiency_completion.py --seeds 0 1 2 3 4
 python experiments/run_tsr_nonlinear_end_to_end.py --seeds 0 1 2 3 4
+python experiments/run_tsr_nondiagonal_selection_trap.py --seeds 0 1 2 3 4
+python experiments/run_tsr_trap_stress_matrix.py
 ```
 
 The Lean project pins Mathlib to a public Git revision in `lean/lakefile.lean`
@@ -111,7 +118,12 @@ they do not yet formalize the implicit-function, constant-rank, eigengap, or
 probabilistic coverage arguments.
 The high-dimensional nonlinear probe now supplies a controlled joint-training
 target-risk result; the current synthesis therefore records a
-THEORY-GUIDED CANDIDATE status. Finite-sample imperfect-coverage validation is
-still required before any publication-level claim.
+THEORY-GUIDED CANDIDATE status. The conditioning-trap and stress-matrix probes
+add controlled evidence that (i) TSR can differ from raw response-magnitude
+selection, (ii) selected statistics can self-suppress and lose final
+observation rank, and (iii) selection degrades as coverage/noise error exceeds
+the certificate score gap. These are still population response-estimation
+proxies; finite-sample imperfect-coverage validation is required before any
+publication-level claim.
 `lean/TransferSufficiency.lean` also formalizes the kernel-to-factorization
 theorem for surjective observation maps.

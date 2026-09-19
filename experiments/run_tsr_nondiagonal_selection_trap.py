@@ -12,6 +12,10 @@ candidate rows are not coordinate axes in the ambient parameter basis.  The
 script jointly retrains the predictor after each selection with matched
 statistic-gradient budget, and reports the final (theta-dependent) observation
 rows as well as the normalized selection-time diagnostics.
+
+It also reports a separate converged-solution protocol. The latter is not
+matched compute; it checks whether the selection result survives when every
+population objective is optimized to the same gradient tolerance.
 """
 
 from __future__ import annotations
@@ -37,6 +41,8 @@ CANDIDATE_LAMBDA = 20.0
 CERT_LAMBDA = 0.05
 TOTAL_STATISTIC_GRAD_BUDGET = 6000
 TRAP_EPS = 0.04
+CONVERGENCE_MAX_STEPS = 20000
+CONVERGENCE_TOL = 1e-10
 
 V0, V1, V2, V3, V4 = [V[:, j] for j in range(Q)]
 TRAP_ROW = (V0 + TRAP_EPS * V1) / np.linalg.norm(V0 + TRAP_EPS * V1)
@@ -158,23 +164,46 @@ def actual_observation(theta: np.ndarray, selected: list[int]) -> np.ndarray:
     return np.asarray(rows)
 
 
-def train(selected: list[int], steps: int, learning_rate: float = 0.05) -> np.ndarray:
-    theta = np.zeros(Q)
+def objective_gradient(theta: np.ndarray, selected: list[int]) -> np.ndarray:
     deltas = SOURCE_ETAS - ETA_BAR
     base_var = float(np.mean((deltas @ V0) ** 2))
     candidate_vars = [
         float(np.mean((deltas @ row) ** 2)) for row in CANDIDATE_ROWS
     ]
+    grad = np.mean([risk_grad(theta, eta) for eta in SOURCE_ETAS], axis=0)
+    base_value = V0 @ theta
+    grad += 2.0 * BASE_LAMBDA * base_var * base_value * V0
+    for idx in selected:
+        row = CANDIDATE_ROWS[idx]
+        value = row @ theta
+        grad += 2.0 * CANDIDATE_LAMBDA * candidate_vars[idx] * value * row
+    return grad
+
+
+def train(selected: list[int], steps: int, learning_rate: float = 0.05) -> np.ndarray:
+    theta = np.zeros(Q)
     for _ in range(steps):
-        grad = np.mean([risk_grad(theta, eta) for eta in SOURCE_ETAS], axis=0)
-        base_value = V0 @ theta
-        grad += 2.0 * BASE_LAMBDA * base_var * base_value * V0
-        for idx in selected:
-            row = CANDIDATE_ROWS[idx]
-            value = row @ theta
-            grad += 2.0 * CANDIDATE_LAMBDA * candidate_vars[idx] * value * row
+        grad = objective_gradient(theta, selected)
         theta -= learning_rate * grad
     return theta
+
+
+def train_to_convergence(
+    selected: list[int],
+    learning_rate: float = 0.05,
+    tol: float = CONVERGENCE_TOL,
+    max_steps: int = CONVERGENCE_MAX_STEPS,
+) -> tuple[np.ndarray, int, float]:
+    """Optimize a fixed selected objective without a compute-budget cutoff."""
+    theta = np.zeros(Q)
+    grad_norm = float("inf")
+    for step in range(1, max_steps + 1):
+        grad = objective_gradient(theta, selected)
+        grad_norm = float(np.linalg.norm(grad))
+        theta -= learning_rate * grad
+        if grad_norm <= tol:
+            return theta, step, grad_norm
+    return theta, max_steps, grad_norm
 
 
 def target_optimum() -> tuple[np.ndarray, float]:
@@ -188,12 +217,23 @@ def target_optimum() -> tuple[np.ndarray, float]:
 TARGET_THETA, TARGET_OPT_RISK = target_optimum()
 
 
-def evaluate(theta: np.ndarray, selected: list[int], g_true: np.ndarray) -> dict:
+def evaluate(
+    theta: np.ndarray,
+    selected: list[int],
+    g_true: np.ndarray,
+    selection_g: np.ndarray | None = None,
+) -> dict:
     actual_o = actual_observation(theta, selected)
     actual_cert = certificate(g_true, actual_o[:1], list(actual_o[1:]))
     unit_o = V0.reshape(1, -1)
     unit_rows = [CANDIDATE_ROWS[idx].reshape(1, -1) for idx in selected]
-    selection_cert = certificate(g_true, unit_o, unit_rows)
+    unit_cert = certificate(g_true, unit_o, unit_rows)
+    if selection_g is None:
+        selection_g = g_true
+    selection_cert = certificate(selection_g, unit_o, unit_rows)
+    selection_o = augmented(unit_o, unit_rows)
+    selection_rank = int(np.linalg.matrix_rank(selection_o))
+    final_rank = int(np.linalg.matrix_rank(actual_o))
     target_eta = np.zeros(Q)
     return {
         "theta": theta.tolist(),
@@ -202,11 +242,16 @@ def evaluate(theta: np.ndarray, selected: list[int], g_true: np.ndarray) -> dict
         "source_risk": float(np.mean([risk(theta, eta) for eta in SOURCE_ETAS])),
         "target_risk": risk(theta, target_eta),
         "target_excess": risk(theta, target_eta) - TARGET_OPT_RISK,
-        "augmented_observation_rank": int(np.linalg.matrix_rank(actual_o)),
-        "remaining_blind_dimension": int(Q - np.linalg.matrix_rank(actual_o)),
+        "augmented_observation_rank": final_rank,
+        "remaining_blind_dimension": int(Q - final_rank),
+        "selection_observation_rank": selection_rank,
+        "selection_remaining_blind_dimension": int(Q - selection_rank),
         "actual_row_scales": [float(V0 @ theta)]
         + [float(CANDIDATE_ROWS[idx] @ theta) for idx in selected],
         **actual_cert,
+        "unit_beta": unit_cert["beta"],
+        "unit_kappa": unit_cert["kappa"],
+        "unit_j_cert": unit_cert["j_cert"],
         "selection_beta": selection_cert["beta"],
         "selection_kappa": selection_cert["kappa"],
         "selection_j_cert": selection_cert["j_cert"],
@@ -252,22 +297,47 @@ def run_seed(seed: int) -> dict:
         "full_alignment": list(range(len(CANDIDATE_ROWS))),
     }
     rows = []
+    converged_rows = []
     for name, selected in methods.items():
         cost = 1 + len(selected)
         steps = max(100, TOTAL_STATISTIC_GRAD_BUDGET // cost)
         theta = train(selected, steps)
-        item = evaluate(theta, selected, finite_response(theta, ETA_BAR, 1e-3))
+        item = evaluate(
+            theta,
+            selected,
+            finite_response(theta, ETA_BAR, 1e-3),
+            selection_g=g_hat,
+        )
         item.update({
             "seed": seed,
             "method": name,
+            "protocol": "matched_statistic_budget",
             "steps": steps,
             "statistic_gradient_budget": steps * cost,
         })
         rows.append(item)
+        converged_theta, converged_steps, converged_grad_norm = train_to_convergence(
+            selected
+        )
+        converged_item = evaluate(
+            converged_theta,
+            selected,
+            finite_response(converged_theta, ETA_BAR, 1e-3),
+            selection_g=g_hat,
+        )
+        converged_item.update({
+            "seed": seed,
+            "method": name,
+            "protocol": "converged_gradient",
+            "steps": converged_steps,
+            "final_gradient_norm": converged_grad_norm,
+        })
+        converged_rows.append(converged_item)
     raw_norms = [float(np.linalg.norm(g_hat @ row)) for row in CANDIDATE_ROWS]
     return {
         "seed": seed,
         "rows": rows,
+        "converged_rows": converged_rows,
         "tsr_selection": CANDIDATE_NAMES[tsr_idx],
         "raw_magnitude_selection": CANDIDATE_NAMES[magnitude_idx],
         "raw_response_norms": raw_norms,
@@ -282,12 +352,20 @@ def run_seed(seed: int) -> dict:
 
 def summarize(records: list[dict]) -> list[dict]:
     flat = [row for rec in records for row in rec["rows"]]
+    return summarize_rows(flat)
+
+
+def summarize_rows(flat: list[dict]) -> list[dict]:
     out = []
     for method in ["baseline", "random", "raw_magnitude", "tsr", "full_alignment"]:
         group = [row for row in flat if row["method"] == method]
         item = {"method": method}
-        for key in ["beta", "kappa", "j_cert", "target_excess",
-                    "source_risk", "remaining_blind_dimension"]:
+        for key in [
+            "beta", "selection_beta", "kappa", "j_cert", "target_excess",
+            "source_risk", "remaining_blind_dimension",
+            "selection_remaining_blind_dimension",
+            "augmented_observation_rank", "selection_observation_rank",
+        ]:
             values = np.asarray([row[key] for row in group], dtype=float)
             item[key] = float(values.mean())
             item[key + "_std"] = float(values.std())
@@ -311,9 +389,14 @@ def main() -> None:
             "target_opt_risk": TARGET_OPT_RISK,
             "target_opt_theta": TARGET_THETA.tolist(),
             "total_statistic_gradient_budget": TOTAL_STATISTIC_GRAD_BUDGET,
+            "convergence_max_steps": CONVERGENCE_MAX_STEPS,
+            "convergence_tol": CONVERGENCE_TOL,
         },
         "records": records,
         "summary": summarize(records),
+        "converged_summary": summarize_rows(
+            [row for rec in records for row in rec["converged_rows"]]
+        ),
     }
     text = json.dumps(output, indent=2, sort_keys=True)
     print(text)
