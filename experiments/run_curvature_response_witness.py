@@ -99,7 +99,7 @@ def main() -> None:
     parser.add_argument("--a", type=float, default=0.4)
     parser.add_argument("--target-sign", type=int, choices=[-1, 1], default=-1)
     parser.add_argument("--source-design", choices=["symmetric", "monotone"], default="symmetric")
-    parser.add_argument("--target-multiplier", type=float, default=2.0)
+    parser.add_argument("--target-multiplier", type=float, default=1.5)
     parser.add_argument("--rho", type=float, default=1.0)
     parser.add_argument("--lambda-g", type=float, default=0.2)
     parser.add_argument("--lambda-h", type=float, default=2.0)
@@ -110,7 +110,7 @@ def main() -> None:
     args = parser.parse_args()
     if args.source_design == "symmetric":
         source_a = torch.tensor([-args.a, args.a], dtype=torch.float32)
-        target_a = float(args.target_sign * args.a)
+        target_a = float(args.target_sign * args.target_multiplier * args.a)
     else:
         source_a = torch.tensor([0.0, args.a], dtype=torch.float32)
         target_a = float(args.target_multiplier * args.a)
