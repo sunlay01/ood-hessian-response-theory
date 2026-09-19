@@ -45,6 +45,7 @@ from run_hidden_env_finite_sample_tsr import (
     make_geometry,
     set_seed,
 )
+from run_e2e_ccra import CurvatureModel, make_curvature_datasets
 
 
 torch.set_num_threads(1)
@@ -165,7 +166,7 @@ def train_method(
     lambda_h: float,
     vrex_lambda: float,
 ) -> tuple[MLP, dict[str, float]]:
-    model = MLP()
+    model = CurvatureModel() if warmup.fc2.in_features == 2 else MLP()
     model.load_state_dict(copy.deepcopy(warmup.state_dict()))
     optimizer = torch.optim.Adam(model.fc2.parameters(), lr=lr)
     last: dict[str, float] = {}
@@ -214,13 +215,20 @@ def run_one(
     target_shift_mode: str,
 ) -> dict[str, object]:
     set_seed(seed)
-    geometry = make_geometry(seed)
-    source, _, target, _, _ = make_datasets(
-        geometry, n_per_env, gamma, seed, target_shift_mode=target_shift_mode
-    )
-    warmup = MLP()
+    if target_shift_mode == "curvature":
+        source, target = make_curvature_datasets(n_per_env)
+        warmup = CurvatureModel()
+        with torch.no_grad():
+            warmup.fc2.weight.zero_()
+            warmup.fc2.bias.zero_()
+    else:
+        geometry = make_geometry(seed)
+        source, _, target, _, _ = make_datasets(
+            geometry, n_per_env, gamma, seed, target_shift_mode=target_shift_mode
+        )
+        warmup = MLP()
     feature_optimizer = torch.optim.Adam(warmup.parameters(), lr=feature_lr)
-    for _ in range(warmup_epochs):
+    for _ in range(0 if target_shift_mode == "curvature" else warmup_epochs):
         feature_optimizer.zero_grad(set_to_none=True)
         loss = torch.stack(
             [F.binary_cross_entropy_with_logits(warmup(x), y) for x, y in source]
@@ -229,7 +237,7 @@ def run_one(
         feature_optimizer.step()
     features = [warmup.feature(x).detach() for x, _ in source]
     labels = [y for _, y in source]
-    contrasts = torch.tensor(contrast_matrix(SOURCE_ENVS), dtype=torch.float32)
+    contrasts = torch.tensor(contrast_matrix(len(source)), dtype=torch.float32)
     rows = []
     for method in ("erm", "vrex", "gradient_response", "hessian_only", "hrr"):
         model, train_info = train_method(
@@ -287,7 +295,7 @@ def main() -> None:
     parser.add_argument("--vrex-lambda", type=float, default=1.0)
     parser.add_argument(
         "--target-shift-mode",
-        choices=["predictive", "nuisance", "sign_reversal"],
+        choices=["predictive", "nuisance", "sign_reversal", "curvature"],
         default="predictive",
     )
     parser.add_argument("--json", type=Path, default=None)
