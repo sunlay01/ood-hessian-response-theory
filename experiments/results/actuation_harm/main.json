@@ -1,0 +1,4102 @@
+{
+  "configuration": {
+    "damping": 0.001,
+    "epsilon": 0.03,
+    "feature_epochs": 40,
+    "head_steps": 500,
+    "irm_lambda": 10.0,
+    "json": "experiments/results/actuation_harm/main.json",
+    "lambda_reg": 0.01,
+    "n_per_env": 256,
+    "random_directions": 128,
+    "seeds": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
+  },
+  "records": [
+    {
+      "beta": 0.014875932746469181,
+      "chi": 0.0002844162207608564,
+      "direction_rows": [
+        {
+          "actual_centered_harm": -8.2514696754174e-08,
+          "observation_abs": 4.336808689942018e-19,
+          "predicted_harm": -8.277930673165878e-08,
+          "q": -0.0002759310224388626,
+          "response_norm": 0.01487593274646918,
+          "selector": "beta"
+        },
+        {
+          "actual_centered_harm": 8.50735808449049e-08,
+          "observation_abs": 1.951563910473908e-18,
+          "predicted_harm": 8.532486622825691e-08,
+          "q": 0.0002844162207608564,
+          "response_norm": 0.014656867110051418,
+          "selector": "harm"
+        }
+      ],
+      "erm_geometry": {
+        "actuation_norm": 0.04771306738257408,
+        "grad_omega_norm": 0.00018028593331109732,
+        "mean_gradient_norm": 0.0011403497774153948,
+        "omega": 0.0001235949748661369,
+        "residual_rms": 0.011117327958345413
+      },
+      "irm_solution_geometry": {
+        "actuation_norm": 0.0037936719600111246,
+        "grad_omega_norm": 9.345755643153097e-06,
+        "mean_gradient_norm": 0.0001257249532500282,
+        "omega": 9.879865501716267e-06,
+        "residual_rms": 0.0031432253308594227
+      },
+      "random_blind": [
+        {
+          "actual_centered_harm": -5.990445789590126e-08,
+          "predicted_harm": -6.028333352330926e-08,
+          "q": -0.00020094444507769756,
+          "response_norm": 0.012697561982342379
+        },
+        {
+          "actual_centered_harm": 1.7347029519429458e-08,
+          "predicted_harm": 1.710138687944863e-08,
+          "q": 5.7004622931495434e-05,
+          "response_norm": 0.0052040821119130635
+        },
+        {
+          "actual_centered_harm": 2.226247519665492e-08,
+          "predicted_harm": 2.253682843552548e-08,
+          "q": 7.51227614517516e-05,
+          "response_norm": 0.008256260569369107
+        },
+        {
+          "actual_centered_harm": -1.1187662345146787e-08,
+          "predicted_harm": -1.0890405487944184e-08,
+          "q": -3.6301351626480615e-05,
+          "response_norm": 0.002922505806118587
+        },
+        {
+          "actual_centered_harm": 4.006580172494223e-08,
+          "predicted_harm": 4.006174888064821e-08,
+          "q": 0.00013353916293549405,
+          "response_norm": 0.007429052810934525
+        },
+        {
+          "actual_centered_harm": -2.344159518233302e-08,
+          "predicted_harm": -2.321761203012663e-08,
+          "q": -7.739204010042211e-05,
+          "response_norm": 0.004636406762111057
+        },
+        {
+          "actual_centered_harm": -5.368729575488951e-08,
+          "predicted_harm": -5.398268039815031e-08,
+          "q": -0.0001799422679938344,
+          "response_norm": 0.009534410268524017
+        },
+        {
+          "actual_centered_harm": -2.0657020548958682e-08,
+          "predicted_harm": -2.0480734667588645e-08,
+          "q": -6.826911555862882e-05,
+          "response_norm": 0.005768353858691257
+        },
+        {
+          "actual_centered_harm": -5.669907076830127e-09,
+          "predicted_harm": -5.30629502550447e-09,
+          "q": -1.76876500850149e-05,
+          "response_norm": 0.0016606944752937949
+        },
+        {
+          "actual_centered_harm": -4.267898568582895e-08,
+          "predicted_harm": -4.259590513849561e-08,
+          "q": -0.00014198635046165205,
+          "response_norm": 0.007408013903431317
+        },
+        {
+          "actual_centered_harm": 3.779275816254146e-08,
+          "predicted_harm": 3.813961003586418e-08,
+          "q": 0.00012713203345288062,
+          "response_norm": 0.007790577594342922
+        },
+        {
+          "actual_centered_harm": 4.2258499460129384e-08,
+          "predicted_harm": 4.246904949136481e-08,
+          "q": 0.00014156349830454938,
+          "response_norm": 0.00909216704444678
+        },
+        {
+          "actual_centered_harm": -3.848837202072297e-09,
+          "predicted_harm": -3.828841163401842e-09,
+          "q": -1.2762803878006141e-05,
+          "response_norm": 0.004351014326312042
+        },
+        {
+          "actual_centered_harm": -2.2107410811711414e-08,
+          "predicted_harm": -2.2017340929987037e-08,
+          "q": -7.339113643329012e-05,
+          "response_norm": 0.005892065978952797
+        },
+        {
+          "actual_centered_harm": 2.2678540965298533e-08,
+          "predicted_harm": 2.2921874000398725e-08,
+          "q": 7.640624666799576e-05,
+          "response_norm": 0.005394230621334412
+        },
+        {
+          "actual_centered_harm": -1.9270024039994005e-08,
+          "predicted_harm": -1.9520290772150002e-08,
+          "q": -6.506763590716668e-05,
+          "response_norm": 0.005970960789978154
+        },
+        {
+          "actual_centered_harm": 1.2603451719772618e-08,
+          "predicted_harm": 1.294394230994062e-08,
+          "q": 4.314647436646874e-05,
+          "response_norm": 0.007250810561243802
+        },
+        {
+          "actual_centered_harm": -3.012635377622197e-08,
+          "predicted_harm": -3.0505875129653545e-08,
+          "q": -0.0001016862504321785,
+          "response_norm": 0.006128603542450848
+        },
+        {
+          "actual_centered_harm": -1.3249692646863376e-08,
+          "predicted_harm": -1.3273638551642629e-08,
+          "q": -4.424546183880877e-05,
+          "response_norm": 0.004976767950179107
+        },
+        {
+          "actual_centered_harm": 4.179660267195073e-09,
+          "predicted_harm": 4.59065115042442e-09,
+          "q": 1.5302170501414735e-05,
+          "response_norm": 0.00552379527176843
+        },
+        {
+          "actual_centered_harm": -1.6212316465008536e-08,
+          "predicted_harm": -1.6436637086850064e-08,
+          "q": -5.4788790289500214e-05,
+          "response_norm": 0.006934799221335841
+        },
+        {
+          "actual_centered_harm": -5.9794368970078615e-09,
+          "predicted_harm": -5.903369022011249e-09,
+          "q": -1.96778967400375e-05,
+          "response_norm": 0.008291303683364832
+        },
+        {
+          "actual_centered_harm": -3.131413633603031e-08,
+          "predicted_harm": -3.17366911383817e-08,
+          "q": -0.00010578897046127233,
+          "response_norm": 0.00685699821232787
+        },
+        {
+          "actual_centered_harm": -4.033162174024718e-08,
+          "predicted_harm": -4.0701920829002564e-08,
+          "q": -0.00013567306943000856,
+          "response_norm": 0.008218589950358712
+        },
+        {
+          "actual_centered_harm": 1.1873602503986724e-08,
+          "predicted_harm": 1.2169257072196898e-08,
+          "q": 4.056419024065633e-05,
+          "response_norm": 0.005667480101721236
+        },
+        {
+          "actual_centered_harm": 3.9946201343260546e-08,
+          "predicted_harm": 3.988361579776313e-08,
+          "q": 0.0001329453859925438,
+          "response_norm": 0.006785235623504649
+        },
+        {
+          "actual_centered_harm": -1.317367217743004e-08,
+          "predicted_harm": -1.3073747168438238e-08,
+          "q": -4.357915722812746e-05,
+          "response_norm": 0.00769371105915383
+        },
+        {
+          "actual_centered_harm": -1.715238458210866e-09,
+          "predicted_harm": -1.8594294967350645e-09,
+          "q": -6.1980983224502154e-06,
+          "response_norm": 0.00708657053718091
+        },
+        {
+          "actual_centered_harm": -9.725380729908029e-09,
+          "predicted_harm": -9.459247847681124e-09,
+          "q": -3.1530826158937084e-05,
+          "response_norm": 0.006259785428028871
+        },
+        {
+          "actual_centered_harm": -3.625774828638906e-08,
+          "predicted_harm": -3.62688778059512e-08,
+          "q": -0.00012089625935317067,
+          "response_norm": 0.008474528268556419
+        },
+        {
+          "actual_centered_harm": 1.1250965055442652e-08,
+          "predicted_harm": 1.1633485521451078e-08,
+          "q": 3.8778285071503594e-05,
+          "response_norm": 0.007236157637854623
+        },
+        {
+          "actual_centered_harm": -4.114636870285182e-08,
+          "predicted_harm": -4.1007239789314367e-08,
+          "q": -0.00013669079929771457,
+          "response_norm": 0.007712300271945729
+        },
+        {
+          "actual_centered_harm": -4.384444821092792e-09,
+          "predicted_harm": -4.428535023055135e-09,
+          "q": -1.4761783410183785e-05,
+          "response_norm": 0.0026672360483834855
+        },
+        {
+          "actual_centered_harm": 2.9904169113192935e-08,
+          "predicted_harm": 3.0370522180942114e-08,
+          "q": 0.00010123507393647371,
+          "response_norm": 0.005803081380797483
+        },
+        {
+          "actual_centered_harm": 2.1981601542458984e-08,
+          "predicted_harm": 2.242923296478352e-08,
+          "q": 7.476410988261174e-05,
+          "response_norm": 0.0053095216233959375
+        },
+        {
+          "actual_centered_harm": -2.6543217748753456e-08,
+          "predicted_harm": -2.6514591330407914e-08,
+          "q": -8.838197110135972e-05,
+          "response_norm": 0.005613235407234408
+        },
+        {
+          "actual_centered_harm": -6.883272389568429e-09,
+          "predicted_harm": -6.716015358705788e-09,
+          "q": -2.238671786235263e-05,
+          "response_norm": 0.004568881903464398
+        },
+        {
+          "actual_centered_harm": -6.759621607940747e-08,
+          "predicted_harm": -6.786637514877521e-08,
+          "q": -0.0002262212504959174,
+          "response_norm": 0.012130272061399052
+        },
+        {
+          "actual_centered_harm": -1.1394005444004263e-08,
+          "predicted_harm": -1.1115543112162983e-08,
+          "q": -3.705181037387661e-05,
+          "response_norm": 0.003813917824380489
+        },
+        {
+          "actual_centered_harm": -1.8436705684701793e-08,
+          "predicted_harm": -1.8795830365124468e-08,
+          "q": -6.265276788374823e-05,
+          "response_norm": 0.003815179567198
+        },
+        {
+          "actual_centered_harm": 1.1194636519856749e-09,
+          "predicted_harm": 1.3062648461476752e-09,
+          "q": 4.354216153825585e-06,
+          "response_norm": 0.009347572323578968
+        },
+        {
+          "actual_centered_harm": -7.687942452788699e-10,
+          "predicted_harm": -1.1532648565120301e-09,
+          "q": -3.844216188373434e-06,
+          "response_norm": 0.0024695410267866215
+        },
+        {
+          "actual_centered_harm": -4.6695924146508694e-08,
+          "predicted_harm": -4.689249151064682e-08,
+          "q": -0.0001563083050354894,
+          "response_norm": 0.008718308553176159
+        },
+        {
+          "actual_centered_harm": -2.7593800305467098e-08,
+          "predicted_harm": -2.774965291391884e-08,
+          "q": -9.249884304639614e-05,
+          "response_norm": 0.011760031738073714
+        },
+        {
+          "actual_centered_harm": 2.1712041296806373e-08,
+          "predicted_harm": 2.1508038352926973e-08,
+          "q": 7.169346117642326e-05,
+          "response_norm": 0.004012037176297692
+        },
+        {
+          "actual_centered_harm": 2.219235106792894e-08,
+          "predicted_harm": 2.2498061924737365e-08,
+          "q": 7.499353974912455e-05,
+          "response_norm": 0.006352424039398173
+        },
+        {
+          "actual_centered_harm": 5.713246980024178e-08,
+          "predicted_harm": 5.72575415302709e-08,
+          "q": 0.0001908584717675697,
+          "response_norm": 0.010496955717243574
+        },
+        {
+          "actual_centered_harm": 3.2774165395488275e-09,
+          "predicted_harm": 3.4840620500791127e-09,
+          "q": 1.1613540166930376e-05,
+          "response_norm": 0.003913061679618043
+        },
+        {
+          "actual_centered_harm": 2.3356746878602785e-08,
+          "predicted_harm": 2.36680408970022e-08,
+          "q": 7.8893469656674e-05,
+          "response_norm": 0.006822731537271579
+        },
+        {
+          "actual_centered_harm": -5.984063099553905e-08,
+          "predicted_harm": -6.006697034023905e-08,
+          "q": -0.00020022323446746354,
+          "response_norm": 0.012267763890431525
+        },
+        {
+          "actual_centered_harm": 3.195755236828912e-08,
+          "predicted_harm": 3.2094842517451646e-08,
+          "q": 0.0001069828083915055,
+          "response_norm": 0.006134981133889321
+        },
+        {
+          "actual_centered_harm": 3.904569875756714e-09,
+          "predicted_harm": 4.191807660293307e-09,
+          "q": 1.397269220097769e-05,
+          "response_norm": 0.008818843423951039
+        },
+        {
+          "actual_centered_harm": -4.7716030363020856e-08,
+          "predicted_harm": -4.751470692875705e-08,
+          "q": -0.0001583823564291902,
+          "response_norm": 0.00831188761711972
+        },
+        {
+          "actual_centered_harm": -1.5303210773240372e-08,
+          "predicted_harm": -1.514739781583105e-08,
+          "q": -5.0491326052770166e-05,
+          "response_norm": 0.003878758832459019
+        },
+        {
+          "actual_centered_harm": -2.0611456475611023e-08,
+          "predicted_harm": -2.0838949390109685e-08,
+          "q": -6.946316463369896e-05,
+          "response_norm": 0.00608356486349842
+        },
+        {
+          "actual_centered_harm": -9.462124347936474e-10,
+          "predicted_harm": -1.307904496590714e-09,
+          "q": -4.359681655302381e-06,
+          "response_norm": 0.004173191686430562
+        },
+        {
+          "actual_centered_harm": 3.815321815425765e-09,
+          "predicted_harm": 3.5753444277510033e-09,
+          "q": 1.1917814759170013e-05,
+          "response_norm": 0.0022838240641230288
+        },
+        {
+          "actual_centered_harm": 3.4746990555667434e-08,
+          "predicted_harm": 3.469953541293856e-08,
+          "q": 0.00011566511804312855,
+          "response_norm": 0.00663347312022295
+        },
+        {
+          "actual_centered_harm": 4.833466270975917e-08,
+          "predicted_harm": 4.8638449980262775e-08,
+          "q": 0.00016212816660087593,
+          "response_norm": 0.01039905594084441
+        },
+        {
+          "actual_centered_harm": -1.0755114597527093e-08,
+          "predicted_harm": -1.098800559927939e-08,
+          "q": -3.6626685330931305e-05,
+          "response_norm": 0.0028815112396336456
+        },
+        {
+          "actual_centered_harm": 3.3588380115440186e-09,
+          "predicted_harm": 3.4187363151749726e-09,
+          "q": 1.139578771724991e-05,
+          "response_norm": 0.005193029897641914
+        },
+        {
+          "actual_centered_harm": 3.1039877265715e-11,
+          "predicted_harm": -6.427467974346778e-11,
+          "q": -2.1424893247822595e-07,
+          "response_norm": 0.0037227424652501694
+        },
+        {
+          "actual_centered_harm": 1.653442547461248e-08,
+          "predicted_harm": 1.6601275647451884e-08,
+          "q": 5.5337585491506286e-05,
+          "response_norm": 0.004250053426835697
+        },
+        {
+          "actual_centered_harm": -8.064615232561412e-09,
+          "predicted_harm": -8.228769077975957e-09,
+          "q": -2.742923025991986e-05,
+          "response_norm": 0.008077597968102423
+        },
+        {
+          "actual_centered_harm": 4.837412434163801e-09,
+          "predicted_harm": 4.7561616201319366e-09,
+          "q": 1.5853872067106457e-05,
+          "response_norm": 0.005970160206974057
+        },
+        {
+          "actual_centered_harm": -5.887620613265199e-08,
+          "predicted_harm": -5.9122882195840835e-08,
+          "q": -0.00019707627398613613,
+          "response_norm": 0.010566431672148055
+        },
+        {
+          "actual_centered_harm": -3.532140097940728e-08,
+          "predicted_harm": -3.518128528627144e-08,
+          "q": -0.00011727095095423815,
+          "response_norm": 0.005844770636741972
+        },
+        {
+          "actual_centered_harm": -6.851384988862397e-09,
+          "predicted_harm": -6.622348187316891e-09,
+          "q": -2.207449395772297e-05,
+          "response_norm": 0.006276459693319096
+        },
+        {
+          "actual_centered_harm": -2.4992968033696328e-08,
+          "predicted_harm": -2.502839812532391e-08,
+          "q": -8.34279937510797e-05,
+          "response_norm": 0.006377357470225957
+        },
+        {
+          "actual_centered_harm": -6.768416482144657e-08,
+          "predicted_harm": -6.783784149435244e-08,
+          "q": -0.00022612613831450817,
+          "response_norm": 0.01200230833837087
+        },
+        {
+          "actual_centered_harm": 4.346838040208967e-08,
+          "predicted_harm": 4.332036100317633e-08,
+          "q": 0.00014440120334392113,
+          "response_norm": 0.009061002511796819
+        },
+        {
+          "actual_centered_harm": 4.00257451921987e-08,
+          "predicted_harm": 3.983286498767945e-08,
+          "q": 0.0001327762166255982,
+          "response_norm": 0.006837326832789109
+        },
+        {
+          "actual_centered_harm": 5.094821265219651e-08,
+          "predicted_harm": 5.12578314069678e-08,
+          "q": 0.00017085943802322602,
+          "response_norm": 0.009910735466031977
+        },
+        {
+          "actual_centered_harm": 6.730087759136694e-08,
+          "predicted_harm": 6.751350131959701e-08,
+          "q": 0.00022504500439865673,
+          "response_norm": 0.01173822406909263
+        },
+        {
+          "actual_centered_harm": 6.671810154172675e-08,
+          "predicted_harm": 6.673439443319214e-08,
+          "q": 0.0002224479814439738,
+          "response_norm": 0.011441254139142423
+        },
+        {
+          "actual_centered_harm": 4.4787818991726125e-08,
+          "predicted_harm": 4.505773687788044e-08,
+          "q": 0.00015019245625960147,
+          "response_norm": 0.008313102359298954
+        },
+        {
+          "actual_centered_harm": -1.4732768919764605e-08,
+          "predicted_harm": -1.4943002653396442e-08,
+          "q": -4.981000884465481e-05,
+          "response_norm": 0.004351276592986783
+        },
+        {
+          "actual_centered_harm": 6.820840975363396e-10,
+          "predicted_harm": 7.300536614032107e-10,
+          "q": 2.433512204677369e-06,
+          "response_norm": 0.007655290595020574
+        },
+        {
+          "actual_centered_harm": -3.633001969399752e-08,
+          "predicted_harm": -3.668941523625926e-08,
+          "q": -0.00012229805078753088,
+          "response_norm": 0.008105837550149793
+        },
+        {
+          "actual_centered_harm": 3.4114238205151803e-09,
+          "predicted_harm": 3.378219131105651e-09,
+          "q": 1.1260730437018837e-05,
+          "response_norm": 0.008188361690468226
+        },
+        {
+          "actual_centered_harm": -5.6135488403497025e-08,
+          "predicted_harm": -5.606174560363656e-08,
+          "q": -0.00018687248534545521,
+          "response_norm": 0.009503545883643673
+        },
+        {
+          "actual_centered_harm": -7.57267777824755e-09,
+          "predicted_harm": -7.734079965184164e-09,
+          "q": -2.5780266550613884e-05,
+          "response_norm": 0.0033836534953508544
+        },
+        {
+          "actual_centered_harm": -2.6172722093764644e-08,
+          "predicted_harm": -2.6123153118835385e-08,
+          "q": -8.707717706278462e-05,
+          "response_norm": 0.01003150899821313
+        },
+        {
+          "actual_centered_harm": -4.531776530425358e-09,
+          "predicted_harm": -4.92005369140351e-09,
+          "q": -1.6400178971345033e-05,
+          "response_norm": 0.0024676413955308694
+        },
+        {
+          "actual_centered_harm": 5.530118361504743e-09,
+          "predicted_harm": 5.920095846877577e-09,
+          "q": 1.9733652822925257e-05,
+          "response_norm": 0.004843664277679946
+        },
+        {
+          "actual_centered_harm": 5.4531385325698456e-08,
+          "predicted_harm": 5.469424625446439e-08,
+          "q": 0.000182314154181548,
+          "response_norm": 0.010173802589793043
+        },
+        {
+          "actual_centered_harm": 1.3473040186978702e-08,
+          "predicted_harm": 1.3769736326469006e-08,
+          "q": 4.589912108823002e-05,
+          "response_norm": 0.006472112359429382
+        },
+        {
+          "actual_centered_harm": 2.427357901832461e-08,
+          "predicted_harm": 2.4405275191475733e-08,
+          "q": 8.135091730491912e-05,
+          "response_norm": 0.009230081199996751
+        },
+        {
+          "actual_centered_harm": 4.290685398991578e-08,
+          "predicted_harm": 4.3113145557797944e-08,
+          "q": 0.00014371048519265983,
+          "response_norm": 0.008073860590302576
+        },
+        {
+          "actual_centered_harm": -3.324021702159896e-08,
+          "predicted_harm": -3.313770713436254e-08,
+          "q": -0.00011045902378120847,
+          "response_norm": 0.006619433199662764
+        },
+        {
+          "actual_centered_harm": 2.165628376279982e-09,
+          "predicted_harm": 2.2958790584693652e-09,
+          "q": 7.652930194897885e-06,
+          "response_norm": 0.006215738883149529
+        },
+        {
+          "actual_centered_harm": 1.4564768432978603e-08,
+          "predicted_harm": 1.5042512578955415e-08,
+          "q": 5.014170859651806e-05,
+          "response_norm": 0.006058008386880321
+        },
+        {
+          "actual_centered_harm": 3.997225758028966e-08,
+          "predicted_harm": 4.0141536119955146e-08,
+          "q": 0.0001338051203998505,
+          "response_norm": 0.00883443333490582
+        },
+        {
+          "actual_centered_harm": -1.7984997491282684e-08,
+          "predicted_harm": -1.7911331488288594e-08,
+          "q": -5.970443829429532e-05,
+          "response_norm": 0.004103834934841059
+        },
+        {
+          "actual_centered_harm": 1.1203256013864182e-08,
+          "predicted_harm": 1.1286196736260232e-08,
+          "q": 3.762065578753411e-05,
+          "response_norm": 0.0062821299914461596
+        },
+        {
+          "actual_centered_harm": -2.145814519474709e-08,
+          "predicted_harm": -2.1686833580428726e-08,
+          "q": -7.228944526809576e-05,
+          "response_norm": 0.0064537457481107395
+        },
+        {
+          "actual_centered_harm": 6.401763716357145e-09,
+          "predicted_harm": 6.461011004132804e-09,
+          "q": 2.1536703347109346e-05,
+          "response_norm": 0.006321239371226172
+        },
+        {
+          "actual_centered_harm": 3.1451071134599995e-08,
+          "predicted_harm": 3.184114522562104e-08,
+          "q": 0.00010613715075207013,
+          "response_norm": 0.006328967144022381
+        },
+        {
+          "actual_centered_harm": -5.240530013238265e-08,
+          "predicted_harm": -5.222589545800803e-08,
+          "q": -0.00017408631819336012,
+          "response_norm": 0.008632807799236279
+        },
+        {
+          "actual_centered_harm": -6.921402945572752e-08,
+          "predicted_harm": -6.949644688104653e-08,
+          "q": -0.0002316548229368218,
+          "response_norm": 0.013590278872535295
+        },
+        {
+          "actual_centered_harm": 3.4638899285358016e-08,
+          "predicted_harm": 3.468616673693796e-08,
+          "q": 0.00011562055578979321,
+          "response_norm": 0.006324669792125734
+        },
+        {
+          "actual_centered_harm": -5.52791466542496e-08,
+          "predicted_harm": -5.5141008827242684e-08,
+          "q": -0.00018380336275747563,
+          "response_norm": 0.009322149432110486
+        },
+        {
+          "actual_centered_harm": -1.2771269443032085e-08,
+          "predicted_harm": -1.3228514631952855e-08,
+          "q": -4.409504877317619e-05,
+          "response_norm": 0.003561501358845306
+        },
+        {
+          "actual_centered_harm": -3.1070655461679086e-08,
+          "predicted_harm": -3.0903316916664194e-08,
+          "q": -0.00010301105638888065,
+          "response_norm": 0.005539418968510645
+        },
+        {
+          "actual_centered_harm": -1.9435098322362343e-08,
+          "predicted_harm": -1.944901818537501e-08,
+          "q": -6.48300606179167e-05,
+          "response_norm": 0.004829144780907825
+        },
+        {
+          "actual_centered_harm": -6.095466128716587e-08,
+          "predicted_harm": -6.126065805931187e-08,
+          "q": -0.00020420219353103956,
+          "response_norm": 0.011489871081641151
+        },
+        {
+          "actual_centered_harm": 2.8987157008053543e-08,
+          "predicted_harm": 2.911024081957605e-08,
+          "q": 9.703413606525351e-05,
+          "response_norm": 0.009520219917067326
+        },
+        {
+          "actual_centered_harm": 2.966876410694097e-08,
+          "predicted_harm": 2.9653631046628386e-08,
+          "q": 9.884543682209463e-05,
+          "response_norm": 0.0053224517043753885
+        },
+        {
+          "actual_centered_harm": -1.2805349702479929e-08,
+          "predicted_harm": -1.2603987930864596e-08,
+          "q": -4.201329310288199e-05,
+          "response_norm": 0.00830734934690069
+        },
+        {
+          "actual_centered_harm": -4.7162239938045025e-08,
+          "predicted_harm": -4.7056034766159504e-08,
+          "q": -0.0001568534492205317,
+          "response_norm": 0.009595412772967393
+        },
+        {
+          "actual_centered_harm": 3.64410625806888e-09,
+          "predicted_harm": 3.941179591675049e-09,
+          "q": 1.3137265305583498e-05,
+          "response_norm": 0.005587910826060703
+        },
+        {
+          "actual_centered_harm": -1.7808193236018566e-08,
+          "predicted_harm": -1.766105618643342e-08,
+          "q": -5.88701872881114e-05,
+          "response_norm": 0.00503816970008378
+        },
+        {
+          "actual_centered_harm": 3.211000794596519e-08,
+          "predicted_harm": 3.250897456981372e-08,
+          "q": 0.00010836324856604575,
+          "response_norm": 0.00800499651098714
+        },
+        {
+          "actual_centered_harm": -2.5244036028215788e-11,
+          "predicted_harm": -2.431064857127282e-10,
+          "q": -8.103549523757607e-07,
+          "response_norm": 0.008076471297525359
+        },
+        {
+          "actual_centered_harm": -1.7131382498355996e-08,
+          "predicted_harm": -1.7197607625592998e-08,
+          "q": -5.732535875197667e-05,
+          "response_norm": 0.005925701895170641
+        },
+        {
+          "actual_centered_harm": 4.713673128382834e-08,
+          "predicted_harm": 4.7009919560553004e-08,
+          "q": 0.00015669973186851002,
+          "response_norm": 0.008946278164952704
+        },
+        {
+          "actual_centered_harm": 1.2194143209076636e-08,
+          "predicted_harm": 1.2171194509884172e-08,
+          "q": 4.057064836628058e-05,
+          "response_norm": 0.002176721079806319
+        },
+        {
+          "actual_centered_harm": -1.9450435637113905e-09,
+          "predicted_harm": -1.8855061578283025e-09,
+          "q": -6.285020526094342e-06,
+          "response_norm": 0.0060808879149335075
+        },
+        {
+          "actual_centered_harm": 7.2631509140386186e-09,
+          "predicted_harm": 6.8919570687187e-09,
+          "q": 2.2973190229062335e-05,
+          "response_norm": 0.0045776997074559265
+        },
+        {
+          "actual_centered_harm": 3.3147259848390065e-08,
+          "predicted_harm": 3.287434115468586e-08,
+          "q": 0.00010958113718228621,
+          "response_norm": 0.006830807315849568
+        },
+        {
+          "actual_centered_harm": -1.4896553176754757e-08,
+          "predicted_harm": -1.493559870803135e-08,
+          "q": -4.9785329026771166e-05,
+          "response_norm": 0.004097147317787233
+        },
+        {
+          "actual_centered_harm": 4.9874023936788414e-08,
+          "predicted_harm": 5.023468874182319e-08,
+          "q": 0.00016744896247274397,
+          "response_norm": 0.008719118365607167
+        },
+        {
+          "actual_centered_harm": -3.214704312123895e-08,
+          "predicted_harm": -3.2093200216778554e-08,
+          "q": -0.00010697733405592852,
+          "response_norm": 0.00658566506762994
+        },
+        {
+          "actual_centered_harm": -5.107505712809157e-08,
+          "predicted_harm": -5.125234571199976e-08,
+          "q": -0.00017084115237333254,
+          "response_norm": 0.010878060936750023
+        },
+        {
+          "actual_centered_harm": -1.4975759073804218e-08,
+          "predicted_harm": -1.512582283988992e-08,
+          "q": -5.041940946629974e-05,
+          "response_norm": 0.00332329877921973
+        },
+        {
+          "actual_centered_harm": -1.648869511414186e-09,
+          "predicted_harm": -2.1075084640049236e-09,
+          "q": -7.025028213349746e-06,
+          "response_norm": 0.0022444220238326848
+        },
+        {
+          "actual_centered_harm": 1.9984900522657112e-08,
+          "predicted_harm": 1.970955044237705e-08,
+          "q": 6.569850147459017e-05,
+          "response_norm": 0.004585275464369412
+        },
+        {
+          "actual_centered_harm": -3.1069943510347864e-08,
+          "predicted_harm": -3.148834334213807e-08,
+          "q": -0.00010496114447379359,
+          "response_norm": 0.005862075688835809
+        }
+      ],
+      "random_q_harm_corr": 0.999975761686813,
+      "random_response_harm_corr": -0.11567858419533895,
+      "regime": "nonzero_residual",
+      "seed": 0
+    },
+    {
+      "beta": 0.011499114684778952,
+      "chi": 0.0002607486444359777,
+      "direction_rows": [
+        {
+          "actual_centered_harm": -4.814922647047859e-08,
+          "observation_abs": 3.469446951953614e-18,
+          "predicted_harm": -4.8161490635396724e-08,
+          "q": -0.0001605383021179891,
+          "response_norm": 0.011499114684778952,
+          "selector": "beta"
+        },
+        {
+          "actual_centered_harm": 7.849244307127357e-08,
+          "observation_abs": 1.3010426069826053e-18,
+          "predicted_harm": 7.822459333079332e-08,
+          "q": 0.00026074864443597777,
+          "response_norm": 0.010286253120541336,
+          "selector": "harm"
+        }
+      ],
+      "erm_geometry": {
+        "actuation_norm": 0.08305372297763824,
+        "grad_omega_norm": 0.00023320991022046655,
+        "mean_gradient_norm": 0.001355742453597486,
+        "omega": 0.0002769483835436404,
+        "residual_rms": 0.016641765832901
+      },
+      "irm_solution_geometry": {
+        "actuation_norm": 0.002767952624708414,
+        "grad_omega_norm": 7.506129350076662e-06,
+        "mean_gradient_norm": 0.00010789625957841054,
+        "omega": 5.8687464843387716e-06,
+        "residual_rms": 0.0024225495290011168
+      },
+      "random_blind": [
+        {
+          "actual_centered_harm": -6.001525622474635e-08,
+          "predicted_harm": -5.96643114184665e-08,
+          "q": -0.00019888103806155503,
+          "response_norm": 0.00913264530189878
+        },
+        {
+          "actual_centered_harm": 1.2957868283577922e-08,
+          "predicted_harm": 1.2616256490082913e-08,
+          "q": 4.205418830027638e-05,
+          "response_norm": 0.006303613488465065
+        },
+        {
+          "actual_centered_harm": 2.2902766825400045e-08,
+          "predicted_harm": 2.280868365786736e-08,
+          "q": 7.602894552622453e-05,
+          "response_norm": 0.005487053115778555
+        },
+        {
+          "actual_centered_harm": -2.0181158601889626e-08,
+          "predicted_harm": -1.9963724405147982e-08,
+          "q": -6.654574801715995e-05,
+          "response_norm": 0.006931282716848738
+        },
+        {
+          "actual_centered_harm": 5.669215976007724e-08,
+          "predicted_harm": 5.6443060237555225e-08,
+          "q": 0.0001881435341251841,
+          "response_norm": 0.009678051847016174
+        },
+        {
+          "actual_centered_harm": -2.0227584357490613e-08,
+          "predicted_harm": -2.011277976574797e-08,
+          "q": -6.704259921915991e-05,
+          "response_norm": 0.00650246828226757
+        },
+        {
+          "actual_centered_harm": 1.7057513032256444e-08,
+          "predicted_harm": 1.687609222989421e-08,
+          "q": 5.625364076631404e-05,
+          "response_norm": 0.005125632956861251
+        },
+        {
+          "actual_centered_harm": -1.4394559622391001e-08,
+          "predicted_harm": -1.4396467066240427e-08,
+          "q": -4.798822355413476e-05,
+          "response_norm": 0.007099737423570566
+        },
+        {
+          "actual_centered_harm": 1.850492201312115e-08,
+          "predicted_harm": 1.800746507409692e-08,
+          "q": 6.002488358032307e-05,
+          "response_norm": 0.005903566575477617
+        },
+        {
+          "actual_centered_harm": 2.312801800768982e-08,
+          "predicted_harm": 2.3392975693840605e-08,
+          "q": 7.797658564613536e-05,
+          "response_norm": 0.0038464063456345597
+        },
+        {
+          "actual_centered_harm": 3.690602656467035e-08,
+          "predicted_harm": 3.721237012526116e-08,
+          "q": 0.00012404123375087055,
+          "response_norm": 0.005648119057089899
+        },
+        {
+          "actual_centered_harm": -3.769947563500575e-08,
+          "predicted_harm": -3.750085460317904e-08,
+          "q": -0.00012500284867726348,
+          "response_norm": 0.009461432125932008
+        },
+        {
+          "actual_centered_harm": -1.4807562681226627e-08,
+          "predicted_harm": -1.4315182268986615e-08,
+          "q": -4.7717274229955385e-05,
+          "response_norm": 0.005714920385994356
+        },
+        {
+          "actual_centered_harm": -1.1691854991113804e-08,
+          "predicted_harm": -1.1402751072519437e-08,
+          "q": -3.800917024173146e-05,
+          "response_norm": 0.004202657302689856
+        },
+        {
+          "actual_centered_harm": 5.182630315875292e-08,
+          "predicted_harm": 5.190664321420854e-08,
+          "q": 0.00017302214404736182,
+          "response_norm": 0.006795402661409646
+        },
+        {
+          "actual_centered_harm": -1.1783339451745811e-08,
+          "predicted_harm": -1.1342919563664952e-08,
+          "q": -3.780973187888318e-05,
+          "response_norm": 0.00627708615524324
+        },
+        {
+          "actual_centered_harm": 2.124645411341608e-08,
+          "predicted_harm": 2.08339015030923e-08,
+          "q": 6.9446338343641e-05,
+          "response_norm": 0.0052965184300483225
+        },
+        {
+          "actual_centered_harm": -5.337589055812164e-08,
+          "predicted_harm": -5.3388970732399505e-08,
+          "q": -0.00017796323577466504,
+          "response_norm": 0.009881042584344272
+        },
+        {
+          "actual_centered_harm": 3.518185414698449e-08,
+          "predicted_harm": 3.5056040628243066e-08,
+          "q": 0.00011685346876081024,
+          "response_norm": 0.008870045245770938
+        },
+        {
+          "actual_centered_harm": 3.906855181382007e-09,
+          "predicted_harm": 3.6616895336175207e-09,
+          "q": 1.220563177872507e-05,
+          "response_norm": 0.004226107329154973
+        },
+        {
+          "actual_centered_harm": 1.872311806636051e-08,
+          "predicted_harm": 1.8830194408196082e-08,
+          "q": 6.276731469398695e-05,
+          "response_norm": 0.00934568843516464
+        },
+        {
+          "actual_centered_harm": -9.512302039799136e-09,
+          "predicted_harm": -9.662956487910181e-09,
+          "q": -3.220985495970061e-05,
+          "response_norm": 0.0038408892982327706
+        },
+        {
+          "actual_centered_harm": 7.2493105060522645e-09,
+          "predicted_harm": 7.234256273136334e-09,
+          "q": 2.4114187577121116e-05,
+          "response_norm": 0.006404085683937027
+        },
+        {
+          "actual_centered_harm": -3.933053320699653e-08,
+          "predicted_harm": -3.9082287059655426e-08,
+          "q": -0.00013027429019885143,
+          "response_norm": 0.007205514843037607
+        },
+        {
+          "actual_centered_harm": 3.929230174039289e-08,
+          "predicted_harm": 3.937285063084669e-08,
+          "q": 0.00013124283543615564,
+          "response_norm": 0.005068857962110441
+        },
+        {
+          "actual_centered_harm": -2.1912243632418726e-08,
+          "predicted_harm": -2.1602319934781563e-08,
+          "q": -7.200773311593855e-05,
+          "response_norm": 0.006518845357588797
+        },
+        {
+          "actual_centered_harm": -5.423325573350457e-09,
+          "predicted_harm": -5.4747096612599286e-09,
+          "q": -1.8249032204199764e-05,
+          "response_norm": 0.002123616798288659
+        },
+        {
+          "actual_centered_harm": -1.5126214867461352e-08,
+          "predicted_harm": -1.4895943160344142e-08,
+          "q": -4.9653143867813815e-05,
+          "response_norm": 0.006685613956702125
+        },
+        {
+          "actual_centered_harm": -3.532257949676043e-08,
+          "predicted_harm": -3.497807360935334e-08,
+          "q": -0.00011659357869784449,
+          "response_norm": 0.005353790842026175
+        },
+        {
+          "actual_centered_harm": 2.825552374019491e-08,
+          "predicted_harm": 2.8266253485019335e-08,
+          "q": 9.422084495006445e-05,
+          "response_norm": 0.005548467573330056
+        },
+        {
+          "actual_centered_harm": 5.3026250128665464e-08,
+          "predicted_harm": 5.307357367602026e-08,
+          "q": 0.00017691191225340089,
+          "response_norm": 0.011142520443293624
+        },
+        {
+          "actual_centered_harm": -5.2667637071013296e-08,
+          "predicted_harm": -5.2185664046813844e-08,
+          "q": -0.0001739522134893795,
+          "response_norm": 0.00816614320091839
+        },
+        {
+          "actual_centered_harm": 1.1318012301669844e-08,
+          "predicted_harm": 1.1137555660155205e-08,
+          "q": 3.712518553385069e-05,
+          "response_norm": 0.006081596896057488
+        },
+        {
+          "actual_centered_harm": 2.4065055342567532e-08,
+          "predicted_harm": 2.393575749609635e-08,
+          "q": 7.978585832032117e-05,
+          "response_norm": 0.005486527250702931
+        },
+        {
+          "actual_centered_harm": -3.322567044411473e-09,
+          "predicted_harm": -3.7039786311968796e-09,
+          "q": -1.2346595437322934e-05,
+          "response_norm": 0.0023497108218996548
+        },
+        {
+          "actual_centered_harm": -3.358774039972923e-08,
+          "predicted_harm": -3.3603749866514775e-08,
+          "q": -0.00011201249955504926,
+          "response_norm": 0.005382327919538096
+        },
+        {
+          "actual_centered_harm": -1.0864798349191629e-09,
+          "predicted_harm": -7.999622267415396e-10,
+          "q": -2.6665407558051323e-06,
+          "response_norm": 0.0035612699664387577
+        },
+        {
+          "actual_centered_harm": 1.17040370312127e-08,
+          "predicted_harm": 1.1651806634356332e-08,
+          "q": 3.8839355447854444e-05,
+          "response_norm": 0.003681737974785323
+        },
+        {
+          "actual_centered_harm": 5.289363516625123e-09,
+          "predicted_harm": 5.1250965889530176e-09,
+          "q": 1.708365529651006e-05,
+          "response_norm": 0.0072136152422310395
+        },
+        {
+          "actual_centered_harm": 3.620241659230139e-08,
+          "predicted_harm": 3.603230275449352e-08,
+          "q": 0.00012010767584831173,
+          "response_norm": 0.009226009155256404
+        },
+        {
+          "actual_centered_harm": 2.2308036463219993e-08,
+          "predicted_harm": 2.227858710839813e-08,
+          "q": 7.426195702799377e-05,
+          "response_norm": 0.004779940335903459
+        },
+        {
+          "actual_centered_harm": 1.2099928028280749e-08,
+          "predicted_harm": 1.2095308644897325e-08,
+          "q": 4.031769548299108e-05,
+          "response_norm": 0.004827740198968245
+        },
+        {
+          "actual_centered_harm": 1.2887497792893332e-08,
+          "predicted_harm": 1.3005596828899238e-08,
+          "q": 4.3351989429664135e-05,
+          "response_norm": 0.010612896753654852
+        },
+        {
+          "actual_centered_harm": -8.171941040524544e-09,
+          "predicted_harm": -8.48264295493753e-09,
+          "q": -2.8275476516458436e-05,
+          "response_norm": 0.0070292997356027846
+        },
+        {
+          "actual_centered_harm": 1.4739864596241548e-08,
+          "predicted_harm": 1.510119086157078e-08,
+          "q": 5.033730287190261e-05,
+          "response_norm": 0.006398665619544598
+        },
+        {
+          "actual_centered_harm": -4.3316890145986275e-08,
+          "predicted_harm": -4.3130884852701563e-08,
+          "q": -0.0001437696161756719,
+          "response_norm": 0.006545105539719336
+        },
+        {
+          "actual_centered_harm": 2.3442725901115513e-08,
+          "predicted_harm": 2.322793876943024e-08,
+          "q": 7.742646256476747e-05,
+          "response_norm": 0.006322495897409447
+        },
+        {
+          "actual_centered_harm": -4.258374601551207e-08,
+          "predicted_harm": -4.2597475344598914e-08,
+          "q": -0.0001419915844819964,
+          "response_norm": 0.008619745186245286
+        },
+        {
+          "actual_centered_harm": 5.6340230362994514e-08,
+          "predicted_harm": 5.640190317354038e-08,
+          "q": 0.00018800634391180127,
+          "response_norm": 0.007236116315915638
+        },
+        {
+          "actual_centered_harm": 3.0764829246632264e-08,
+          "predicted_harm": 3.078671237079739e-08,
+          "q": 0.00010262237456932465,
+          "response_norm": 0.0052619658486976
+        },
+        {
+          "actual_centered_harm": 2.1163505054336285e-08,
+          "predicted_harm": 2.1125743853398427e-08,
+          "q": 7.041914617799476e-05,
+          "response_norm": 0.006629049632800414
+        },
+        {
+          "actual_centered_harm": -7.407331118272631e-09,
+          "predicted_harm": -6.918977886180697e-09,
+          "q": -2.3063259620602326e-05,
+          "response_norm": 0.004515113733395844
+        },
+        {
+          "actual_centered_harm": -1.53439384739662e-08,
+          "predicted_harm": -1.5742311275505294e-08,
+          "q": -5.2474370918350985e-05,
+          "response_norm": 0.004087441782168513
+        },
+        {
+          "actual_centered_harm": 3.388869280335216e-08,
+          "predicted_harm": 3.358300195332261e-08,
+          "q": 0.00011194333984440873,
+          "response_norm": 0.006411385217151468
+        },
+        {
+          "actual_centered_harm": 4.324561650795311e-08,
+          "predicted_harm": 4.330546186889135e-08,
+          "q": 0.00014435153956297118,
+          "response_norm": 0.01025962582369537
+        },
+        {
+          "actual_centered_harm": 4.2464218460991354e-09,
+          "predicted_harm": 4.052976259794492e-09,
+          "q": 1.350992086598164e-05,
+          "response_norm": 0.007410792093223575
+        },
+        {
+          "actual_centered_harm": 3.9972121628276125e-08,
+          "predicted_harm": 3.988316430933105e-08,
+          "q": 0.00013294388103110352,
+          "response_norm": 0.006494996997984374
+        },
+        {
+          "actual_centered_harm": 4.7567976415446855e-08,
+          "predicted_harm": 4.741703791912896e-08,
+          "q": 0.0001580567930637632,
+          "response_norm": 0.006895391873830401
+        },
+        {
+          "actual_centered_harm": -2.3438755431329228e-08,
+          "predicted_harm": -2.3341462141337144e-08,
+          "q": -7.780487380445715e-05,
+          "response_norm": 0.0036221073361430616
+        },
+        {
+          "actual_centered_harm": 1.389055270979711e-08,
+          "predicted_harm": 1.3368372476310549e-08,
+          "q": 4.456124158770183e-05,
+          "response_norm": 0.007321702674178524
+        },
+        {
+          "actual_centered_harm": -5.06386512513779e-08,
+          "predicted_harm": -5.0571393786498275e-08,
+          "q": -0.00016857131262166094,
+          "response_norm": 0.00912138832757343
+        },
+        {
+          "actual_centered_harm": 3.113199532715771e-08,
+          "predicted_harm": 3.113121319229326e-08,
+          "q": 0.00010377071064097756,
+          "response_norm": 0.007013771492943999
+        },
+        {
+          "actual_centered_harm": -9.774860053324286e-09,
+          "predicted_harm": -9.479081539533563e-09,
+          "q": -3.159693846511188e-05,
+          "response_norm": 0.0021590991354080275
+        },
+        {
+          "actual_centered_harm": -1.913511987056138e-08,
+          "predicted_harm": -1.885523514438276e-08,
+          "q": -6.28507838146092e-05,
+          "response_norm": 0.0049598725107442496
+        },
+        {
+          "actual_centered_harm": 7.567624266818784e-09,
+          "predicted_harm": 7.64995367036684e-09,
+          "q": 2.5499845567889464e-05,
+          "response_norm": 0.005692619332196839
+        },
+        {
+          "actual_centered_harm": -1.5764517025118607e-08,
+          "predicted_harm": -1.5374633006927028e-08,
+          "q": -5.124877668975677e-05,
+          "response_norm": 0.003994077885365215
+        },
+        {
+          "actual_centered_harm": 4.9914203846535e-08,
+          "predicted_harm": 4.985104079205236e-08,
+          "q": 0.0001661701359735079,
+          "response_norm": 0.0070354156744527685
+        },
+        {
+          "actual_centered_harm": -4.1294606550196233e-08,
+          "predicted_harm": -4.09319880225147e-08,
+          "q": -0.000136439960075049,
+          "response_norm": 0.007894208966902981
+        },
+        {
+          "actual_centered_harm": -4.412069921563844e-08,
+          "predicted_harm": -4.3799909901112834e-08,
+          "q": -0.00014599969967037612,
+          "response_norm": 0.008137572495951347
+        },
+        {
+          "actual_centered_harm": -3.921018122514386e-08,
+          "predicted_harm": -3.915693477426616e-08,
+          "q": -0.00013052311591422056,
+          "response_norm": 0.00718292061693728
+        },
+        {
+          "actual_centered_harm": 2.7358701828322785e-08,
+          "predicted_harm": 2.7558914552533023e-08,
+          "q": 9.186304850844342e-05,
+          "response_norm": 0.009115522871574938
+        },
+        {
+          "actual_centered_harm": -4.196773811457333e-08,
+          "predicted_harm": -4.166586473478246e-08,
+          "q": -0.0001388862157826082,
+          "response_norm": 0.007561688375864465
+        },
+        {
+          "actual_centered_harm": -2.217267305870685e-08,
+          "predicted_harm": -2.1667669999299196e-08,
+          "q": -7.222556666433066e-05,
+          "response_norm": 0.004132142576784058
+        },
+        {
+          "actual_centered_harm": -4.880852329768037e-08,
+          "predicted_harm": -4.832033183951968e-08,
+          "q": -0.00016106777279839896,
+          "response_norm": 0.007515426248309959
+        },
+        {
+          "actual_centered_harm": 4.4395433716412636e-08,
+          "predicted_harm": 4.437235847980127e-08,
+          "q": 0.00014790786159933758,
+          "response_norm": 0.0073636899226213895
+        },
+        {
+          "actual_centered_harm": 1.0608457638380808e-08,
+          "predicted_harm": 1.0545257703285382e-08,
+          "q": 3.515085901095127e-05,
+          "response_norm": 0.004328621684436302
+        },
+        {
+          "actual_centered_harm": -2.3794569802351728e-08,
+          "predicted_harm": -2.384098660209066e-08,
+          "q": -7.946995534030221e-05,
+          "response_norm": 0.008259653058250183
+        },
+        {
+          "actual_centered_harm": 7.1197163685476905e-09,
+          "predicted_harm": 7.0242332319936955e-09,
+          "q": 2.341411077331232e-05,
+          "response_norm": 0.006670200870269894
+        },
+        {
+          "actual_centered_harm": 2.06361261932686e-08,
+          "predicted_harm": 2.0509745325962397e-08,
+          "q": 6.836581775320799e-05,
+          "response_norm": 0.007893822535976407
+        },
+        {
+          "actual_centered_harm": 3.016878497019704e-08,
+          "predicted_harm": 3.009763154317144e-08,
+          "q": 0.00010032543847723813,
+          "response_norm": 0.005287500421270066
+        },
+        {
+          "actual_centered_harm": -3.090087619117554e-08,
+          "predicted_harm": -3.075126320132506e-08,
+          "q": -0.00010250421067108353,
+          "response_norm": 0.0047232360737948596
+        },
+        {
+          "actual_centered_harm": -5.1902757612631856e-08,
+          "predicted_harm": -5.185009413384397e-08,
+          "q": -0.00017283364711281326,
+          "response_norm": 0.007454262198672068
+        },
+        {
+          "actual_centered_harm": 5.7999779645712124e-08,
+          "predicted_harm": 5.764680953464125e-08,
+          "q": 0.00019215603178213752,
+          "response_norm": 0.00797423312686501
+        },
+        {
+          "actual_centered_harm": 4.580016309436996e-08,
+          "predicted_harm": 4.552226737370405e-08,
+          "q": 0.00015174089124568018,
+          "response_norm": 0.006168830789146879
+        },
+        {
+          "actual_centered_harm": 5.480558203443953e-09,
+          "predicted_harm": 5.529213891961349e-09,
+          "q": 1.84307129732045e-05,
+          "response_norm": 0.0055601827579421495
+        },
+        {
+          "actual_centered_harm": -5.5739225381101765e-08,
+          "predicted_harm": -5.5685514787293074e-08,
+          "q": -0.00018561838262431027,
+          "response_norm": 0.00699646215068408
+        },
+        {
+          "actual_centered_harm": -7.25785864047479e-09,
+          "predicted_harm": -7.133695257244811e-09,
+          "q": -2.377898419081604e-05,
+          "response_norm": 0.003982861247757269
+        },
+        {
+          "actual_centered_harm": 1.4582950923214266e-09,
+          "predicted_harm": 1.8482265609405938e-09,
+          "q": 6.160755203135313e-06,
+          "response_norm": 0.00907556416579143
+        },
+        {
+          "actual_centered_harm": 2.5300308190492893e-08,
+          "predicted_harm": 2.5010749699106386e-08,
+          "q": 8.336916566368796e-05,
+          "response_norm": 0.008068444978431455
+        },
+        {
+          "actual_centered_harm": 3.515724452708702e-08,
+          "predicted_harm": 3.4727407135975434e-08,
+          "q": 0.0001157580237865848,
+          "response_norm": 0.006277222979233002
+        },
+        {
+          "actual_centered_harm": 1.757479801273165e-08,
+          "predicted_harm": 1.7323126380471344e-08,
+          "q": 5.774375460157115e-05,
+          "response_norm": 0.0045312100833918255
+        },
+        {
+          "actual_centered_harm": 4.3771277921655916e-09,
+          "predicted_harm": 4.377647233273765e-09,
+          "q": 1.4592157444245884e-05,
+          "response_norm": 0.005661075557102476
+        },
+        {
+          "actual_centered_harm": -1.9180839389010274e-08,
+          "predicted_harm": -1.8949148374432506e-08,
+          "q": -6.316382791477503e-05,
+          "response_norm": 0.006182554030983444
+        },
+        {
+          "actual_centered_harm": 5.1140282958037075e-08,
+          "predicted_harm": 5.113932911652084e-08,
+          "q": 0.0001704644303884028,
+          "response_norm": 0.009267932274113499
+        },
+        {
+          "actual_centered_harm": 3.052153079233233e-08,
+          "predicted_harm": 3.0500493893074955e-08,
+          "q": 0.00010166831297691654,
+          "response_norm": 0.003953649388362128
+        },
+        {
+          "actual_centered_harm": -4.497573447698189e-08,
+          "predicted_harm": -4.493737672780626e-08,
+          "q": -0.0001497912557593542,
+          "response_norm": 0.009690318068775843
+        },
+        {
+          "actual_centered_harm": -8.890792133758874e-09,
+          "predicted_harm": -8.85345158504433e-09,
+          "q": -2.95115052834811e-05,
+          "response_norm": 0.0061281104686010165
+        },
+        {
+          "actual_centered_harm": 4.45001418769575e-08,
+          "predicted_harm": 4.4508250870905245e-08,
+          "q": 0.00014836083623635083,
+          "response_norm": 0.00916171319928213
+        },
+        {
+          "actual_centered_harm": -5.620090383698373e-08,
+          "predicted_harm": -5.5969000180022834e-08,
+          "q": -0.00018656333393340946,
+          "response_norm": 0.0075809082603801575
+        },
+        {
+          "actual_centered_harm": 2.0606075512574762e-08,
+          "predicted_harm": 2.0341989678264168e-08,
+          "q": 6.780663226088057e-05,
+          "response_norm": 0.005583015730522435
+        },
+        {
+          "actual_centered_harm": -1.538532404601889e-08,
+          "predicted_harm": -1.520356316856115e-08,
+          "q": -5.067854389520384e-05,
+          "response_norm": 0.008429230048127621
+        },
+        {
+          "actual_centered_harm": 3.705017742085259e-08,
+          "predicted_harm": 3.690322584894994e-08,
+          "q": 0.00012301075282983314,
+          "response_norm": 0.006102188928837095
+        },
+        {
+          "actual_centered_harm": -3.777295464954533e-08,
+          "predicted_harm": -3.7429547007692756e-08,
+          "q": -0.0001247651566923092,
+          "response_norm": 0.005938152159892723
+        },
+        {
+          "actual_centered_harm": 2.9724722142021598e-08,
+          "predicted_harm": 2.9329440152804223e-08,
+          "q": 9.776480050934742e-05,
+          "response_norm": 0.005000102961097402
+        },
+        {
+          "actual_centered_harm": 1.3074559513173711e-08,
+          "predicted_harm": 1.2791400697810258e-08,
+          "q": 4.2638002326034196e-05,
+          "response_norm": 0.006323333389816536
+        },
+        {
+          "actual_centered_harm": -5.083081044618409e-09,
+          "predicted_harm": -5.263527535485337e-09,
+          "q": -1.7545091784951125e-05,
+          "response_norm": 0.006537341975183883
+        },
+        {
+          "actual_centered_harm": 2.2007470405066565e-08,
+          "predicted_harm": 2.205318639695627e-08,
+          "q": 7.351062132318757e-05,
+          "response_norm": 0.009747450765257753
+        },
+        {
+          "actual_centered_harm": 1.662265347590619e-08,
+          "predicted_harm": 1.6671676706962435e-08,
+          "q": 5.5572255689874786e-05,
+          "response_norm": 0.00485568059807145
+        },
+        {
+          "actual_centered_harm": 3.998764088776474e-08,
+          "predicted_harm": 3.9786011298427564e-08,
+          "q": 0.00013262003766142524,
+          "response_norm": 0.007800730559590588
+        },
+        {
+          "actual_centered_harm": 1.8169800379552736e-08,
+          "predicted_harm": 1.8122060965015188e-08,
+          "q": 6.040686988338397e-05,
+          "response_norm": 0.0062873276825884845
+        },
+        {
+          "actual_centered_harm": -5.029671622941434e-08,
+          "predicted_harm": -4.992897051179068e-08,
+          "q": -0.00016642990170596895,
+          "response_norm": 0.007462154680715472
+        },
+        {
+          "actual_centered_harm": 1.0012909366224898e-08,
+          "predicted_harm": 9.691002840711115e-09,
+          "q": 3.2303342802370385e-05,
+          "response_norm": 0.003105988864715841
+        },
+        {
+          "actual_centered_harm": -5.553062930839514e-08,
+          "predicted_harm": -5.555479295985689e-08,
+          "q": -0.00018518264319952298,
+          "response_norm": 0.007843201473549619
+        },
+        {
+          "actual_centered_harm": 2.2841587739297342e-08,
+          "predicted_harm": 2.266853530269751e-08,
+          "q": 7.556178434232505e-05,
+          "response_norm": 0.006142870533335731
+        },
+        {
+          "actual_centered_harm": 1.600539702509285e-08,
+          "predicted_harm": 1.588685010141845e-08,
+          "q": 5.2956167004728175e-05,
+          "response_norm": 0.005692359070871818
+        },
+        {
+          "actual_centered_harm": -6.818988879282728e-08,
+          "predicted_harm": -6.77270293192001e-08,
+          "q": -0.00022575676439733368,
+          "response_norm": 0.009350940234695779
+        },
+        {
+          "actual_centered_harm": 1.3449116074287781e-08,
+          "predicted_harm": 1.3887810139932446e-08,
+          "q": 4.629270046644149e-05,
+          "response_norm": 0.007142258906253168
+        },
+        {
+          "actual_centered_harm": 4.572435947924891e-08,
+          "predicted_harm": 4.5602178249460855e-08,
+          "q": 0.0001520072608315362,
+          "response_norm": 0.007524254235095211
+        },
+        {
+          "actual_centered_harm": -1.9145435861678273e-09,
+          "predicted_harm": -1.5298203253352452e-09,
+          "q": -5.099401084450818e-06,
+          "response_norm": 0.00637962637624124
+        },
+        {
+          "actual_centered_harm": -4.7653813735337724e-08,
+          "predicted_harm": -4.7856334620733e-08,
+          "q": -0.00015952111540244333,
+          "response_norm": 0.009374876784674361
+        },
+        {
+          "actual_centered_harm": -1.2530903086005463e-09,
+          "predicted_harm": -1.464798115277263e-09,
+          "q": -4.882660384257544e-06,
+          "response_norm": 0.006125208040379589
+        },
+        {
+          "actual_centered_harm": 1.4598025691037186e-08,
+          "predicted_harm": 1.4759792052216652e-08,
+          "q": 4.919930684072218e-05,
+          "response_norm": 0.002412695581374818
+        },
+        {
+          "actual_centered_harm": -6.298298792228874e-08,
+          "predicted_harm": -6.271665147524479e-08,
+          "q": -0.00020905550491748262,
+          "response_norm": 0.009708133083418575
+        },
+        {
+          "actual_centered_harm": -1.3135107604020368e-08,
+          "predicted_harm": -1.3171459758647102e-08,
+          "q": -4.390486586215701e-05,
+          "response_norm": 0.005507443069222838
+        },
+        {
+          "actual_centered_harm": -6.221601289192746e-08,
+          "predicted_harm": -6.212037235529755e-08,
+          "q": -0.00020706790785099188,
+          "response_norm": 0.007765005420192234
+        },
+        {
+          "actual_centered_harm": -1.8706496941744977e-09,
+          "predicted_harm": -2.2847806028095734e-09,
+          "q": -7.6159353426985784e-06,
+          "response_norm": 0.004371106303768201
+        },
+        {
+          "actual_centered_harm": -3.090191638688289e-08,
+          "predicted_harm": -3.086914791730445e-08,
+          "q": -0.00010289715972434817,
+          "response_norm": 0.009995326383403036
+        },
+        {
+          "actual_centered_harm": -2.9598406888625695e-08,
+          "predicted_harm": -2.9767412234135577e-08,
+          "q": -9.92247074471186e-05,
+          "response_norm": 0.004283810897903123
+        }
+      ],
+      "random_q_harm_corr": 0.9999775498167226,
+      "random_response_harm_corr": -0.09572671814953017,
+      "regime": "nonzero_residual",
+      "seed": 1
+    },
+    {
+      "beta": 0.024508730223720483,
+      "chi": 0.00010730435113701627,
+      "direction_rows": [
+        {
+          "actual_centered_harm": -3.8568160991292455e-09,
+          "observation_abs": 5.624298769768554e-19,
+          "predicted_harm": -3.752995956911845e-09,
+          "q": -1.2509986523039486e-05,
+          "response_norm": 0.024508730223720486,
+          "selector": "beta"
+        },
+        {
+          "actual_centered_harm": 3.231480657367447e-08,
+          "observation_abs": 7.589415207398531e-18,
+          "predicted_harm": 3.2191305341104894e-08,
+          "q": 0.00010730435113701632,
+          "response_norm": 0.004987385673167764,
+          "selector": "harm"
+        }
+      ],
+      "erm_geometry": {
+        "actuation_norm": 0.06397493183612823,
+        "grad_omega_norm": 0.00015554814308416098,
+        "mean_gradient_norm": 0.0011657205177471042,
+        "omega": 0.00020155335369054228,
+        "residual_rms": 0.014196949079632759
+      },
+      "irm_solution_geometry": {
+        "actuation_norm": 0.010098635219037533,
+        "grad_omega_norm": 2.565298927947879e-05,
+        "mean_gradient_norm": 0.0002633807307574898,
+        "omega": 4.368781083030626e-05,
+        "residual_rms": 0.006609675474464893
+      },
+      "random_blind": [
+        {
+          "actual_centered_harm": -1.82427531969509e-08,
+          "predicted_harm": -1.818528417491812e-08,
+          "q": -6.0617613916393734e-05,
+          "response_norm": 0.008537278289493893
+        },
+        {
+          "actual_centered_harm": -1.5235464785601227e-08,
+          "predicted_harm": -1.52920001881173e-08,
+          "q": -5.097333396039101e-05,
+          "response_norm": 0.01694745822798214
+        },
+        {
+          "actual_centered_harm": -3.03982920953072e-08,
+          "predicted_harm": -3.0321070311150333e-08,
+          "q": -0.00010107023437050112,
+          "response_norm": 0.008404077888207028
+        },
+        {
+          "actual_centered_harm": -2.9468729539905425e-09,
+          "predicted_harm": -2.998749343414926e-09,
+          "q": -9.995831144716421e-06,
+          "response_norm": 0.014372937993989799
+        },
+        {
+          "actual_centered_harm": -6.392802563356947e-09,
+          "predicted_harm": -6.552475093224643e-09,
+          "q": -2.1841583644082143e-05,
+          "response_norm": 0.013009797061731257
+        },
+        {
+          "actual_centered_harm": 9.821077590066452e-09,
+          "predicted_harm": 9.750810737287125e-09,
+          "q": 3.2502702457623755e-05,
+          "response_norm": 0.014365636377340781
+        },
+        {
+          "actual_centered_harm": -1.798780836434477e-08,
+          "predicted_harm": -1.7921522350765737e-08,
+          "q": -5.9738407835885793e-05,
+          "response_norm": 0.008823528321485911
+        },
+        {
+          "actual_centered_harm": -1.2976843944897953e-08,
+          "predicted_harm": -1.3050994314241809e-08,
+          "q": -4.3503314380806036e-05,
+          "response_norm": 0.00638381287258691
+        },
+        {
+          "actual_centered_harm": 4.5619030671073535e-09,
+          "predicted_harm": 4.495938540944278e-09,
+          "q": 1.4986461803147594e-05,
+          "response_norm": 0.00479186575413307
+        },
+        {
+          "actual_centered_harm": -5.79222341617891e-09,
+          "predicted_harm": -5.7580422224703245e-09,
+          "q": -1.9193474074901085e-05,
+          "response_norm": 0.018517338013320887
+        },
+        {
+          "actual_centered_harm": 1.1654897005830556e-08,
+          "predicted_harm": 1.1715684960751285e-08,
+          "q": 3.9052283202504286e-05,
+          "response_norm": 0.005545327391535313
+        },
+        {
+          "actual_centered_harm": 2.1190597184958526e-08,
+          "predicted_harm": 2.096381651651341e-08,
+          "q": 6.987938838837804e-05,
+          "response_norm": 0.010649010305314257
+        },
+        {
+          "actual_centered_harm": 1.5616688083322505e-08,
+          "predicted_harm": 1.5370510234289057e-08,
+          "q": 5.1235034114296864e-05,
+          "response_norm": 0.011618190003545942
+        },
+        {
+          "actual_centered_harm": -1.081816660558621e-09,
+          "predicted_harm": -1.058705070489846e-09,
+          "q": -3.52901690163282e-06,
+          "response_norm": 0.013813168759629216
+        },
+        {
+          "actual_centered_harm": 1.7015029701167306e-08,
+          "predicted_harm": 1.7170682283958984e-08,
+          "q": 5.723560761319662e-05,
+          "response_norm": 0.007568386144077343
+        },
+        {
+          "actual_centered_harm": 2.207145290665513e-08,
+          "predicted_harm": 2.2185338566167355e-08,
+          "q": 7.395112855389119e-05,
+          "response_norm": 0.007907901702000402
+        },
+        {
+          "actual_centered_harm": -1.8989040589945105e-08,
+          "predicted_harm": -1.8798443348478562e-08,
+          "q": -6.266147782826188e-05,
+          "response_norm": 0.013168884913889477
+        },
+        {
+          "actual_centered_harm": 5.087453975455292e-09,
+          "predicted_harm": 5.196861011185399e-09,
+          "q": 1.7322870037284663e-05,
+          "response_norm": 0.01270892999591698
+        },
+        {
+          "actual_centered_harm": 2.1303388775262277e-09,
+          "predicted_harm": 1.884995686592567e-09,
+          "q": 6.283318955308556e-06,
+          "response_norm": 0.008251942544757314
+        },
+        {
+          "actual_centered_harm": -1.789938540441849e-08,
+          "predicted_harm": -1.7856227550827925e-08,
+          "q": -5.952075850275976e-05,
+          "response_norm": 0.003878348174575047
+        },
+        {
+          "actual_centered_harm": -7.467904090258104e-09,
+          "predicted_harm": -7.247423633129746e-09,
+          "q": -2.4158078777099157e-05,
+          "response_norm": 0.005887535464168755
+        },
+        {
+          "actual_centered_harm": 1.6620812413881136e-08,
+          "predicted_harm": 1.6411298883363358e-08,
+          "q": 5.47043296112112e-05,
+          "response_norm": 0.0038500036252101404
+        },
+        {
+          "actual_centered_harm": 5.0674570217096315e-09,
+          "predicted_harm": 4.9950086963405055e-09,
+          "q": 1.6650028987801686e-05,
+          "response_norm": 0.010763016570512714
+        },
+        {
+          "actual_centered_harm": -1.2032573409870295e-09,
+          "predicted_harm": -1.168867357631707e-09,
+          "q": -3.896224525439024e-06,
+          "response_norm": 0.011807546951211138
+        },
+        {
+          "actual_centered_harm": -2.6088198077506286e-08,
+          "predicted_harm": -2.5887889686221073e-08,
+          "q": -8.629296562073691e-05,
+          "response_norm": 0.006900828204913336
+        },
+        {
+          "actual_centered_harm": -9.113081180303628e-09,
+          "predicted_harm": -9.041169815864165e-09,
+          "q": -3.013723271954722e-05,
+          "response_norm": 0.019058724069285493
+        },
+        {
+          "actual_centered_harm": -1.1465510933034162e-08,
+          "predicted_harm": -1.1222354946984926e-08,
+          "q": -3.740784982328309e-05,
+          "response_norm": 0.009022980575599414
+        },
+        {
+          "actual_centered_harm": 3.3027555672998643e-09,
+          "predicted_harm": 3.597239133258698e-09,
+          "q": 1.1990797110862327e-05,
+          "response_norm": 0.010879422989702526
+        },
+        {
+          "actual_centered_harm": -1.3595993580972632e-08,
+          "predicted_harm": -1.3791878681000142e-08,
+          "q": -4.5972928936667144e-05,
+          "response_norm": 0.00721120302207336
+        },
+        {
+          "actual_centered_harm": -2.243283856590006e-08,
+          "predicted_harm": -2.2448228369563383e-08,
+          "q": -7.482742789854462e-05,
+          "response_norm": 0.006490188763256308
+        },
+        {
+          "actual_centered_harm": 2.044348475921387e-08,
+          "predicted_harm": 2.0577983676856523e-08,
+          "q": 6.859327892285508e-05,
+          "response_norm": 0.0065686939157434355
+        },
+        {
+          "actual_centered_harm": 2.036474886293882e-08,
+          "predicted_harm": 2.0430524009571194e-08,
+          "q": 6.810174669857065e-05,
+          "response_norm": 0.009268548236624548
+        },
+        {
+          "actual_centered_harm": -1.4467980192361951e-08,
+          "predicted_harm": -1.4543469008266413e-08,
+          "q": -4.8478230027554715e-05,
+          "response_norm": 0.014484789977600384
+        },
+        {
+          "actual_centered_harm": 3.839497874150166e-09,
+          "predicted_harm": 4.0900193367789755e-09,
+          "q": 1.3633397789263253e-05,
+          "response_norm": 0.00760599210232992
+        },
+        {
+          "actual_centered_harm": -4.932955377512371e-09,
+          "predicted_harm": -4.92786998935119e-09,
+          "q": -1.6426233297837302e-05,
+          "response_norm": 0.016483391706275573
+        },
+        {
+          "actual_centered_harm": -1.1114243456122885e-08,
+          "predicted_harm": -1.1042317266119219e-08,
+          "q": -3.68077242203974e-05,
+          "response_norm": 0.013324832369627188
+        },
+        {
+          "actual_centered_harm": -1.675904521235283e-08,
+          "predicted_harm": -1.6831680797169615e-08,
+          "q": -5.610560265723206e-05,
+          "response_norm": 0.011685623390129733
+        },
+        {
+          "actual_centered_harm": -1.7262027834918925e-08,
+          "predicted_harm": -1.7152818883956152e-08,
+          "q": -5.717606294652051e-05,
+          "response_norm": 0.011131353046997545
+        },
+        {
+          "actual_centered_harm": -7.469035379764621e-09,
+          "predicted_harm": -7.533480547849923e-09,
+          "q": -2.511160182616641e-05,
+          "response_norm": 0.00464590561596566
+        },
+        {
+          "actual_centered_harm": 8.960445678843354e-09,
+          "predicted_harm": 8.848128943955748e-09,
+          "q": 2.949376314651916e-05,
+          "response_norm": 0.010582911858770857
+        },
+        {
+          "actual_centered_harm": -2.209038604122915e-08,
+          "predicted_harm": -2.212977333464875e-08,
+          "q": -7.376591111549583e-05,
+          "response_norm": 0.004565795102352396
+        },
+        {
+          "actual_centered_harm": 1.2288211302668994e-08,
+          "predicted_harm": 1.2133568577032312e-08,
+          "q": 4.044522859010771e-05,
+          "response_norm": 0.01156528295602441
+        },
+        {
+          "actual_centered_harm": 1.665218221993947e-09,
+          "predicted_harm": 1.5818447915207002e-09,
+          "q": 5.272815971735668e-06,
+          "response_norm": 0.009874699628090849
+        },
+        {
+          "actual_centered_harm": 1.0854531818510482e-08,
+          "predicted_harm": 1.0698934956688442e-08,
+          "q": 3.566311652229481e-05,
+          "response_norm": 0.007951786426181513
+        },
+        {
+          "actual_centered_harm": 2.4009067824126706e-10,
+          "predicted_harm": 3.173722320224146e-10,
+          "q": 1.0579074400747155e-06,
+          "response_norm": 0.01546651833695612
+        },
+        {
+          "actual_centered_harm": -1.1216722380774646e-08,
+          "predicted_harm": -1.1350302254145289e-08,
+          "q": -3.783434084715096e-05,
+          "response_norm": 0.007226352899652241
+        },
+        {
+          "actual_centered_harm": 5.842248247678317e-09,
+          "predicted_harm": 5.59401134567579e-09,
+          "q": 1.8646704485585967e-05,
+          "response_norm": 0.01137619380732576
+        },
+        {
+          "actual_centered_harm": -1.0845324169977966e-09,
+          "predicted_harm": -1.2375957332391455e-09,
+          "q": -4.125319110797152e-06,
+          "response_norm": 0.011679034097241277
+        },
+        {
+          "actual_centered_harm": -9.622127282449267e-09,
+          "predicted_harm": -9.458554113911025e-09,
+          "q": -3.152851371303675e-05,
+          "response_norm": 0.011260667704976477
+        },
+        {
+          "actual_centered_harm": 8.273820094328865e-09,
+          "predicted_harm": 8.090724450280034e-09,
+          "q": 2.696908150093345e-05,
+          "response_norm": 0.023180993626200148
+        },
+        {
+          "actual_centered_harm": -1.6703687228530884e-08,
+          "predicted_harm": -1.659900415281586e-08,
+          "q": -5.5330013842719547e-05,
+          "response_norm": 0.011207801313797564
+        },
+        {
+          "actual_centered_harm": 6.888544410235675e-09,
+          "predicted_harm": 6.743583107888299e-09,
+          "q": 2.2478610359627664e-05,
+          "response_norm": 0.0062510799848580914
+        },
+        {
+          "actual_centered_harm": -5.894141778817197e-09,
+          "predicted_harm": -5.7013347481138694e-09,
+          "q": -1.9004449160379567e-05,
+          "response_norm": 0.013039234202723102
+        },
+        {
+          "actual_centered_harm": 2.99616787456658e-08,
+          "predicted_harm": 2.980353615550909e-08,
+          "q": 9.934512051836365e-05,
+          "response_norm": 0.005447573981744006
+        },
+        {
+          "actual_centered_harm": -3.3591637423058263e-09,
+          "predicted_harm": -3.2458614233853027e-09,
+          "q": -1.081953807795101e-05,
+          "response_norm": 0.010885386251918013
+        },
+        {
+          "actual_centered_harm": 1.2504776226648917e-08,
+          "predicted_harm": 1.2300507000487886e-08,
+          "q": 4.100169000162629e-05,
+          "response_norm": 0.005294917706808958
+        },
+        {
+          "actual_centered_harm": -1.619530802868252e-09,
+          "predicted_harm": -1.5125958384559688e-09,
+          "q": -5.041986128186563e-06,
+          "response_norm": 0.017073916855829884
+        },
+        {
+          "actual_centered_harm": 2.1412329281184084e-08,
+          "predicted_harm": 2.1340399350878775e-08,
+          "q": 7.113466450292926e-05,
+          "response_norm": 0.017969946461108447
+        },
+        {
+          "actual_centered_harm": -2.0373635105375154e-09,
+          "predicted_harm": -2.212029138685861e-09,
+          "q": -7.373430462286203e-06,
+          "response_norm": 0.005600817108646008
+        },
+        {
+          "actual_centered_harm": -1.6555798008563438e-08,
+          "predicted_harm": -1.6633062838918177e-08,
+          "q": -5.544354279639392e-05,
+          "response_norm": 0.006087728600354562
+        },
+        {
+          "actual_centered_harm": -9.281515951642394e-09,
+          "predicted_harm": -9.113467066148161e-09,
+          "q": -3.037822355382721e-05,
+          "response_norm": 0.010039315344663121
+        },
+        {
+          "actual_centered_harm": -1.7854211165069245e-10,
+          "predicted_harm": 3.133645602312819e-11,
+          "q": 1.0445485341042731e-07,
+          "response_norm": 0.017953690643868828
+        },
+        {
+          "actual_centered_harm": -1.0464286621242325e-08,
+          "predicted_harm": -1.0262672879091194e-08,
+          "q": -3.420890959697065e-05,
+          "response_norm": 0.007693745084206332
+        },
+        {
+          "actual_centered_harm": 1.4065251480871455e-09,
+          "predicted_harm": 1.5263444090304173e-09,
+          "q": 5.087814696768058e-06,
+          "response_norm": 0.004926332915725649
+        },
+        {
+          "actual_centered_harm": 2.363774894570403e-09,
+          "predicted_harm": 2.5084341694311305e-09,
+          "q": 8.361447231437102e-06,
+          "response_norm": 0.01132624303219542
+        },
+        {
+          "actual_centered_harm": -4.5199769274639756e-10,
+          "predicted_harm": -4.4243273212273565e-10,
+          "q": -1.4747757737424523e-06,
+          "response_norm": 0.01249376852508867
+        },
+        {
+          "actual_centered_harm": -2.5296284459491725e-09,
+          "predicted_harm": -2.503275365840505e-09,
+          "q": -8.34425121946835e-06,
+          "response_norm": 0.019869148310116852
+        },
+        {
+          "actual_centered_harm": -4.500473646529279e-09,
+          "predicted_harm": -4.7508689124268355e-09,
+          "q": -1.5836229708089452e-05,
+          "response_norm": 0.012139192324387293
+        },
+        {
+          "actual_centered_harm": -1.4034943278742884e-08,
+          "predicted_harm": -1.4040494412695077e-08,
+          "q": -4.6801648042316926e-05,
+          "response_norm": 0.017413884508189696
+        },
+        {
+          "actual_centered_harm": -4.685095736714495e-09,
+          "predicted_harm": -4.534957798818102e-09,
+          "q": -1.5116525996060343e-05,
+          "response_norm": 0.00855036367809834
+        },
+        {
+          "actual_centered_harm": 5.630860777650071e-09,
+          "predicted_harm": 5.487489052090483e-09,
+          "q": 1.8291630173634946e-05,
+          "response_norm": 0.01197819520665764
+        },
+        {
+          "actual_centered_harm": 1.1472513406288187e-08,
+          "predicted_harm": 1.1724318391938988e-08,
+          "q": 3.90810613064633e-05,
+          "response_norm": 0.0030404905918553415
+        },
+        {
+          "actual_centered_harm": 1.0769140100508334e-08,
+          "predicted_harm": 1.0627089349318297e-08,
+          "q": 3.5423631164394325e-05,
+          "response_norm": 0.018587585195779317
+        },
+        {
+          "actual_centered_harm": -1.4888043679828211e-08,
+          "predicted_harm": -1.4803156833001076e-08,
+          "q": -4.934385611000359e-05,
+          "response_norm": 0.014228879897625047
+        },
+        {
+          "actual_centered_harm": -1.1584893884475367e-08,
+          "predicted_harm": -1.1500125235844782e-08,
+          "q": -3.8333750786149275e-05,
+          "response_norm": 0.01804405901738926
+        },
+        {
+          "actual_centered_harm": -4.923049221755571e-09,
+          "predicted_harm": -4.87989155502773e-09,
+          "q": -1.6266305183425768e-05,
+          "response_norm": 0.010613870396071801
+        },
+        {
+          "actual_centered_harm": 1.3120783567271976e-08,
+          "predicted_harm": 1.2958597253101163e-08,
+          "q": 4.319532417700388e-05,
+          "response_norm": 0.013690357908226515
+        },
+        {
+          "actual_centered_harm": 1.2281730913527023e-08,
+          "predicted_harm": 1.246798525717045e-08,
+          "q": 4.155995085723484e-05,
+          "response_norm": 0.008457695197211436
+        },
+        {
+          "actual_centered_harm": 2.691449061190121e-08,
+          "predicted_harm": 2.664039018985934e-08,
+          "q": 8.880130063286447e-05,
+          "response_norm": 0.003955849599847952
+        },
+        {
+          "actual_centered_harm": 1.713485789367475e-08,
+          "predicted_harm": 1.712543171779026e-08,
+          "q": 5.70847723926342e-05,
+          "response_norm": 0.009977329193840482
+        },
+        {
+          "actual_centered_harm": -4.209540056809846e-09,
+          "predicted_harm": -4.1907411300598314e-09,
+          "q": -1.3969137100199438e-05,
+          "response_norm": 0.013385869490523453
+        },
+        {
+          "actual_centered_harm": 1.0624219521498945e-08,
+          "predicted_harm": 1.0536206665942897e-08,
+          "q": 3.512068888647633e-05,
+          "response_norm": 0.009729306177169406
+        },
+        {
+          "actual_centered_harm": 2.2888268167917114e-08,
+          "predicted_harm": 2.2651986714558912e-08,
+          "q": 7.550662238186305e-05,
+          "response_norm": 0.0093413462605459
+        },
+        {
+          "actual_centered_harm": -1.6812629656526301e-09,
+          "predicted_harm": -1.7754800230415971e-09,
+          "q": -5.918266743471991e-06,
+          "response_norm": 0.006624037856725291
+        },
+        {
+          "actual_centered_harm": 8.275745384117572e-10,
+          "predicted_harm": 1.0634083388761628e-09,
+          "q": 3.5446944629205433e-06,
+          "response_norm": 0.006776613560290525
+        },
+        {
+          "actual_centered_harm": -3.2546865532528946e-09,
+          "predicted_harm": -3.2183001262107608e-09,
+          "q": -1.0727667087369204e-05,
+          "response_norm": 0.008178789026046372
+        },
+        {
+          "actual_centered_harm": 2.320885903600578e-09,
+          "predicted_harm": 2.6045963381178553e-09,
+          "q": 8.681987793726184e-06,
+          "response_norm": 0.00735399632403877
+        },
+        {
+          "actual_centered_harm": -1.3564971867996434e-08,
+          "predicted_harm": -1.3330986185077097e-08,
+          "q": -4.443662061692366e-05,
+          "response_norm": 0.011043470139843145
+        },
+        {
+          "actual_centered_harm": 2.5282937340942446e-09,
+          "predicted_harm": 2.2029984549094657e-09,
+          "q": 7.343328183031553e-06,
+          "response_norm": 0.005692855718438456
+        },
+        {
+          "actual_centered_harm": -2.245134448145003e-09,
+          "predicted_harm": -2.0290701108587253e-09,
+          "q": -6.763567036195751e-06,
+          "response_norm": 0.016381652105939115
+        },
+        {
+          "actual_centered_harm": -1.4630096922124691e-08,
+          "predicted_harm": -1.4607938001849655e-08,
+          "q": -4.8693126672832186e-05,
+          "response_norm": 0.01107784270194419
+        },
+        {
+          "actual_centered_harm": -1.2330672477869897e-08,
+          "predicted_harm": -1.2192200000927245e-08,
+          "q": -4.064066666975749e-05,
+          "response_norm": 0.012108139639017182
+        },
+        {
+          "actual_centered_harm": -1.4430500658996204e-08,
+          "predicted_harm": -1.4369838584236206e-08,
+          "q": -4.789946194745403e-05,
+          "response_norm": 0.005464216025460076
+        },
+        {
+          "actual_centered_harm": 1.0778801374025648e-08,
+          "predicted_harm": 1.0897585084013837e-08,
+          "q": 3.632528361337946e-05,
+          "response_norm": 0.008513283257893625
+        },
+        {
+          "actual_centered_harm": -2.922254859968887e-09,
+          "predicted_harm": -2.7387228310874214e-09,
+          "q": -9.129076103624738e-06,
+          "response_norm": 0.007758951009033622
+        },
+        {
+          "actual_centered_harm": -7.338010388560634e-09,
+          "predicted_harm": -7.3488288498775675e-09,
+          "q": -2.449609616625856e-05,
+          "response_norm": 0.018537492303292862
+        },
+        {
+          "actual_centered_harm": -1.1919752972849862e-08,
+          "predicted_harm": -1.164197199807924e-08,
+          "q": -3.8806573326930806e-05,
+          "response_norm": 0.011192499489533301
+        },
+        {
+          "actual_centered_harm": 2.101484466131287e-08,
+          "predicted_harm": 2.0753959083057958e-08,
+          "q": 6.91798636101932e-05,
+          "response_norm": 0.0053271138384387165
+        },
+        {
+          "actual_centered_harm": -1.5109054096393293e-08,
+          "predicted_harm": -1.5282895981376285e-08,
+          "q": -5.094298660458762e-05,
+          "response_norm": 0.011168033781311043
+        },
+        {
+          "actual_centered_harm": -7.01577567048528e-09,
+          "predicted_harm": -6.97840296056809e-09,
+          "q": -2.3261343201893635e-05,
+          "response_norm": 0.010159022685452752
+        },
+        {
+          "actual_centered_harm": -1.724424506140132e-08,
+          "predicted_harm": -1.7074808307634476e-08,
+          "q": -5.6916027692114927e-05,
+          "response_norm": 0.014974030336948798
+        },
+        {
+          "actual_centered_harm": -5.605211919612607e-09,
+          "predicted_harm": -5.64537683732184e-09,
+          "q": -1.88179227910728e-05,
+          "response_norm": 0.013475650026431299
+        },
+        {
+          "actual_centered_harm": 3.660641373359752e-10,
+          "predicted_harm": 1.3707689975146686e-10,
+          "q": 4.5692299917155627e-07,
+          "response_norm": 0.012022585995336014
+        },
+        {
+          "actual_centered_harm": -6.720942066773539e-10,
+          "predicted_harm": -3.9944378841310703e-10,
+          "q": -1.331479294710357e-06,
+          "response_norm": 0.010454926136785187
+        },
+        {
+          "actual_centered_harm": 1.7461891854350653e-08,
+          "predicted_harm": 1.736408811088741e-08,
+          "q": 5.788029370295804e-05,
+          "response_norm": 0.00557021991864874
+        },
+        {
+          "actual_centered_harm": -1.9977799999362778e-08,
+          "predicted_harm": -1.9933381770977147e-08,
+          "q": -6.644460590325716e-05,
+          "response_norm": 0.014532110805513683
+        },
+        {
+          "actual_centered_harm": 1.1733858855042523e-08,
+          "predicted_harm": 1.1601600895092467e-08,
+          "q": 3.867200298364156e-05,
+          "response_norm": 0.005276609714678966
+        },
+        {
+          "actual_centered_harm": 1.805263743354102e-08,
+          "predicted_harm": 1.8119440428021623e-08,
+          "q": 6.039813476007208e-05,
+          "response_norm": 0.00624591269786486
+        },
+        {
+          "actual_centered_harm": -2.634766623453577e-08,
+          "predicted_harm": -2.619725094177177e-08,
+          "q": -8.73241698059059e-05,
+          "response_norm": 0.0054030211068744095
+        },
+        {
+          "actual_centered_harm": 1.0834050528235606e-08,
+          "predicted_harm": 1.0586857302305452e-08,
+          "q": 3.5289524341018176e-05,
+          "response_norm": 0.02009643589654314
+        },
+        {
+          "actual_centered_harm": -6.919878328334739e-09,
+          "predicted_harm": -6.861935167266721e-09,
+          "q": -2.2873117224222404e-05,
+          "response_norm": 0.008392265444010378
+        },
+        {
+          "actual_centered_harm": -1.4020497816555344e-08,
+          "predicted_harm": -1.3880448682849422e-08,
+          "q": -4.6268162276164746e-05,
+          "response_norm": 0.01646475855627897
+        },
+        {
+          "actual_centered_harm": -1.3005375784982953e-08,
+          "predicted_harm": -1.3160356088281904e-08,
+          "q": -4.386785362760635e-05,
+          "response_norm": 0.0073907830037047845
+        },
+        {
+          "actual_centered_harm": -1.6147666164270658e-08,
+          "predicted_harm": -1.6282662629512417e-08,
+          "q": -5.427554209837473e-05,
+          "response_norm": 0.004495201864982504
+        },
+        {
+          "actual_centered_harm": 4.04091702460585e-09,
+          "predicted_harm": 3.9959553620346645e-09,
+          "q": 1.3319851206782217e-05,
+          "response_norm": 0.0056717446485057416
+        },
+        {
+          "actual_centered_harm": 2.3085486034954417e-08,
+          "predicted_harm": 2.298725331920386e-08,
+          "q": 7.662417773067954e-05,
+          "response_norm": 0.013634951796791583
+        },
+        {
+          "actual_centered_harm": -2.38479445219264e-09,
+          "predicted_harm": -2.3783884531978306e-09,
+          "q": -7.927961510659436e-06,
+          "response_norm": 0.013931649611911876
+        },
+        {
+          "actual_centered_harm": 2.1956604548400982e-08,
+          "predicted_harm": 2.183110163696943e-08,
+          "q": 7.277033878989811e-05,
+          "response_norm": 0.017334035795275978
+        },
+        {
+          "actual_centered_harm": -8.713013031555472e-09,
+          "predicted_harm": -8.492736743365709e-09,
+          "q": -2.83091224778857e-05,
+          "response_norm": 0.013174908168732168
+        },
+        {
+          "actual_centered_harm": -2.3090469458350582e-08,
+          "predicted_harm": -2.320824584682167e-08,
+          "q": -7.736081948940557e-05,
+          "response_norm": 0.006220563167579389
+        },
+        {
+          "actual_centered_harm": 1.0306855317138153e-09,
+          "predicted_harm": 1.3399728735693435e-09,
+          "q": 4.466576245231146e-06,
+          "response_norm": 0.015776294672306672
+        },
+        {
+          "actual_centered_harm": 2.8908835741914274e-09,
+          "predicted_harm": 2.79758299475383e-09,
+          "q": 9.325276649179435e-06,
+          "response_norm": 0.014460231974380356
+        },
+        {
+          "actual_centered_harm": 1.0590571385138414e-08,
+          "predicted_harm": 1.037080089738279e-08,
+          "q": 3.4569336324609303e-05,
+          "response_norm": 0.013150302006524247
+        },
+        {
+          "actual_centered_harm": -1.5736211491854113e-08,
+          "predicted_harm": -1.575404499756347e-08,
+          "q": -5.2513483325211576e-05,
+          "response_norm": 0.006793574987214832
+        },
+        {
+          "actual_centered_harm": -3.735213050318209e-09,
+          "predicted_harm": -4.032763401977287e-09,
+          "q": -1.3442544673257625e-05,
+          "response_norm": 0.012811927660265723
+        },
+        {
+          "actual_centered_harm": 2.4235725978177802e-09,
+          "predicted_harm": 2.1781359516727735e-09,
+          "q": 7.2604531722425785e-06,
+          "response_norm": 0.014608567030138781
+        },
+        {
+          "actual_centered_harm": 1.7082986119437704e-09,
+          "predicted_harm": 1.679964102226977e-09,
+          "q": 5.59988034075659e-06,
+          "response_norm": 0.012117865691425783
+        },
+        {
+          "actual_centered_harm": -1.5323847942297353e-08,
+          "predicted_harm": -1.539370133309229e-08,
+          "q": -5.1312337776974305e-05,
+          "response_norm": 0.004118818980773235
+        }
+      ],
+      "random_q_harm_corr": 0.9999343560362249,
+      "random_response_harm_corr": -0.025711046267750365,
+      "regime": "nonzero_residual",
+      "seed": 2
+    },
+    {
+      "beta": 0.009572363579636194,
+      "chi": 9.531755750073177e-05,
+      "direction_rows": [
+        {
+          "actual_centered_harm": 2.3787973831186637e-08,
+          "observation_abs": 1.734723475976807e-18,
+          "predicted_harm": 2.357936113798227e-08,
+          "q": 7.859787045994091e-05,
+          "response_norm": 0.009572363579636195,
+          "selector": "beta"
+        },
+        {
+          "actual_centered_harm": 2.874677713145951e-08,
+          "observation_abs": 8.239936510889834e-18,
+          "predicted_harm": 2.8595267250219506e-08,
+          "q": 9.531755750073169e-05,
+          "response_norm": 0.008310743895130746,
+          "selector": "harm"
+        }
+      ],
+      "erm_geometry": {
+        "actuation_norm": 0.04635120928287506,
+        "grad_omega_norm": 8.783215162111446e-05,
+        "mean_gradient_norm": 0.0009589748806320131,
+        "omega": 0.00013235470396466553,
+        "residual_rms": 0.011504551395773888
+      },
+      "irm_solution_geometry": {
+        "actuation_norm": 0.0022288430482149124,
+        "grad_omega_norm": 4.29032115789596e-06,
+        "mean_gradient_norm": 6.986959488131106e-05,
+        "omega": 4.473091394174844e-06,
+        "residual_rms": 0.0021149683743715286
+      },
+      "random_blind": [
+        {
+          "actual_centered_harm": -6.072155738293117e-09,
+          "predicted_harm": -5.946623968162202e-09,
+          "q": -1.982207989387401e-05,
+          "response_norm": 0.003757369918607698
+        },
+        {
+          "actual_centered_harm": 2.712476033714384e-09,
+          "predicted_harm": 2.7199645946496217e-09,
+          "q": 9.066548648832072e-06,
+          "response_norm": 0.003493148876626066
+        },
+        {
+          "actual_centered_harm": -1.5750632735567205e-08,
+          "predicted_harm": -1.5664219394921526e-08,
+          "q": -5.221406464973842e-05,
+          "response_norm": 0.0050890315705598745
+        },
+        {
+          "actual_centered_harm": 1.2821000658705395e-08,
+          "predicted_harm": 1.282276454753775e-08,
+          "q": 4.2742548491792504e-05,
+          "response_norm": 0.0039774362077450364
+        },
+        {
+          "actual_centered_harm": -1.2906030553289094e-08,
+          "predicted_harm": -1.2978421872539775e-08,
+          "q": -4.326140624179925e-05,
+          "response_norm": 0.0034633948320528293
+        },
+        {
+          "actual_centered_harm": -1.526490890461918e-08,
+          "predicted_harm": -1.5293378235027474e-08,
+          "q": -5.097792745009159e-05,
+          "response_norm": 0.0038772087951906508
+        },
+        {
+          "actual_centered_harm": -1.1831137367544764e-08,
+          "predicted_harm": -1.177280854798212e-08,
+          "q": -3.92426951599404e-05,
+          "response_norm": 0.004955377982158901
+        },
+        {
+          "actual_centered_harm": 1.8932683918879145e-09,
+          "predicted_harm": 1.838170984433469e-09,
+          "q": 6.127236614778231e-06,
+          "response_norm": 0.002744530314459829
+        },
+        {
+          "actual_centered_harm": 8.772341611798518e-09,
+          "predicted_harm": 8.590877524682717e-09,
+          "q": 2.863625841560906e-05,
+          "response_norm": 0.005411981217590624
+        },
+        {
+          "actual_centered_harm": -8.670073478600493e-09,
+          "predicted_harm": -8.614132962365765e-09,
+          "q": -2.8713776541219217e-05,
+          "response_norm": 0.003921331151940634
+        },
+        {
+          "actual_centered_harm": 9.895614709598544e-10,
+          "predicted_harm": 8.309547149082728e-10,
+          "q": 2.769849049694243e-06,
+          "response_norm": 0.006287022672058672
+        },
+        {
+          "actual_centered_harm": -1.097385086187147e-08,
+          "predicted_harm": -1.0980502585830463e-08,
+          "q": -3.660167528610155e-05,
+          "response_norm": 0.005583577956295804
+        },
+        {
+          "actual_centered_harm": 1.8801636723214665e-08,
+          "predicted_harm": 1.8723199682896447e-08,
+          "q": 6.241066560965483e-05,
+          "response_norm": 0.0052344220216698064
+        },
+        {
+          "actual_centered_harm": 7.503134081057738e-09,
+          "predicted_harm": 7.492322058569541e-09,
+          "q": 2.497440686189847e-05,
+          "response_norm": 0.004676840507740546
+        },
+        {
+          "actual_centered_harm": -8.01253609034741e-09,
+          "predicted_harm": -8.140452013278723e-09,
+          "q": -2.713484004426241e-05,
+          "response_norm": 0.004179442780158435
+        },
+        {
+          "actual_centered_harm": 3.733170608581637e-09,
+          "predicted_harm": 3.794109970752361e-09,
+          "q": 1.2647033235841206e-05,
+          "response_norm": 0.002458850492212055
+        },
+        {
+          "actual_centered_harm": 8.032051725982703e-09,
+          "predicted_harm": 8.08467951323646e-09,
+          "q": 2.6948931710788203e-05,
+          "response_norm": 0.0018918490489539391
+        },
+        {
+          "actual_centered_harm": -2.133903948247501e-08,
+          "predicted_harm": -2.1320402959135304e-08,
+          "q": -7.106800986378435e-05,
+          "response_norm": 0.004820503145850477
+        },
+        {
+          "actual_centered_harm": 1.9598336252479864e-09,
+          "predicted_harm": 1.791453228788274e-09,
+          "q": 5.9715107626275805e-06,
+          "response_norm": 0.005282138494648636
+        },
+        {
+          "actual_centered_harm": 4.9249499825543275e-09,
+          "predicted_harm": 4.883270625901644e-09,
+          "q": 1.627756875300548e-05,
+          "response_norm": 0.0033386580020362397
+        },
+        {
+          "actual_centered_harm": -4.7018165316020655e-09,
+          "predicted_harm": -4.6785927552306395e-09,
+          "q": -1.5595309184102134e-05,
+          "response_norm": 0.0021596941840975616
+        },
+        {
+          "actual_centered_harm": -2.5712357842704037e-08,
+          "predicted_harm": -2.5537643026920797e-08,
+          "q": -8.512547675640266e-05,
+          "response_norm": 0.007934845278655567
+        },
+        {
+          "actual_centered_harm": 1.6293428977548485e-08,
+          "predicted_harm": 1.6147465460355096e-08,
+          "q": 5.382488486785033e-05,
+          "response_norm": 0.004936553171967389
+        },
+        {
+          "actual_centered_harm": 4.914865243954569e-09,
+          "predicted_harm": 4.897221826907697e-09,
+          "q": 1.632407275635899e-05,
+          "response_norm": 0.0031228751747776626
+        },
+        {
+          "actual_centered_harm": -1.6306954719706723e-08,
+          "predicted_harm": -1.6166410428849657e-08,
+          "q": -5.3888034762832197e-05,
+          "response_norm": 0.005734494979013563
+        },
+        {
+          "actual_centered_harm": -3.2754551466951387e-09,
+          "predicted_harm": -3.421098412194572e-09,
+          "q": -1.1403661373981908e-05,
+          "response_norm": 0.004914537872058237
+        },
+        {
+          "actual_centered_harm": 1.8879961652222554e-08,
+          "predicted_harm": 1.874025064956101e-08,
+          "q": 6.246750216520338e-05,
+          "response_norm": 0.0049989969872935875
+        },
+        {
+          "actual_centered_harm": -5.069222539129392e-09,
+          "predicted_harm": -4.911056928746682e-09,
+          "q": -1.637018976248894e-05,
+          "response_norm": 0.0034720506418342797
+        },
+        {
+          "actual_centered_harm": 1.6344658512051913e-08,
+          "predicted_harm": 1.6337772960438497e-08,
+          "q": 5.4459243201461656e-05,
+          "response_norm": 0.004230384302274227
+        },
+        {
+          "actual_centered_harm": 3.6637053633936656e-10,
+          "predicted_harm": 4.951056080596301e-10,
+          "q": 1.6503520268654336e-06,
+          "response_norm": 0.0025329852296077687
+        },
+        {
+          "actual_centered_harm": -1.7910975634929938e-08,
+          "predicted_harm": -1.774695471079731e-08,
+          "q": -5.915651570265771e-05,
+          "response_norm": 0.006656667947462907
+        },
+        {
+          "actual_centered_harm": 3.542874236171778e-09,
+          "predicted_harm": 3.642310743082816e-09,
+          "q": 1.2141035810276054e-05,
+          "response_norm": 0.0008831461644877512
+        },
+        {
+          "actual_centered_harm": -7.479124960844963e-09,
+          "predicted_harm": -7.302837872216086e-09,
+          "q": -2.4342792907386953e-05,
+          "response_norm": 0.005049298471030205
+        },
+        {
+          "actual_centered_harm": -5.907326777049304e-09,
+          "predicted_harm": -5.860137652159627e-09,
+          "q": -1.9533792173865426e-05,
+          "response_norm": 0.0025717760904183664
+        },
+        {
+          "actual_centered_harm": 6.055826411513476e-09,
+          "predicted_harm": 6.071547550968581e-09,
+          "q": 2.0238491836561938e-05,
+          "response_norm": 0.004886938879985535
+        },
+        {
+          "actual_centered_harm": 1.5978542704242482e-08,
+          "predicted_harm": 1.5987397317936117e-08,
+          "q": 5.329132439312039e-05,
+          "response_norm": 0.003915919029981937
+        },
+        {
+          "actual_centered_harm": 6.214753709918308e-09,
+          "predicted_harm": 6.1991842543278534e-09,
+          "q": 2.066394751442618e-05,
+          "response_norm": 0.004562324785065887
+        },
+        {
+          "actual_centered_harm": 5.850724929708229e-09,
+          "predicted_harm": 5.851733776395109e-09,
+          "q": 1.9505779254650364e-05,
+          "response_norm": 0.003759837084320129
+        },
+        {
+          "actual_centered_harm": -1.2167124321081635e-08,
+          "predicted_harm": -1.1939808055417926e-08,
+          "q": -3.979936018472642e-05,
+          "response_norm": 0.007223606987613919
+        },
+        {
+          "actual_centered_harm": -4.856872066853757e-09,
+          "predicted_harm": -5.025568640729531e-09,
+          "q": -1.6751895469098438e-05,
+          "response_norm": 0.004532518407501537
+        },
+        {
+          "actual_centered_harm": 2.0585765016234436e-08,
+          "predicted_harm": 2.0456128815284107e-08,
+          "q": 6.818709605094702e-05,
+          "response_norm": 0.008170293002092786
+        },
+        {
+          "actual_centered_harm": 8.225020029645203e-09,
+          "predicted_harm": 8.24644855721906e-09,
+          "q": 2.748816185739687e-05,
+          "response_norm": 0.002940409822870987
+        },
+        {
+          "actual_centered_harm": -5.989657293585526e-09,
+          "predicted_harm": -5.906818901050054e-09,
+          "q": -1.9689396336833514e-05,
+          "response_norm": 0.002656709593906083
+        },
+        {
+          "actual_centered_harm": 2.6951497570162908e-09,
+          "predicted_harm": 2.811154055946972e-09,
+          "q": 9.37051351982324e-06,
+          "response_norm": 0.005219359917907532
+        },
+        {
+          "actual_centered_harm": -6.189031493894492e-09,
+          "predicted_harm": -5.982300166289749e-09,
+          "q": -1.9941000554299165e-05,
+          "response_norm": 0.005334586727071505
+        },
+        {
+          "actual_centered_harm": 5.239895145385531e-09,
+          "predicted_harm": 5.06529620438201e-09,
+          "q": 1.6884320681273368e-05,
+          "response_norm": 0.006387078169770402
+        },
+        {
+          "actual_centered_harm": -6.3007981002810576e-09,
+          "predicted_harm": -6.2210547601003096e-09,
+          "q": -2.0736849200334366e-05,
+          "response_norm": 0.0029847103312157374
+        },
+        {
+          "actual_centered_harm": 2.2466044215935232e-08,
+          "predicted_harm": 2.2361483356222015e-08,
+          "q": 7.453827785407339e-05,
+          "response_norm": 0.0067255187716709726
+        },
+        {
+          "actual_centered_harm": 4.758813707678167e-09,
+          "predicted_harm": 4.734780426098075e-09,
+          "q": 1.5782601420326917e-05,
+          "response_norm": 0.003856411049581804
+        },
+        {
+          "actual_centered_harm": 7.371483678672575e-09,
+          "predicted_harm": 7.330207798939966e-09,
+          "q": 2.4434025996466556e-05,
+          "response_norm": 0.00454751874879412
+        },
+        {
+          "actual_centered_harm": -1.3224678033219028e-08,
+          "predicted_harm": -1.3225332429057283e-08,
+          "q": -4.4084441430190944e-05,
+          "response_norm": 0.004115166034569266
+        },
+        {
+          "actual_centered_harm": 6.808321782215965e-09,
+          "predicted_harm": 6.670595458148718e-09,
+          "q": 2.2235318193829063e-05,
+          "response_norm": 0.004845656199532911
+        },
+        {
+          "actual_centered_harm": 1.8072222007954608e-08,
+          "predicted_harm": 1.786868079861745e-08,
+          "q": 5.956226932872484e-05,
+          "response_norm": 0.007436016473184483
+        },
+        {
+          "actual_centered_harm": 1.539464881093744e-08,
+          "predicted_harm": 1.5275870754102324e-08,
+          "q": 5.091956918034109e-05,
+          "response_norm": 0.0037899454898684356
+        },
+        {
+          "actual_centered_harm": -1.2636939455794305e-08,
+          "predicted_harm": -1.2567602085435855e-08,
+          "q": -4.189200695145285e-05,
+          "response_norm": 0.004003524372917648
+        },
+        {
+          "actual_centered_harm": -5.522837203189579e-09,
+          "predicted_harm": -5.383886711427126e-09,
+          "q": -1.7946289038090422e-05,
+          "response_norm": 0.0059616515743070074
+        },
+        {
+          "actual_centered_harm": -1.2491354769994523e-08,
+          "predicted_harm": -1.2307404532524865e-08,
+          "q": -4.102468177508289e-05,
+          "response_norm": 0.005920558439630085
+        },
+        {
+          "actual_centered_harm": -1.1113274673776874e-08,
+          "predicted_harm": -1.0867353005732635e-08,
+          "q": -3.6224510019108785e-05,
+          "response_norm": 0.006368863226464059
+        },
+        {
+          "actual_centered_harm": -5.666790706820857e-09,
+          "predicted_harm": -5.681069532174349e-09,
+          "q": -1.8936898440581165e-05,
+          "response_norm": 0.004048759680498711
+        },
+        {
+          "actual_centered_harm": 1.6328080784146215e-08,
+          "predicted_harm": 1.619008576467314e-08,
+          "q": 5.3966952548910474e-05,
+          "response_norm": 0.005874043320411752
+        },
+        {
+          "actual_centered_harm": -1.053602791904057e-08,
+          "predicted_harm": -1.047109204269525e-08,
+          "q": -3.49036401423175e-05,
+          "response_norm": 0.0029185418929402046
+        },
+        {
+          "actual_centered_harm": 6.448868704669874e-10,
+          "predicted_harm": 6.300407139084757e-10,
+          "q": 2.1001357130282526e-06,
+          "response_norm": 0.0018381735411552868
+        },
+        {
+          "actual_centered_harm": -3.3297244501559464e-09,
+          "predicted_harm": -3.329528669597012e-09,
+          "q": -1.1098428898656707e-05,
+          "response_norm": 0.0035519311244508202
+        },
+        {
+          "actual_centered_harm": -2.305187965772476e-08,
+          "predicted_harm": -2.2894719402145644e-08,
+          "q": -7.631573134048549e-05,
+          "response_norm": 0.00717734531484328
+        },
+        {
+          "actual_centered_harm": -5.970963477992808e-09,
+          "predicted_harm": -5.86739097138893e-09,
+          "q": -1.9557969904629768e-05,
+          "response_norm": 0.003654588381735035
+        },
+        {
+          "actual_centered_harm": -5.738292821813595e-09,
+          "predicted_harm": -5.840943571424315e-09,
+          "q": -1.9469811904747717e-05,
+          "response_norm": 0.0029802753092797226
+        },
+        {
+          "actual_centered_harm": -5.409236988017374e-09,
+          "predicted_harm": -5.3836333335330965e-09,
+          "q": -1.7945444445110325e-05,
+          "response_norm": 0.004485255645367639
+        },
+        {
+          "actual_centered_harm": 1.481649826006598e-08,
+          "predicted_harm": 1.4696508483627956e-08,
+          "q": 4.8988361612093194e-05,
+          "response_norm": 0.005791384454326532
+        },
+        {
+          "actual_centered_harm": -1.1076665926493257e-08,
+          "predicted_harm": -1.092510368210078e-08,
+          "q": -3.641701227366927e-05,
+          "response_norm": 0.004458975680432407
+        },
+        {
+          "actual_centered_harm": -1.9580575483929552e-08,
+          "predicted_harm": -1.9353650031975057e-08,
+          "q": -6.45121667732502e-05,
+          "response_norm": 0.007038647856841993
+        },
+        {
+          "actual_centered_harm": -5.360252111966113e-09,
+          "predicted_harm": -5.231719462650007e-09,
+          "q": -1.7439064875500026e-05,
+          "response_norm": 0.001870605244652437
+        },
+        {
+          "actual_centered_harm": 1.2101617033986878e-08,
+          "predicted_harm": 1.2109120014203324e-08,
+          "q": 4.036373338067775e-05,
+          "response_norm": 0.0031179886250463644
+        },
+        {
+          "actual_centered_harm": -3.8682041042514825e-09,
+          "predicted_harm": -3.834633332846834e-09,
+          "q": -1.2782111109489448e-05,
+          "response_norm": 0.005331757499854714
+        },
+        {
+          "actual_centered_harm": -1.1278603736716852e-09,
+          "predicted_harm": -9.989573426889487e-10,
+          "q": -3.3298578089631624e-06,
+          "response_norm": 0.005397667505310942
+        },
+        {
+          "actual_centered_harm": -3.054663967085036e-09,
+          "predicted_harm": -3.1217028271938713e-09,
+          "q": -1.040567609064624e-05,
+          "response_norm": 0.0027590696263739764
+        },
+        {
+          "actual_centered_harm": -1.4447826067465197e-08,
+          "predicted_harm": -1.437285818916035e-08,
+          "q": -4.7909527297201174e-05,
+          "response_norm": 0.00522296344211804
+        },
+        {
+          "actual_centered_harm": -1.8913537937204072e-08,
+          "predicted_harm": -1.89290031385305e-08,
+          "q": -6.309667712843501e-05,
+          "response_norm": 0.004693017077439496
+        },
+        {
+          "actual_centered_harm": 6.839529775003184e-09,
+          "predicted_harm": 6.802590222355025e-09,
+          "q": 2.2675300741183417e-05,
+          "response_norm": 0.003870383996657566
+        },
+        {
+          "actual_centered_harm": -1.9768902245233255e-08,
+          "predicted_harm": -1.9722565636017427e-08,
+          "q": -6.574188545339143e-05,
+          "response_norm": 0.004651015394385515
+        },
+        {
+          "actual_centered_harm": 4.4093236726758245e-09,
+          "predicted_harm": 4.3871157149313565e-09,
+          "q": 1.462371904977119e-05,
+          "response_norm": 0.002203753431848181
+        },
+        {
+          "actual_centered_harm": -1.0607112237159821e-10,
+          "predicted_harm": -6.115587725370478e-11,
+          "q": -2.0385292417901595e-07,
+          "response_norm": 0.003567343408896092
+        },
+        {
+          "actual_centered_harm": 6.2613972227551495e-09,
+          "predicted_harm": 6.092947211845496e-09,
+          "q": 2.030982403948499e-05,
+          "response_norm": 0.005583627003846403
+        },
+        {
+          "actual_centered_harm": 1.6453538029433112e-08,
+          "predicted_harm": 1.6431016990467725e-08,
+          "q": 5.477005663489242e-05,
+          "response_norm": 0.004306037249748457
+        },
+        {
+          "actual_centered_harm": -7.983182460577498e-09,
+          "predicted_harm": -8.061726826298684e-09,
+          "q": -2.687242275432895e-05,
+          "response_norm": 0.0032668421864126755
+        },
+        {
+          "actual_centered_harm": 4.743638294668617e-11,
+          "predicted_harm": 2.7745437588329322e-11,
+          "q": 9.248479196109775e-08,
+          "response_norm": 0.00471077953386798
+        },
+        {
+          "actual_centered_harm": 1.738032589897187e-08,
+          "predicted_harm": 1.7292604911984546e-08,
+          "q": 5.764201637328183e-05,
+          "response_norm": 0.004229043555712205
+        },
+        {
+          "actual_centered_harm": 9.714076111208558e-09,
+          "predicted_harm": 9.691936755315696e-09,
+          "q": 3.2306455851052325e-05,
+          "response_norm": 0.004208162597593381
+        },
+        {
+          "actual_centered_harm": -1.6730755806812492e-08,
+          "predicted_harm": -1.674687619662044e-08,
+          "q": -5.5822920655401465e-05,
+          "response_norm": 0.005048164599753502
+        },
+        {
+          "actual_centered_harm": -9.21139524899528e-09,
+          "predicted_harm": -9.242724741185257e-09,
+          "q": -3.080908247061752e-05,
+          "response_norm": 0.0036984333721719635
+        },
+        {
+          "actual_centered_harm": 7.377291473022185e-09,
+          "predicted_harm": 7.366087106167955e-09,
+          "q": 2.455362368722652e-05,
+          "response_norm": 0.005085514043106914
+        },
+        {
+          "actual_centered_harm": -6.09517556912631e-09,
+          "predicted_harm": -6.089632215585389e-09,
+          "q": -2.02987740519513e-05,
+          "response_norm": 0.0036164734464683044
+        },
+        {
+          "actual_centered_harm": 1.1110915134997235e-08,
+          "predicted_harm": 1.0951007167497541e-08,
+          "q": 3.650335722499181e-05,
+          "response_norm": 0.0048708814292850195
+        },
+        {
+          "actual_centered_harm": -1.6320379734278967e-08,
+          "predicted_harm": -1.6287734740558793e-08,
+          "q": -5.429244913519598e-05,
+          "response_norm": 0.005381956003110823
+        },
+        {
+          "actual_centered_harm": 8.061181767243797e-09,
+          "predicted_harm": 8.103572376904125e-09,
+          "q": 2.701190792301375e-05,
+          "response_norm": 0.0031571736115448114
+        },
+        {
+          "actual_centered_harm": 1.3317260431564004e-08,
+          "predicted_harm": 1.3106746675614894e-08,
+          "q": 4.3689155585382984e-05,
+          "response_norm": 0.005912896211393279
+        },
+        {
+          "actual_centered_harm": -1.361994721692239e-08,
+          "predicted_harm": -1.3525217789302421e-08,
+          "q": -4.508405929767474e-05,
+          "response_norm": 0.0046363751287017835
+        },
+        {
+          "actual_centered_harm": -5.645244378731096e-09,
+          "predicted_harm": -5.559226800983151e-09,
+          "q": -1.8530756003277172e-05,
+          "response_norm": 0.0029484168359840694
+        },
+        {
+          "actual_centered_harm": -1.2938589966787761e-08,
+          "predicted_harm": -1.2943936950238095e-08,
+          "q": -4.314645650079365e-05,
+          "response_norm": 0.0031649957710916956
+        },
+        {
+          "actual_centered_harm": 1.939414643204601e-08,
+          "predicted_harm": 1.9231635660453512e-08,
+          "q": 6.41054522015117e-05,
+          "response_norm": 0.006977105088682652
+        },
+        {
+          "actual_centered_harm": 1.887171915872926e-08,
+          "predicted_harm": 1.8724088760111178e-08,
+          "q": 6.24136292003706e-05,
+          "response_norm": 0.005479693624482923
+        },
+        {
+          "actual_centered_harm": -1.032710791794983e-08,
+          "predicted_harm": -1.0387739228339782e-08,
+          "q": -3.462579742779928e-05,
+          "response_norm": 0.0023434640549696525
+        },
+        {
+          "actual_centered_harm": 2.0084485879978686e-09,
+          "predicted_harm": 1.8916002383273455e-09,
+          "q": 6.305334127757819e-06,
+          "response_norm": 0.003593298524669927
+        },
+        {
+          "actual_centered_harm": -3.585958897878161e-09,
+          "predicted_harm": -3.6833213432566368e-09,
+          "q": -1.2277737810855457e-05,
+          "response_norm": 0.00252424999212721
+        },
+        {
+          "actual_centered_harm": -4.324760783866455e-09,
+          "predicted_harm": -4.286275960988355e-09,
+          "q": -1.4287586536627851e-05,
+          "response_norm": 0.004198589655257746
+        },
+        {
+          "actual_centered_harm": 1.9401726806742015e-08,
+          "predicted_harm": 1.9418135606929202e-08,
+          "q": 6.472711868976401e-05,
+          "response_norm": 0.004369654971384728
+        },
+        {
+          "actual_centered_harm": 6.6909322162661544e-09,
+          "predicted_harm": 6.659512154240555e-09,
+          "q": 2.219837384746852e-05,
+          "response_norm": 0.003918487429206115
+        },
+        {
+          "actual_centered_harm": 7.303773991856888e-10,
+          "predicted_harm": 7.00416863211595e-10,
+          "q": 2.3347228773719836e-06,
+          "response_norm": 0.0023977516562166614
+        },
+        {
+          "actual_centered_harm": -2.0160112121359042e-08,
+          "predicted_harm": -1.998033232876726e-08,
+          "q": -6.660110776255754e-05,
+          "response_norm": 0.009117716547771241
+        },
+        {
+          "actual_centered_harm": -1.640162440499221e-08,
+          "predicted_harm": -1.631121633470616e-08,
+          "q": -5.43707211156872e-05,
+          "response_norm": 0.005868490973032847
+        },
+        {
+          "actual_centered_harm": -1.3294500374703977e-08,
+          "predicted_harm": -1.3107275973454292e-08,
+          "q": -4.369091991151431e-05,
+          "response_norm": 0.008006971749004029
+        },
+        {
+          "actual_centered_harm": -4.6141038264474465e-09,
+          "predicted_harm": -4.670790693062481e-09,
+          "q": -1.5569302310208272e-05,
+          "response_norm": 0.004362545250834715
+        },
+        {
+          "actual_centered_harm": 1.4528955376465202e-08,
+          "predicted_harm": 1.4424060171989302e-08,
+          "q": 4.8080200573297676e-05,
+          "response_norm": 0.006374789362875582
+        },
+        {
+          "actual_centered_harm": -1.2907758496598365e-08,
+          "predicted_harm": -1.27590539055482e-08,
+          "q": -4.253017968516067e-05,
+          "response_norm": 0.007663757875317003
+        },
+        {
+          "actual_centered_harm": -1.3333714287203091e-08,
+          "predicted_harm": -1.3255345525004101e-08,
+          "q": -4.418448508334701e-05,
+          "response_norm": 0.004702728074390898
+        },
+        {
+          "actual_centered_harm": -1.6217609626750784e-08,
+          "predicted_harm": -1.6284919066109264e-08,
+          "q": -5.428306355369756e-05,
+          "response_norm": 0.0037633229451403084
+        },
+        {
+          "actual_centered_harm": 2.319019722432647e-08,
+          "predicted_harm": 2.314184949483389e-08,
+          "q": 7.713949831611298e-05,
+          "response_norm": 0.005989199403545168
+        },
+        {
+          "actual_centered_harm": 2.488619758791305e-08,
+          "predicted_harm": 2.472403122326436e-08,
+          "q": 8.241343741088121e-05,
+          "response_norm": 0.007714594211521326
+        },
+        {
+          "actual_centered_harm": 2.0791504926585824e-08,
+          "predicted_harm": 2.075701570623036e-08,
+          "q": 6.91900523541012e-05,
+          "response_norm": 0.00622054367691115
+        },
+        {
+          "actual_centered_harm": 2.1634538127993097e-09,
+          "predicted_harm": 2.0905583805595853e-09,
+          "q": 6.968527935198618e-06,
+          "response_norm": 0.002297236445024745
+        },
+        {
+          "actual_centered_harm": -1.3691812296781625e-08,
+          "predicted_harm": -1.3752443470706941e-08,
+          "q": -4.584147823568981e-05,
+          "response_norm": 0.0045484471676899025
+        },
+        {
+          "actual_centered_harm": 1.7006645335916615e-08,
+          "predicted_harm": 1.688977192596051e-08,
+          "q": 5.629923975320171e-05,
+          "response_norm": 0.006004451909372625
+        },
+        {
+          "actual_centered_harm": -2.081326831802205e-08,
+          "predicted_harm": -2.0612261300608095e-08,
+          "q": -6.870753766869366e-05,
+          "response_norm": 0.00672637461516367
+        },
+        {
+          "actual_centered_harm": -1.8247879093186148e-09,
+          "predicted_harm": -1.8119756341002249e-09,
+          "q": -6.039918780334084e-06,
+          "response_norm": 0.004420917806829453
+        },
+        {
+          "actual_centered_harm": -2.3180947696099796e-08,
+          "predicted_harm": -2.314275530232918e-08,
+          "q": -7.71425176744306e-05,
+          "response_norm": 0.0068780348311945905
+        },
+        {
+          "actual_centered_harm": 4.37059085450775e-09,
+          "predicted_harm": 4.402083127572864e-09,
+          "q": 1.4673610425242881e-05,
+          "response_norm": 0.003987810390953129
+        },
+        {
+          "actual_centered_harm": 2.805327801655433e-09,
+          "predicted_harm": 2.748492419167519e-09,
+          "q": 9.161641397225065e-06,
+          "response_norm": 0.002395957458458842
+        },
+        {
+          "actual_centered_harm": 1.8070599504607654e-09,
+          "predicted_harm": 1.8550846075935827e-09,
+          "q": 6.183615358645276e-06,
+          "response_norm": 0.0016255752168954204
+        },
+        {
+          "actual_centered_harm": -1.7924805274620315e-08,
+          "predicted_harm": -1.773400450739342e-08,
+          "q": -5.911334835797808e-05,
+          "response_norm": 0.006411423444865189
+        }
+      ],
+      "random_q_harm_corr": 0.9999754121740148,
+      "random_response_harm_corr": -0.05281350374607751,
+      "regime": "nonzero_residual",
+      "seed": 3
+    },
+    {
+      "beta": 0.017789777938927033,
+      "chi": 0.0001914901907260555,
+      "direction_rows": [
+        {
+          "actual_centered_harm": 4.59472686061696e-08,
+          "observation_abs": 2.710505431213761e-19,
+          "predicted_harm": 4.597136162108021e-08,
+          "q": 0.0001532378720702674,
+          "response_norm": 0.01778977793892703,
+          "selector": "beta"
+        },
+        {
+          "actual_centered_harm": 5.7470063865791565e-08,
+          "observation_abs": 8.673617379884035e-19,
+          "predicted_harm": 5.744705721781666e-08,
+          "q": 0.00019149019072605555,
+          "response_norm": 0.01466934455827088,
+          "selector": "harm"
+        }
+      ],
+      "erm_geometry": {
+        "actuation_norm": 0.07975252717733383,
+        "grad_omega_norm": 0.00017782923532649875,
+        "mean_gradient_norm": 0.0013509435812011361,
+        "omega": 0.0002614218392409384,
+        "residual_rms": 0.016168544068932533
+      },
+      "irm_solution_geometry": {
+        "actuation_norm": 0.0016165260458365083,
+        "grad_omega_norm": 2.3755135316605447e-06,
+        "mean_gradient_norm": 8.638224971946329e-05,
+        "omega": 6.381393177434802e-06,
+        "residual_rms": 0.0025261419359594584
+      },
+      "random_blind": [
+        {
+          "actual_centered_harm": 4.5602098604213825e-08,
+          "predicted_harm": 4.5634334776719244e-08,
+          "q": 0.00015211444925573083,
+          "response_norm": 0.008652356675588951
+        },
+        {
+          "actual_centered_harm": -1.6580361241955166e-08,
+          "predicted_harm": -1.646733130276814e-08,
+          "q": -5.489110434256047e-05,
+          "response_norm": 0.011225054551337495
+        },
+        {
+          "actual_centered_harm": -7.08823363199107e-09,
+          "predicted_harm": -6.931013031219129e-09,
+          "q": -2.310337677073043e-05,
+          "response_norm": 0.009313896341682521
+        },
+        {
+          "actual_centered_harm": 1.4045645979621213e-08,
+          "predicted_harm": 1.3809757368526583e-08,
+          "q": 4.603252456175528e-05,
+          "response_norm": 0.006228726457037345
+        },
+        {
+          "actual_centered_harm": -2.633929693102166e-08,
+          "predicted_harm": -2.62996403748706e-08,
+          "q": -8.766546791623533e-05,
+          "response_norm": 0.005674001348374809
+        },
+        {
+          "actual_centered_harm": 1.9995838018357914e-08,
+          "predicted_harm": 1.9892864051976077e-08,
+          "q": 6.630954683992026e-05,
+          "response_norm": 0.006767991836737672
+        },
+        {
+          "actual_centered_harm": 2.750695931967584e-08,
+          "predicted_harm": 2.777387262280232e-08,
+          "q": 9.257957540934107e-05,
+          "response_norm": 0.010343647459465161
+        },
+        {
+          "actual_centered_harm": 3.341571360240825e-08,
+          "predicted_harm": 3.3183825390253286e-08,
+          "q": 0.0001106127513008443,
+          "response_norm": 0.005880773490283593
+        },
+        {
+          "actual_centered_harm": 3.908882794008417e-08,
+          "predicted_harm": 3.8847479043868975e-08,
+          "q": 0.0001294915968128966,
+          "response_norm": 0.008602563368989681
+        },
+        {
+          "actual_centered_harm": -6.915946282673446e-09,
+          "predicted_harm": -6.822227279230348e-09,
+          "q": -2.2740757597434496e-05,
+          "response_norm": 0.008775022855439463
+        },
+        {
+          "actual_centered_harm": -4.5818855834434125e-08,
+          "predicted_harm": -4.595775924835437e-08,
+          "q": -0.0001531925308278479,
+          "response_norm": 0.016637531982066134
+        },
+        {
+          "actual_centered_harm": 1.993754062713793e-08,
+          "predicted_harm": 1.9623500999017446e-08,
+          "q": 6.541166999672482e-05,
+          "response_norm": 0.009494214466301184
+        },
+        {
+          "actual_centered_harm": -1.127817490266525e-08,
+          "predicted_harm": -1.162469604063502e-08,
+          "q": -3.8748986802116734e-05,
+          "response_norm": 0.005694569030351186
+        },
+        {
+          "actual_centered_harm": 1.542627044680278e-08,
+          "predicted_harm": 1.5382644115863435e-08,
+          "q": 5.1275480386211455e-05,
+          "response_norm": 0.0031962689483180525
+        },
+        {
+          "actual_centered_harm": -1.7757440068724706e-08,
+          "predicted_harm": -1.763859883904421e-08,
+          "q": -5.87953294634807e-05,
+          "response_norm": 0.006178069115525904
+        },
+        {
+          "actual_centered_harm": -3.5275719723754095e-09,
+          "predicted_harm": -3.19404134380746e-09,
+          "q": -1.06468044793582e-05,
+          "response_norm": 0.00880238184183164
+        },
+        {
+          "actual_centered_harm": -3.483995335284984e-08,
+          "predicted_harm": -3.4954865112405154e-08,
+          "q": -0.00011651621704135052,
+          "response_norm": 0.012414817318712053
+        },
+        {
+          "actual_centered_harm": 4.958570918450755e-09,
+          "predicted_harm": 4.579776952635665e-09,
+          "q": 1.5265923175452218e-05,
+          "response_norm": 0.005094556190594896
+        },
+        {
+          "actual_centered_harm": 2.8003416710498108e-08,
+          "predicted_harm": 2.775101942506394e-08,
+          "q": 9.250339808354648e-05,
+          "response_norm": 0.009776663493041259
+        },
+        {
+          "actual_centered_harm": -4.591501630291095e-08,
+          "predicted_harm": -4.592314379281782e-08,
+          "q": -0.00015307714597605942,
+          "response_norm": 0.010778386585377147
+        },
+        {
+          "actual_centered_harm": 3.21591020809725e-08,
+          "predicted_harm": 3.220010168635311e-08,
+          "q": 0.00010733367228784372,
+          "response_norm": 0.011456702348027594
+        },
+        {
+          "actual_centered_harm": -8.611494586863166e-09,
+          "predicted_harm": -8.231189573474866e-09,
+          "q": -2.7437298578249556e-05,
+          "response_norm": 0.007202081593178773
+        },
+        {
+          "actual_centered_harm": -3.819567016838388e-09,
+          "predicted_harm": -3.728180382191773e-09,
+          "q": -1.2427267940639245e-05,
+          "response_norm": 0.004553329499101453
+        },
+        {
+          "actual_centered_harm": 2.1095423108005718e-08,
+          "predicted_harm": 2.108471009981384e-08,
+          "q": 7.028236699937947e-05,
+          "response_norm": 0.006846489282649433
+        },
+        {
+          "actual_centered_harm": -4.166407292088836e-09,
+          "predicted_harm": -4.323845102873928e-09,
+          "q": -1.4412817009579762e-05,
+          "response_norm": 0.008499848713419057
+        },
+        {
+          "actual_centered_harm": -1.4759966353306009e-08,
+          "predicted_harm": -1.4901907858261736e-08,
+          "q": -4.967302619420579e-05,
+          "response_norm": 0.008627114271927578
+        },
+        {
+          "actual_centered_harm": 1.1767441470897366e-08,
+          "predicted_harm": 1.188023222870381e-08,
+          "q": 3.960077409567937e-05,
+          "response_norm": 0.010095081341616671
+        },
+        {
+          "actual_centered_harm": 2.3673674118263044e-08,
+          "predicted_harm": 2.3597123975762876e-08,
+          "q": 7.86570799192096e-05,
+          "response_norm": 0.009494889878076848
+        },
+        {
+          "actual_centered_harm": -8.88741044646757e-09,
+          "predicted_harm": -9.102467933706362e-09,
+          "q": -3.0341559779021208e-05,
+          "response_norm": 0.009155136007725773
+        },
+        {
+          "actual_centered_harm": 8.302278590305301e-09,
+          "predicted_harm": 8.296736732402557e-09,
+          "q": 2.765578910800853e-05,
+          "response_norm": 0.008401036828883237
+        },
+        {
+          "actual_centered_harm": 1.4379412294554528e-08,
+          "predicted_harm": 1.4443304247911424e-08,
+          "q": 4.8144347493038086e-05,
+          "response_norm": 0.00401819959999406
+        },
+        {
+          "actual_centered_harm": 2.1854632213311187e-08,
+          "predicted_harm": 2.2010894272377262e-08,
+          "q": 7.336964757459088e-05,
+          "response_norm": 0.005945209032562933
+        },
+        {
+          "actual_centered_harm": -2.9227305039722373e-08,
+          "predicted_harm": -2.9109568581679996e-08,
+          "q": -9.703189527226667e-05,
+          "response_norm": 0.012759669396080529
+        },
+        {
+          "actual_centered_harm": -3.6956309021687894e-08,
+          "predicted_harm": -3.685888273224016e-08,
+          "q": -0.00012286294244080053,
+          "response_norm": 0.009484689128738896
+        },
+        {
+          "actual_centered_harm": -1.704063342863882e-08,
+          "predicted_harm": -1.7220799914563878e-08,
+          "q": -5.74026663818796e-05,
+          "response_norm": 0.008751388470719504
+        },
+        {
+          "actual_centered_harm": -3.7440860516102514e-09,
+          "predicted_harm": -3.877390138514085e-09,
+          "q": -1.2924633795046952e-05,
+          "response_norm": 0.007702194523617778
+        },
+        {
+          "actual_centered_harm": -1.0582399925102015e-08,
+          "predicted_harm": -1.049224773838561e-08,
+          "q": -3.4974159127952034e-05,
+          "response_norm": 0.008496631795437085
+        },
+        {
+          "actual_centered_harm": -2.3463226458964037e-08,
+          "predicted_harm": -2.3442777592600898e-08,
+          "q": -7.814259197533633e-05,
+          "response_norm": 0.004956356013085818
+        },
+        {
+          "actual_centered_harm": 4.7764717323733885e-08,
+          "predicted_harm": 4.768795250084025e-08,
+          "q": 0.00015895984166946751,
+          "response_norm": 0.013291862871087651
+        },
+        {
+          "actual_centered_harm": 1.828167709230777e-08,
+          "predicted_harm": 1.8373483285916878e-08,
+          "q": 6.12449442863896e-05,
+          "response_norm": 0.003303064946741419
+        },
+        {
+          "actual_centered_harm": 5.58592100352584e-09,
+          "predicted_harm": 5.62024043750029e-09,
+          "q": 1.8734134791667635e-05,
+          "response_norm": 0.00525814466799855
+        },
+        {
+          "actual_centered_harm": 3.2452026798440725e-08,
+          "predicted_harm": 3.2245535295653347e-08,
+          "q": 0.00010748511765217784,
+          "response_norm": 0.011848505426604768
+        },
+        {
+          "actual_centered_harm": -1.3587467411618759e-08,
+          "predicted_harm": -1.3480469379169969e-08,
+          "q": -4.4934897930566565e-05,
+          "response_norm": 0.008025110138722332
+        },
+        {
+          "actual_centered_harm": 1.162319826324143e-08,
+          "predicted_harm": 1.1393246527465026e-08,
+          "q": 3.797748842488342e-05,
+          "response_norm": 0.009444307828525568
+        },
+        {
+          "actual_centered_harm": -1.4300064757333253e-08,
+          "predicted_harm": -1.4152584068048598e-08,
+          "q": -4.717528022682866e-05,
+          "response_norm": 0.0054394136780115225
+        },
+        {
+          "actual_centered_harm": -1.2227329961034261e-08,
+          "predicted_harm": -1.230778933560139e-08,
+          "q": -4.1025964452004636e-05,
+          "response_norm": 0.007075826844045005
+        },
+        {
+          "actual_centered_harm": 1.0615956573881147e-08,
+          "predicted_harm": 1.0644931436792267e-08,
+          "q": 3.548310478930756e-05,
+          "response_norm": 0.0034790238864676588
+        },
+        {
+          "actual_centered_harm": -3.5126292166620665e-08,
+          "predicted_harm": -3.537837329733663e-08,
+          "q": -0.00011792791099112212,
+          "response_norm": 0.010076930292943155
+        },
+        {
+          "actual_centered_harm": 8.156752620558372e-09,
+          "predicted_harm": 7.983043557778501e-09,
+          "q": 2.6610145192595005e-05,
+          "response_norm": 0.008751498018082076
+        },
+        {
+          "actual_centered_harm": -2.4626545816475165e-08,
+          "predicted_harm": -2.4786297330539033e-08,
+          "q": -8.262099110179679e-05,
+          "response_norm": 0.004883040429861027
+        },
+        {
+          "actual_centered_harm": 3.086663706748649e-08,
+          "predicted_harm": 3.080425444281682e-08,
+          "q": 0.00010268084814272273,
+          "response_norm": 0.008715771456800237
+        },
+        {
+          "actual_centered_harm": -1.799224196019633e-08,
+          "predicted_harm": -1.8356990852520093e-08,
+          "q": -6.118996950840032e-05,
+          "response_norm": 0.006053968045636833
+        },
+        {
+          "actual_centered_harm": 7.222032728793071e-09,
+          "predicted_harm": 7.3412625855835e-09,
+          "q": 2.4470875285278333e-05,
+          "response_norm": 0.005878887188321865
+        },
+        {
+          "actual_centered_harm": -1.837072426125186e-08,
+          "predicted_harm": -1.837466952863431e-08,
+          "q": -6.124889842878103e-05,
+          "response_norm": 0.007839550635436104
+        },
+        {
+          "actual_centered_harm": -3.355979989391744e-08,
+          "predicted_harm": -3.3563453356412065e-08,
+          "q": -0.0001118781778547069,
+          "response_norm": 0.00604571086440882
+        },
+        {
+          "actual_centered_harm": 2.738408266117487e-08,
+          "predicted_harm": 2.744589094736296e-08,
+          "q": 9.148630315787654e-05,
+          "response_norm": 0.012723531555999293
+        },
+        {
+          "actual_centered_harm": 4.599719449077666e-09,
+          "predicted_harm": 4.602253758988881e-09,
+          "q": 1.534084586329627e-05,
+          "response_norm": 0.006735626362077266
+        },
+        {
+          "actual_centered_harm": 1.1084845026251844e-08,
+          "predicted_harm": 1.0929949227383597e-08,
+          "q": 3.643316409127866e-05,
+          "response_norm": 0.008581531468609817
+        },
+        {
+          "actual_centered_harm": 1.0747257382648367e-08,
+          "predicted_harm": 1.0517855670814398e-08,
+          "q": 3.5059518902714665e-05,
+          "response_norm": 0.007698188471962309
+        },
+        {
+          "actual_centered_harm": -1.8129955869916614e-10,
+          "predicted_harm": 1.0754232331193873e-10,
+          "q": 3.584744110397958e-07,
+          "response_norm": 0.007742265859623277
+        },
+        {
+          "actual_centered_harm": 3.096097597049541e-10,
+          "predicted_harm": 5.544954321280364e-10,
+          "q": 1.8483181070934547e-06,
+          "response_norm": 0.0028644486275168275
+        },
+        {
+          "actual_centered_harm": 1.4085816821968189e-08,
+          "predicted_harm": 1.408525157972078e-08,
+          "q": 4.695083859906927e-05,
+          "response_norm": 0.005444434773910621
+        },
+        {
+          "actual_centered_harm": 8.680310267447644e-09,
+          "predicted_harm": 8.336342864003311e-09,
+          "q": 2.7787809546677707e-05,
+          "response_norm": 0.004654691371233999
+        },
+        {
+          "actual_centered_harm": 4.497162094108109e-08,
+          "predicted_harm": 4.4835187265982e-08,
+          "q": 0.00014945062421994,
+          "response_norm": 0.012237875057952239
+        },
+        {
+          "actual_centered_harm": -7.643350511538083e-09,
+          "predicted_harm": -7.462214650679147e-09,
+          "q": -2.487404883559716e-05,
+          "response_norm": 0.008030133947414121
+        },
+        {
+          "actual_centered_harm": -9.564386494603783e-09,
+          "predicted_harm": -9.338539247568975e-09,
+          "q": -3.112846415856325e-05,
+          "response_norm": 0.0067346453381715524
+        },
+        {
+          "actual_centered_harm": 1.933342015994488e-09,
+          "predicted_harm": 1.7687460667787205e-09,
+          "q": 5.8958202225957355e-06,
+          "response_norm": 0.008574144841802578
+        },
+        {
+          "actual_centered_harm": 1.6330942003220383e-08,
+          "predicted_harm": 1.6429510248611858e-08,
+          "q": 5.4765034162039525e-05,
+          "response_norm": 0.009888325938081637
+        },
+        {
+          "actual_centered_harm": -1.9084633763946646e-08,
+          "predicted_harm": -1.915665687141486e-08,
+          "q": -6.385552290471621e-05,
+          "response_norm": 0.009403207473835693
+        },
+        {
+          "actual_centered_harm": 2.9596234567275115e-08,
+          "predicted_harm": 2.9682764219715757e-08,
+          "q": 9.894254739905253e-05,
+          "response_norm": 0.0054545568854558486
+        },
+        {
+          "actual_centered_harm": 7.302133776115882e-09,
+          "predicted_harm": 7.018181946104805e-09,
+          "q": 2.3393939820349353e-05,
+          "response_norm": 0.005720768806705998
+        },
+        {
+          "actual_centered_harm": 4.244169911349349e-10,
+          "predicted_harm": 3.794407066881407e-11,
+          "q": 1.264802355627136e-07,
+          "response_norm": 0.005792502954640193
+        },
+        {
+          "actual_centered_harm": -9.911588431943397e-09,
+          "predicted_harm": -9.998914351096558e-09,
+          "q": -3.3329714503655195e-05,
+          "response_norm": 0.0044437442841765915
+        },
+        {
+          "actual_centered_harm": -4.087700624169632e-08,
+          "predicted_harm": -4.072011651592481e-08,
+          "q": -0.0001357337217197494,
+          "response_norm": 0.010873830673084499
+        },
+        {
+          "actual_centered_harm": -1.8375089554101276e-08,
+          "predicted_harm": -1.830181850245487e-08,
+          "q": -6.100606167484958e-05,
+          "response_norm": 0.012562844654317071
+        },
+        {
+          "actual_centered_harm": 3.5801492326292816e-10,
+          "predicted_harm": 6.097694300255848e-10,
+          "q": 2.0325647667519494e-06,
+          "response_norm": 0.007237568635809687
+        },
+        {
+          "actual_centered_harm": 1.0669434920632104e-08,
+          "predicted_harm": 1.085415033092776e-08,
+          "q": 3.6180501103092536e-05,
+          "response_norm": 0.005867503510190744
+        },
+        {
+          "actual_centered_harm": -4.2084338814155076e-08,
+          "predicted_harm": -4.2067697479003136e-08,
+          "q": -0.0001402256582633438,
+          "response_norm": 0.01319941944086793
+        },
+        {
+          "actual_centered_harm": 2.73058965612194e-08,
+          "predicted_harm": 2.7505575551935144e-08,
+          "q": 9.168525183978382e-05,
+          "response_norm": 0.00682620405845615
+        },
+        {
+          "actual_centered_harm": -2.4662082728429957e-08,
+          "predicted_harm": -2.496837874495543e-08,
+          "q": -8.322792914985144e-05,
+          "response_norm": 0.012009218019448703
+        },
+        {
+          "actual_centered_harm": 7.129308450884442e-09,
+          "predicted_harm": 7.080290283586807e-09,
+          "q": 2.3600967611956025e-05,
+          "response_norm": 0.0047199065619737525
+        },
+        {
+          "actual_centered_harm": 1.3814259175806698e-08,
+          "predicted_harm": 1.3576308352526213e-08,
+          "q": 4.525436117508738e-05,
+          "response_norm": 0.0033153307956087833
+        },
+        {
+          "actual_centered_harm": -3.9104885680291135e-08,
+          "predicted_harm": -3.924312247451685e-08,
+          "q": -0.00013081040824838952,
+          "response_norm": 0.013188784749591292
+        },
+        {
+          "actual_centered_harm": 1.745802481051273e-08,
+          "predicted_harm": 1.7533465118183084e-08,
+          "q": 5.844488372727695e-05,
+          "response_norm": 0.011068516547827487
+        },
+        {
+          "actual_centered_harm": -3.5219012532727856e-09,
+          "predicted_harm": -3.2721896039051767e-09,
+          "q": -1.0907298679683924e-05,
+          "response_norm": 0.008742094205016874
+        },
+        {
+          "actual_centered_harm": -1.0258735038543021e-08,
+          "predicted_harm": -1.0617878856217708e-08,
+          "q": -3.53929295207257e-05,
+          "response_norm": 0.006083134304890752
+        },
+        {
+          "actual_centered_harm": -3.6100179979028924e-08,
+          "predicted_harm": -3.587553648667433e-08,
+          "q": -0.00011958512162224777,
+          "response_norm": 0.00929381570421725
+        },
+        {
+          "actual_centered_harm": 1.65611697793e-09,
+          "predicted_harm": 1.9674199229814942e-09,
+          "q": 6.558066409938315e-06,
+          "response_norm": 0.004083480200277855
+        },
+        {
+          "actual_centered_harm": 2.96289512941722e-08,
+          "predicted_harm": 2.9943942577333635e-08,
+          "q": 9.981314192444546e-05,
+          "response_norm": 0.00895886807048346
+        },
+        {
+          "actual_centered_harm": -1.675195408779029e-08,
+          "predicted_harm": -1.690319148671027e-08,
+          "q": -5.634397162236757e-05,
+          "response_norm": 0.007489661996090557
+        },
+        {
+          "actual_centered_harm": -1.015534645092131e-08,
+          "predicted_harm": -1.0386099746415021e-08,
+          "q": -3.4620332488050076e-05,
+          "response_norm": 0.0050870594345687695
+        },
+        {
+          "actual_centered_harm": -2.6459350245533475e-08,
+          "predicted_harm": -2.6408324831941194e-08,
+          "q": -8.802774943980399e-05,
+          "response_norm": 0.012062022042526831
+        },
+        {
+          "actual_centered_harm": -4.2563036810328025e-09,
+          "predicted_harm": -4.362311097718529e-09,
+          "q": -1.4541036992395097e-05,
+          "response_norm": 0.010292354810154824
+        },
+        {
+          "actual_centered_harm": 4.926449373443553e-09,
+          "predicted_harm": 4.927722953924946e-09,
+          "q": 1.6425743179749823e-05,
+          "response_norm": 0.0026721348132626955
+        },
+        {
+          "actual_centered_harm": -1.5290808228970998e-08,
+          "predicted_harm": -1.54562376779657e-08,
+          "q": -5.1520792259885674e-05,
+          "response_norm": 0.005277095240041857
+        },
+        {
+          "actual_centered_harm": 5.343286301265349e-09,
+          "predicted_harm": 5.2253784636833205e-09,
+          "q": 1.7417928212277737e-05,
+          "response_norm": 0.004888759294014732
+        },
+        {
+          "actual_centered_harm": -8.378913597673066e-09,
+          "predicted_harm": -8.024130116433392e-09,
+          "q": -2.674710038811131e-05,
+          "response_norm": 0.005916946996005892
+        },
+        {
+          "actual_centered_harm": 1.249774321532282e-08,
+          "predicted_harm": 1.236787203512052e-08,
+          "q": 4.12262401170684e-05,
+          "response_norm": 0.0037816599657600892
+        },
+        {
+          "actual_centered_harm": 2.9819973842645786e-08,
+          "predicted_harm": 2.989730272657463e-08,
+          "q": 9.965767575524877e-05,
+          "response_norm": 0.0039073512504658415
+        },
+        {
+          "actual_centered_harm": -2.762447030325854e-08,
+          "predicted_harm": -2.733506626647032e-08,
+          "q": -9.111688755490107e-05,
+          "response_norm": 0.010323264343892304
+        },
+        {
+          "actual_centered_harm": -2.0291803185662483e-08,
+          "predicted_harm": -2.0289296335689036e-08,
+          "q": -6.763098778563012e-05,
+          "response_norm": 0.0050611998195358
+        },
+        {
+          "actual_centered_harm": -4.419529384819265e-09,
+          "predicted_harm": -4.371833773543864e-09,
+          "q": -1.4572779245146215e-05,
+          "response_norm": 0.007709445148149668
+        },
+        {
+          "actual_centered_harm": 4.657837263805087e-08,
+          "predicted_harm": 4.6520459241404807e-08,
+          "q": 0.00015506819747134937,
+          "response_norm": 0.010408380816239795
+        },
+        {
+          "actual_centered_harm": -2.1766292527050646e-08,
+          "predicted_harm": -2.1738470854770094e-08,
+          "q": -7.246156951590032e-05,
+          "response_norm": 0.00463367771668743
+        },
+        {
+          "actual_centered_harm": -2.715806567826773e-08,
+          "predicted_harm": -2.7493809252916626e-08,
+          "q": -9.164603084305543e-05,
+          "response_norm": 0.011960182472554374
+        },
+        {
+          "actual_centered_harm": -1.1929358839299353e-08,
+          "predicted_harm": -1.1735978470037751e-08,
+          "q": -3.9119928233459175e-05,
+          "response_norm": 0.006622051020981933
+        },
+        {
+          "actual_centered_harm": 2.0372003750601664e-08,
+          "predicted_harm": 2.0563083076706573e-08,
+          "q": 6.854361025568858e-05,
+          "response_norm": 0.006778659515716485
+        },
+        {
+          "actual_centered_harm": 4.2393532868195694e-08,
+          "predicted_harm": 4.2149708543988093e-08,
+          "q": 0.00014049902847996032,
+          "response_norm": 0.009589002073003169
+        },
+        {
+          "actual_centered_harm": 3.9042348312645636e-08,
+          "predicted_harm": 3.907107172665403e-08,
+          "q": 0.00013023690575551344,
+          "response_norm": 0.013873104566405172
+        },
+        {
+          "actual_centered_harm": 1.5793990643109268e-08,
+          "predicted_harm": 1.5713181805021838e-08,
+          "q": 5.237727268340613e-05,
+          "response_norm": 0.003420547086303011
+        },
+        {
+          "actual_centered_harm": 1.5628567438460972e-08,
+          "predicted_harm": 1.5663046426707886e-08,
+          "q": 5.221015475569296e-05,
+          "response_norm": 0.0038769921271726575
+        },
+        {
+          "actual_centered_harm": -1.1199447856949374e-08,
+          "predicted_harm": -1.1170770687462883e-08,
+          "q": -3.7235902291542946e-05,
+          "response_norm": 0.002061223157577027
+        },
+        {
+          "actual_centered_harm": 2.4274469247187458e-08,
+          "predicted_harm": 2.4105060840483668e-08,
+          "q": 8.035020280161223e-05,
+          "response_norm": 0.007691313417589852
+        },
+        {
+          "actual_centered_harm": 1.2116113709548237e-08,
+          "predicted_harm": 1.2172051470810647e-08,
+          "q": 4.057350490270216e-05,
+          "response_norm": 0.008299877875777989
+        },
+        {
+          "actual_centered_harm": -1.0399851473053001e-08,
+          "predicted_harm": -1.0693252296106371e-08,
+          "q": -3.564417432035457e-05,
+          "response_norm": 0.00758762788676489
+        },
+        {
+          "actual_centered_harm": 9.434966198942907e-09,
+          "predicted_harm": 9.731920892317008e-09,
+          "q": 3.243973630772336e-05,
+          "response_norm": 0.005417533133788389
+        },
+        {
+          "actual_centered_harm": 1.837561946355093e-08,
+          "predicted_harm": 1.8337723561118838e-08,
+          "q": 6.112574520372946e-05,
+          "response_norm": 0.008102957239465722
+        },
+        {
+          "actual_centered_harm": 6.46177575509832e-09,
+          "predicted_harm": 6.585018745660447e-09,
+          "q": 2.1950062485534825e-05,
+          "response_norm": 0.004316977219420833
+        },
+        {
+          "actual_centered_harm": 1.414882594766298e-08,
+          "predicted_harm": 1.4149237223327808e-08,
+          "q": 4.716412407775936e-05,
+          "response_norm": 0.004616723078989659
+        },
+        {
+          "actual_centered_harm": 3.023914146166318e-08,
+          "predicted_harm": 3.0473478819766134e-08,
+          "q": 0.0001015782627325538,
+          "response_norm": 0.010369934362211747
+        },
+        {
+          "actual_centered_harm": 3.028338180915968e-09,
+          "predicted_harm": 2.9139930364371955e-09,
+          "q": 9.71331012145732e-06,
+          "response_norm": 0.00552450012023822
+        },
+        {
+          "actual_centered_harm": -1.609808021087178e-08,
+          "predicted_harm": -1.6441846830641847e-08,
+          "q": -5.480615610213949e-05,
+          "response_norm": 0.010328600484395439
+        },
+        {
+          "actual_centered_harm": -2.692868383835645e-08,
+          "predicted_harm": -2.678109166996343e-08,
+          "q": -8.927030556654477e-05,
+          "response_norm": 0.010842117470160428
+        },
+        {
+          "actual_centered_harm": 9.844269139441808e-09,
+          "predicted_harm": 9.526186863947474e-09,
+          "q": 3.175395621315825e-05,
+          "response_norm": 0.004364170814858666
+        },
+        {
+          "actual_centered_harm": -4.845531673819403e-08,
+          "predicted_harm": -4.8265471250898845e-08,
+          "q": -0.00016088490416966283,
+          "response_norm": 0.013619653050457625
+        },
+        {
+          "actual_centered_harm": -8.657612111592772e-09,
+          "predicted_harm": -8.328082354527413e-09,
+          "q": -2.7760274515091382e-05,
+          "response_norm": 0.003111362349179406
+        },
+        {
+          "actual_centered_harm": 1.2514451749184863e-09,
+          "predicted_harm": 1.1895303281493262e-09,
+          "q": 3.9651010938310875e-06,
+          "response_norm": 0.003518347275343158
+        },
+        {
+          "actual_centered_harm": 1.148374590212442e-08,
+          "predicted_harm": 1.1518297179699355e-08,
+          "q": 3.839432393233119e-05,
+          "response_norm": 0.011245859803484482
+        }
+      ],
+      "random_q_harm_corr": 0.9999642857658736,
+      "random_response_harm_corr": -0.14698462369967752,
+      "regime": "nonzero_residual",
+      "seed": 4
+    }
+  ],
+  "scope": "frozen_classifier_head_source_contrasts",
+  "summary": {
+    "beta_actual_centered_harm_mean": -1.295709937728512e-08,
+    "beta_actual_centered_harm_std": 4.686039967938332e-08,
+    "beta_mean": 0.015649183834706367,
+    "beta_predicted_harm_mean": -1.3028614112980972e-08,
+    "beta_predicted_harm_std": 4.691834654865138e-08,
+    "beta_q_mean": -4.3428713709936574e-05,
+    "beta_q_std": 0.0001563944884955046,
+    "beta_response_norm_mean": 0.015649183834706367,
+    "beta_response_norm_std": 0.005250189347922373,
+    "beta_std": 0.005250189347922372,
+    "chi_mean": 0.00018785539291212754,
+    "chi_std": 7.70744479855439e-05,
+    "harm_actual_centered_harm_mean": 5.6419534297420805e-08,
+    "harm_actual_centered_harm_std": 2.3048603799191136e-08,
+    "harm_beats_beta_actual_count": 5,
+    "harm_predicted_harm_mean": 5.635661787363826e-08,
+    "harm_predicted_harm_std": 2.3122334395663176e-08,
+    "harm_q_mean": 0.00018785539291212754,
+    "harm_q_std": 7.707444798554393e-05,
+    "harm_response_norm_mean": 0.01058211887143243,
+    "harm_response_norm_std": 0.0037378257693093503,
+    "nonzero_residual_seeds": 5,
+    "random_q_harm_corr_mean": 0.9999654730959298,
+    "random_q_harm_corr_std": 1.6249115163519844e-05,
+    "random_response_harm_corr_mean": -0.0873828952116749,
+    "random_response_harm_corr_std": 0.04340758277881889
+  },
+  "target_used": false
+}
