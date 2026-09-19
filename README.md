@@ -106,6 +106,8 @@ python experiments/run_feature_subspace_suppression.py --sample-sizes 256 1024 4
 python experiments/run_curvature_response_witness.py --target-sign -1 --source-design symmetric
 python experiments/run_curvature_response_witness.py --target-sign 1 --source-design symmetric
 python experiments/run_hessian_response_regularization.py --n-per-env 256 --gammas 0 0.5 1 --seeds 0 1 2 3 4
+python experiments/run_response_matrix_witness.py
+python experiments/run_curvature_corrected_response_aggregation.py --n-per-env 256 --gammas 0 0.5 1 --seeds 0 1 2 3 4
 ```
 
 The Lean project pins Mathlib to a public Git revision in `lean/lakefile.lean`
@@ -171,3 +173,15 @@ manifold as an action rule. The scalar population witness is in
 direction Hessian ablation and a required direction-reversal negative result.
 The neural smoke grid is currently only a `PROBE`: V-REx still wins on the
 existing hidden-environment generator, so no broad OOD claim is made.
+
+The response-matrix follow-up is CCRA (Curvature-Corrected Response
+Aggregation), specified in `method/curvature_corrected_response_aggregation.md`
+and `theory/20_response_matrix_sign_reversal.md`. It treats the domain-wise
+loss response of an actual update as the object of interest and tests the
+failure mode
+`g_j^T d_i < 0` but
+`g_j^T d_i + d_i^T H_j d_i / 2 > 0`. The population witness is in
+`experiments/run_response_matrix_witness.py`; the neural probe is in
+`experiments/run_curvature_corrected_response_aggregation.py`. The witness is
+strongly positive, while the neural probe remains modest and V-REx still wins,
+so CCRA is also recorded as `PROBE`.

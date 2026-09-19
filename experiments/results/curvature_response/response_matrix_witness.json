@@ -1,0 +1,88 @@
+{
+  "candidates": [
+    0.5,
+    0.10000000149011612
+  ],
+  "configuration": {
+    "alpha": 0.5,
+    "json": "experiments/results/curvature_response/response_matrix_witness.json",
+    "lr": 0.05,
+    "response_lambda": 20.0,
+    "steps": 800,
+    "target_hessian": 3.5,
+    "temperature": 0.01
+  },
+  "curvature_combined_response": [
+    [
+      -0.11179939657449722,
+      -0.022359879687428474
+    ],
+    [
+      -0.10554984211921692,
+      -0.0036112219095230103
+    ]
+  ],
+  "curvature_weights": [
+    0.029498467221856117,
+    0.9705016016960144
+  ],
+  "first_order_combined_response": [
+    [
+      -0.3001943528652191,
+      -0.06003887206315994
+    ],
+    [
+      -0.25513601303100586,
+      0.07513610273599625
+    ]
+  ],
+  "first_order_response_matrix": [
+    [
+      -0.5,
+      -0.10000000149011612
+    ],
+    [
+      -0.10000000149011612,
+      -0.020000001415610313
+    ]
+  ],
+  "first_order_weights": [
+    0.500485897064209,
+    0.49951407313346863
+  ],
+  "rows": [
+    {
+      "method": "first_order",
+      "target_excess": 0.10337955830618739,
+      "target_response_from_zero": 0.09766527265310287,
+      "target_risk": 0.09766527265310287,
+      "update": 0.3001943528652191
+    },
+    {
+      "method": "curvature_corrected",
+      "target_excess": 0.005227839108556509,
+      "target_response_from_zero": -0.0004864465445280075,
+      "target_risk": -0.0004864465445280075,
+      "update": 0.11179939657449722
+    }
+  ],
+  "second_order_response_matrix": [
+    [
+      -0.375,
+      -0.0949999988079071
+    ],
+    [
+      0.2750000059604645,
+      -0.005000000819563866
+    ]
+  ],
+  "sign_reversal_entries": 1,
+  "source_gradients": [
+    -1.0,
+    -0.20000000298023224
+  ],
+  "source_hessians": [
+    1.0,
+    3.0
+  ]
+}
