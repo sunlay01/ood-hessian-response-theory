@@ -34,7 +34,6 @@ INPUT_DIM = 67
 HIDDEN_DIM = 16
 MECHANISM_DIM = 3
 SOURCE_ENVS = 8
-RHO = 1.0
 DEFAULT_N_PER_ENV = 512
 DEFAULT_EVAL_N = 1024
 DEFAULT_EPOCHS = 80
@@ -171,6 +170,7 @@ def head_risk_from_vector(
 def head_geometry(
     model: DigitMLP,
     data: tuple[torch.Tensor, torch.Tensor],
+    radius: float,
 ) -> np.ndarray:
     """Return [rho * head-gradient, rho^2/2 * flattened head-Hessian]."""
 
@@ -184,7 +184,10 @@ def head_geometry(
     gradient = torch.autograd.grad(risk(vector), vector, create_graph=False)[0]
     hessian = torch.autograd.functional.hessian(risk, vector)
     output = torch.cat(
-        [RHO * gradient.detach(), (RHO**2 / 2.0) * hessian.reshape(-1).detach()]
+        [
+            radius * gradient.detach(),
+            (radius**2 / 2.0) * hessian.reshape(-1).detach(),
+        ]
     )
     return output.cpu().numpy()
 
@@ -214,12 +217,13 @@ def finite_difference_column(
     direction: np.ndarray,
     step: float,
     geometry: bool,
+    radius: float,
 ) -> np.ndarray:
     plus = make_environment(latents, eta0 + step * direction)
     minus = make_environment(latents, eta0 - step * direction)
     if geometry:
-        plus_value = head_geometry(model, plus)
-        minus_value = head_geometry(model, minus)
+        plus_value = head_geometry(model, plus, radius)
+        minus_value = head_geometry(model, minus, radius)
     else:
         plus_value = np.asarray(
             regularizer_statistic(model, plus, _CURRENT_METHOD), dtype=float
@@ -239,6 +243,7 @@ def observation_and_response(
     eta0: np.ndarray,
     method: str,
     fd_step: float,
+    radius: float,
 ) -> tuple[np.ndarray, np.ndarray, dict[str, float]]:
     global _CURRENT_METHOD
     _CURRENT_METHOD = method
@@ -248,7 +253,13 @@ def observation_and_response(
         direction[j] = 1.0
         columns.append(
             finite_difference_column(
-                model, latent, eta0, direction, fd_step, geometry=False
+                model,
+                latent,
+                eta0,
+                direction,
+                fd_step,
+                geometry=False,
+                radius=radius,
             )
         )
     observation = np.asarray(columns, dtype=float).reshape(1, MECHANISM_DIM)
@@ -259,7 +270,13 @@ def observation_and_response(
         direction[j] = 1.0
         response_columns.append(
             finite_difference_column(
-                model, latent, eta0, direction, fd_step, geometry=True
+                model,
+                latent,
+                eta0,
+                direction,
+                fd_step,
+                geometry=True,
+                radius=radius,
             )
         )
     response = np.stack(response_columns, axis=1)
@@ -442,7 +459,7 @@ def run_model(
     seed: int,
 ) -> dict[str, object]:
     observation, response, geometry_diag = observation_and_response(
-        model, source_latents, eta0, method, fd_step
+        model, source_latents, eta0, method, fd_step, attack_radius
     )
     projector = null_projector(observation)
     blind_matrix = response @ projector
