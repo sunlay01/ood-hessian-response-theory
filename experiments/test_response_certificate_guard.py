@@ -21,15 +21,12 @@ class GuardTests(unittest.TestCase):
         self.state = copy.deepcopy(self.optimizer.state_dict())
         self.optimizer.step()
         m.set_vector(self.model, self.old*1.1)
-        self.args = SimpleNamespace(region_radius=100., backtracks=4, armijo=1e-4, margin=1e-7)
+        self.args = SimpleNamespace(region_radius=100., backtracks=4, armijo=1e-4, margin=0., fallback_step=.01, max_step_norm=1.)
 
-    def quadratic_proxy(self, model, *args, **kwargs):
+    def quadratic_base(self, model, *args, **kwargs):
         u = sum(p.double().square().sum() for p in model.parameters())/2
         value = float(u.detach())
-        return {"tensor": u, "lower": value, "upper": value,
-                "source_risks": [-value,-value], "D": value,
-                "head_excess_lower": 0.,
-                "optimum": {"head": m.head_vector(model), "gap":0., "converged":True}}
+        return {"tensor": u, "value": value, "source_risks": np.array([-value, -value])}
 
     def assert_optimizer_restored(self):
         actual = self.optimizer.state_dict()
@@ -40,30 +37,79 @@ class GuardTests(unittest.TestCase):
 
     def test_rejection_restores_parameters_and_adam_state(self):
         self.args.margin = 1e9
-        with patch.object(m,"proxy_state",side_effect=self.quadratic_proxy):
-            row = m.guard_update(self.model,self.optimizer,self.old,self.state,[],torch.ones(1,1),self.args)
-        self.assertEqual(row["status"],"NO_PROXY_DESCENT_FOUND")
+        with patch.object(m,"base_state",side_effect=self.quadratic_base):
+            row = m.guard_update(self.model,self.optimizer,self.old,self.state,[],10000.,self.args)
+        self.assertEqual(row["status"],"NO_BASE_DESCENT_FOUND")
         self.assertTrue(torch.equal(m.vector(self.model),self.old))
         self.assert_optimizer_restored()
 
-    def test_fallback_accepts_proxy_descent_even_when_all_source_risks_rise(self):
-        with patch.object(m,"proxy_state",side_effect=self.quadratic_proxy):
-            row = m.guard_update(self.model,self.optimizer,self.old,self.state,[],torch.ones(1,1),self.args)
+    def test_fallback_accepts_base_descent_even_when_all_source_risks_rise(self):
+        with patch.object(m,"base_state",side_effect=self.quadratic_base):
+            row = m.guard_update(self.model,self.optimizer,self.old,self.state,[],10000.,self.args)
         self.assertEqual(row["status"],"FALLBACK_ACCEPTED")
-        self.assertGreater(min(row["source_calibration_changes"]),0)
-        self.assertLess(row["proxy_after_upper"],row["proxy_before_lower"]-row["armijo_decrease"])
+        self.assertGreater(min(row["full_source_changes"]),0)
+        self.assertLess(row["base_after"],row["base_before"])
         self.assert_optimizer_restored()
 
-    def test_inner_uncertainty_can_reject_apparent_proxy_improvement(self):
-        def uncertain(model,*args,**kwargs):
-            row = self.quadratic_proxy(model)
-            row["upper"] += 1e9
-            row["optimum"]["gap"] = 1e9
-            return row
-        with patch.object(m,"proxy_state",side_effect=uncertain):
-            row = m.guard_update(self.model,self.optimizer,self.old,self.state,[],torch.ones(1,1),self.args)
-        self.assertFalse(row["applied"])
-        self.assertTrue(any(c.get("proxy_lower",float("inf"))<row["proxy_before_lower"] for c in row["candidates"]))
+    def test_conflicting_response_is_removed_and_norm_is_capped(self):
+        b = torch.tensor([1., 0.])
+        e = torch.tensor([-4., 3.])
+        c = m.compatible_response_gradient(b, e, .25)
+        torch.testing.assert_close(c, torch.tensor([0., .25]))
+        self.assertGreaterEqual(float(b @ c), 0.)
+        torch.testing.assert_close(m.compatible_response_gradient(b, e, 0.), torch.zeros(2))
+
+    def test_zero_base_gradient_does_not_optimize_response_alone(self):
+        c = m.compatible_response_gradient(torch.zeros(2), torch.ones(2), .25)
+        torch.testing.assert_close(c, torch.zeros(2))
+
+    def test_base_objective_contains_prediction_loss(self):
+        envs = [dict(images=torch.zeros(12, 2, 14, 14),
+                     labels=torch.tensor([[0.], [1.]]).repeat(6, 1)) for _ in range(2)]
+        with torch.no_grad():
+            for p in self.model.parameters():
+                p.zero_()
+        state = m.base_state(self.model, envs, 10000.)
+        self.assertAlmostEqual(state["value"], np.log(2)/10000., places=10)
+        self.assertGreater(state["value"], 0.)
+
+    def test_zero_response_matches_original_training(self):
+        import contextlib
+        import io
+        torch.manual_seed(3)
+        envs = [dict(images=torch.rand(12, 2, 14, 14),
+                     labels=(torch.rand(12, 1) > .5).float()) for _ in range(2)]
+        args = SimpleNamespace(steps=3, warmup=1, gate_every=10, rho=1.,
+                               response_weight=0., tau=1., log_every=10,
+                               max_response_grad_ratio=.25)
+        with contextlib.redirect_stdout(io.StringIO()):
+            base = m.run("irm", self.model, envs, envs[0], envs, args, 3)
+            disabled = m.run("blind", self.model, envs, envs[0], envs, args, 3)
+        self.assertEqual(base["final_post_update"], disabled["final_post_update"])
+
+    def test_all_methods_run_with_actual_response_and_guard(self):
+        import contextlib
+        import io
+        torch.manual_seed(13)
+        envs = [dict(images=torch.rand(12, 2, 14, 14),
+                     labels=(torch.rand(12, 1) > .5).float()) for _ in range(2)]
+        args = SimpleNamespace(steps=4, warmup=1, gate_every=1, rho=1.,
+                               response_weight=1., tau=1., log_every=10,
+                               max_response_grad_ratio=.25, backtracks=16,
+                               armijo=1e-4, margin=0., fallback_step=.001,
+                               max_step_norm=.1)
+        with contextlib.redirect_stdout(io.StringIO()):
+            for method in ("irm", "full_alignment", "full_compatible", "blind", "proxy_guard"):
+                result = m.run(method, self.model, envs, envs[0], envs, args, 13)
+                self.assertTrue(np.isfinite(result["final_post_update"]["target_accuracy"]))
+                if method != "irm":
+                    self.assertEqual(len(result["response_steps"]), 3)
+                if method == "proxy_guard":
+                    accepted = [r for r in result["guard_steps"] if r["applied"]]
+                    self.assertGreater(len(accepted), 0)
+                    for row in accepted:
+                        self.assertLess(row["base_after"], row["base_before"])
+                        self.assertLessEqual(row["base_after"], row["threshold"])
 
 
 if __name__ == "__main__":

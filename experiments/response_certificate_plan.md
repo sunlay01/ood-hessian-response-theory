@@ -1,5 +1,11 @@
 # Finite source response probe: fixed plan
 
+> Historical v1 plan, retained for audit of the existing negative results.
+> The current runner is v2: see method/empirical_response_certificate.md.
+> V2 replaces the head-excess proxy guard with full-data IRM descent and
+> uses a bounded, conflict-projected response gradient. Do not interpret
+> the results below as a validation of v2.
+
 User-authorized mechanism experiment, 2026-09-20. No novelty or target certification claim.
 
 Compare official CMNIST IRMv1 against full gradient/Hessian contrast alignment,
