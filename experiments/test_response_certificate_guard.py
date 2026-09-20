@@ -111,6 +111,77 @@ class GuardTests(unittest.TestCase):
                         self.assertLess(row["base_after"], row["base_before"])
                         self.assertLessEqual(row["base_after"], row["threshold"])
 
+    def test_envelope_bounds_affine_targets_in_any_dimension(self):
+        torch.manual_seed(19)
+        for count in (2, 3, 7):
+            risks = torch.rand(count, dtype=torch.float64)
+            c = m.contrasts(count)
+            radius = 3.
+            bound = m.risk_envelope(risks, radius, 1e-4)
+            for _ in range(10):
+                a = torch.randn(count-1, dtype=torch.float64)
+                a = radius * a / a.norm()
+                weights = torch.ones(count, dtype=torch.float64)/count + c @ a
+                self.assertLessEqual(float(weights @ risks), float(bound) + 1e-12)
+            # The exact support function is attained along the risk contrast.
+            delta = c.T @ risks
+            exact = risks.mean() + radius * delta.norm()
+            self.assertLessEqual(float(exact), float(bound))
+            self.assertLessEqual(float(bound-exact), radius*1e-4)
+
+    def test_new_guard_accepts_actual_irm_increase(self):
+        class ScalarModel(torch.nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.weight = torch.nn.Parameter(torch.tensor(.5))
+
+            def forward(self, images):
+                return images * self.weight
+
+        model = ScalarModel()
+        envs = [dict(images=torch.ones(8, 1), labels=torch.ones(8, 1)) for _ in range(2)]
+        args = SimpleNamespace(coverage=1., envelope_smoothing=1e-4, robust_l2=.001,
+                               backtracks=16, armijo=1e-4, margin=0.,
+                               fallback_step=.001, max_step_norm=.1)
+        objective = lambda current: m.robust_state(current, envs, [], args, 1., 0.)
+        optimizer = torch.optim.Adam(model.parameters(), lr=.01)
+        old, state = m.vector(model), copy.deepcopy(optimizer.state_dict())
+        irm_before = m.base_state(model, envs, 10000.)["value"]
+        objective(model)["tensor"].backward()
+        optimizer.step()
+        row = m.guard_update(model, optimizer, old, state, envs, 0., args, state_fn=objective)
+        self.assertTrue(row["applied"])
+        self.assertLess(row["base_after"], row["base_before"])
+        self.assertGreater(m.base_state(model, envs, 10000.)["value"], irm_before)
+
+    def test_robust_methods_train_encoder_and_do_not_use_target_for_updates(self):
+        import contextlib
+        import io
+        torch.manual_seed(29)
+        envs = [dict(images=torch.rand(12, 2, 14, 14),
+                     labels=(torch.rand(12, 1) > .5).float()) for _ in range(2)]
+        args = SimpleNamespace(steps=3, rho=1., log_every=1, coverage=1.,
+                               envelope_smoothing=1e-4, robust_l2=.001,
+                               robust_response_weight=.01, backtracks=16,
+                               armijo=1e-4, margin=0., fallback_step=.001, max_step_norm=.1)
+        state = m.robust_state(self.model, envs, envs, args, 1., .01)
+        grads = torch.autograd.grad(state["tensor"], tuple(self.model.parameters()))
+        self.assertGreater(float(grads[0].norm()), 0.)
+        self.assertGreater(float(grads[-1].norm()), 0.)
+        alternate = dict(images=envs[0]["images"], labels=1-envs[0]["labels"])
+        with contextlib.redirect_stdout(io.StringIO()):
+            for method in m.ROBUST_METHODS:
+                a = m.run(method, self.model, envs, envs[0], envs, args, 29)
+                b = m.run(method, self.model, envs, alternate, envs, args, 29)
+                self.assertEqual([r["objective_after"] for r in a["trace"]],
+                                 [r["objective_after"] for r in b["trace"]])
+                self.assertEqual(a["guard_steps"], b["guard_steps"])
+                if method == "robust_guard":
+                    accepted = [r for r in a["guard_steps"] if r["applied"]]
+                    self.assertTrue(accepted)
+                    for row in accepted:
+                        self.assertLess(row["base_after"], row["base_before"])
+
 
 if __name__ == "__main__":
     unittest.main()

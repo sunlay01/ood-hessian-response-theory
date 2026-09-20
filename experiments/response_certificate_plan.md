@@ -1,10 +1,11 @@
 # Finite source response probe: fixed plan
 
 > Historical v1 plan, retained for audit of the existing negative results.
-> The current runner is v2: see method/empirical_response_certificate.md.
-> V2 replaces the head-excess proxy guard with full-data IRM descent and
-> uses a bounded, conflict-projected response gradient. Do not interpret
-> the results below as a validation of v2.
+> The current runner is v3: see method/empirical_response_certificate.md.
+> New robust methods optimize a source extrapolation envelope with optional
+> full response regularization; their guard does not require IRM descent.
+> V2 methods remain explicit controls. Historical results below validate
+> neither v2 nor v3. Use new output directories and matched no-response controls.
 
 User-authorized mechanism experiment, 2026-09-20. No novelty or target certification claim.
 
