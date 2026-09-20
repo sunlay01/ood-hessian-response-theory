@@ -1,0 +1,50 @@
+{
+  "config": {
+    "data_root": "/Users/sunlay/Desktop/data",
+    "output": "experiments/results/response_certificate_official_seeds012",
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "methods": [
+      "irm",
+      "full_alignment",
+      "blind",
+      "proxy_guard"
+    ],
+    "steps": 501,
+    "warmup": 100,
+    "hidden_dim": 256,
+    "n_source": 25000,
+    "n_target": 10000,
+    "calibration_size": 256,
+    "rho": 1.0,
+    "region_radius": 0.5,
+    "tau": 1.0,
+    "response_weight": 1.0,
+    "coverage": 1.0,
+    "gate_every": 10,
+    "inner_steps": 200,
+    "inner_tolerance": 1e-06,
+    "backtracks": 8,
+    "armijo": 0.0001,
+    "margin": 1e-07,
+    "log_every": 100
+  },
+  "reference_commit": "fc185d0f828a98f57030ba3647efc7394d1be95a",
+  "scope": "EMPIRICAL_PROXY_ONLY",
+  "notes": [
+    "Full-data official IRMv1 loss; fixed source-only subset for response and U.",
+    "Gamma is a fixed ball around the pre-step head for each comparison; optimum recomputed for each encoder.",
+    "U excludes unknown structural/unseen error; coverage=1 is an assumed proxy coefficient, not validated target coverage.",
+    "Head primal-dual gaps enter acceptance intervals; margin is numerical, not a statistical confidence bound.",
+    "Q is detached and refreshed every 10 steps by default; observation scale fixed at warmup end.",
+    "Both response coefficients use the same source-only warmup full_B calibration.",
+    "E=2 makes D independent of Q; blind_B is Q^2 times full_B.",
+    "Same outer steps, not matched compute; guard head solves and backtracking are additional work.",
+    "Accepted backtracked Adam steps retain proposed moments; fallback or final rejection restores original moments."
+  ],
+  "fingerprints": {},
+  "results": []
+}
