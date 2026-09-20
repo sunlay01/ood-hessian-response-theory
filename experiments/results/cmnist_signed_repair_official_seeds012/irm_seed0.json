@@ -1,0 +1,77 @@
+{
+  "method": "irm",
+  "seed": 0,
+  "official_final_pre_update": {
+    "source_accuracy": 0.6983200013637543,
+    "source_nll": 0.5717424154281616,
+    "target_accuracy": 0.6650999784469604,
+    "target_nll": 0.6901063323020935
+  },
+  "final_post_update": {
+    "source_accuracy": 0.6983200013637543,
+    "source_nll": 0.5717031061649323,
+    "target_accuracy": 0.6650000214576721,
+    "target_nll": 0.6901493072509766
+  },
+  "guard_status_counts": {},
+  "accepted_source_all_decrease": 0,
+  "bound_violations": 0,
+  "trace": [
+    {
+      "step": 0,
+      "penalty_weight": 1.0,
+      "objective": 1.3169771432876587,
+      "source_accuracy": 0.6775999963283539,
+      "source_nll": 0.6456542015075684,
+      "target_accuracy": 0.33880001306533813,
+      "target_nll": 0.765992283821106
+    },
+    {
+      "step": 100,
+      "penalty_weight": 10000.0,
+      "objective": 0.003975369036197662,
+      "source_accuracy": 0.8481000065803528,
+      "source_nll": 0.38115498423576355,
+      "target_accuracy": 0.10509999841451645,
+      "target_nll": 1.4587334394454956
+    },
+    {
+      "step": 200,
+      "penalty_weight": 10000.0,
+      "objective": 6.839369598310441e-05,
+      "source_accuracy": 0.6907399892807007,
+      "source_nll": 0.5811571478843689,
+      "target_accuracy": 0.6672999858856201,
+      "target_nll": 0.6804676055908203
+    },
+    {
+      "step": 300,
+      "penalty_weight": 10000.0,
+      "objective": 6.814616062911227e-05,
+      "source_accuracy": 0.6934600174427032,
+      "source_nll": 0.5783820748329163,
+      "target_accuracy": 0.6664000153541565,
+      "target_nll": 0.6832596659660339
+    },
+    {
+      "step": 400,
+      "penalty_weight": 10000.0,
+      "objective": 6.784529978176579e-05,
+      "source_accuracy": 0.6959199905395508,
+      "source_nll": 0.5753334760665894,
+      "target_accuracy": 0.666100025177002,
+      "target_nll": 0.6863135099411011
+    },
+    {
+      "step": 500,
+      "penalty_weight": 10000.0,
+      "objective": 6.748714076820761e-05,
+      "source_accuracy": 0.6983200013637543,
+      "source_nll": 0.5717031061649323,
+      "target_accuracy": 0.6650000214576721,
+      "target_nll": 0.6901493072509766
+    }
+  ],
+  "guard_steps": [],
+  "wall_seconds": 29.48260521888733
+}

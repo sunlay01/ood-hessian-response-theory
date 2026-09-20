@@ -1,0 +1,45 @@
+{
+  "configuration": {
+    "data_root": "/Users/sunlay/Desktop/data",
+    "output": "experiments/results/cmnist_signed_repair_official_seeds012",
+    "seeds": [
+      0,
+      1,
+      2
+    ],
+    "methods": [
+      "irm",
+      "irm_signed"
+    ],
+    "device": "cpu",
+    "threads": 4,
+    "steps": 501,
+    "hidden_dim": 256,
+    "n_source": 25000,
+    "n_target": 10000,
+    "rho": 1e-06,
+    "repair_start": 0,
+    "log_every": 100
+  },
+  "reference_commit": "fc185d0f828a98f57030ba3647efc7394d1be95a",
+  "official_protocol_sizes": true,
+  "protocol_notes": {
+    "validation_split": "MNIST train[50000:60000], NOT t10k",
+    "source_split": "shuffled train[:50000], alternating examples",
+    "label_noise": 0.25,
+    "source_color_flips": [
+      0.2,
+      0.1
+    ],
+    "validation_color_flip": 0.9,
+    "optimizer": "Adam lr=.001; L2=.001; 1->10000 at step100; whole-loss rescaling; no Adam reset",
+    "reporting": "both official pre-final-update and post-final-update metrics",
+    "restarts": "seeded paired local run; official default is 10 restarts",
+    "repair_scope": "source empirical risk; frozen proposed encoder + convex head repair in at most 3 dimensions",
+    "moment_policy": "Adam moments advance on rejected proposals; all parameters restored",
+    "certificate_precision": "float64 logistic risks on computed features; actual head rounded to model float32 before certification",
+    "target_used_for_selection": false
+  },
+  "data_fingerprints": {},
+  "results": []
+}

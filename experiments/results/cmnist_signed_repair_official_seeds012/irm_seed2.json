@@ -1,0 +1,77 @@
+{
+  "method": "irm",
+  "seed": 2,
+  "official_final_pre_update": {
+    "source_accuracy": 0.6965999901294708,
+    "source_nll": 0.5799672901630402,
+    "target_accuracy": 0.660099983215332,
+    "target_nll": 0.6763890981674194
+  },
+  "final_post_update": {
+    "source_accuracy": 0.6966600120067596,
+    "source_nll": 0.5799327194690704,
+    "target_accuracy": 0.6601999998092651,
+    "target_nll": 0.6764113306999207
+  },
+  "guard_status_counts": {},
+  "accepted_source_all_decrease": 0,
+  "bound_violations": 0,
+  "trace": [
+    {
+      "step": 0,
+      "penalty_weight": 1.0,
+      "objective": 1.3002922534942627,
+      "source_accuracy": 0.8009800016880035,
+      "source_nll": 0.6408779919147491,
+      "target_accuracy": 0.14589999616146088,
+      "target_nll": 0.761856734752655
+    },
+    {
+      "step": 100,
+      "penalty_weight": 10000.0,
+      "objective": 0.0041326116770505905,
+      "source_accuracy": 0.8492400050163269,
+      "source_nll": 0.37803658843040466,
+      "target_accuracy": 0.1062999963760376,
+      "target_nll": 1.4479756355285645
+    },
+    {
+      "step": 200,
+      "penalty_weight": 10000.0,
+      "objective": 6.889360520290211e-05,
+      "source_accuracy": 0.6900599896907806,
+      "source_nll": 0.5868189930915833,
+      "target_accuracy": 0.65420001745224,
+      "target_nll": 0.675494372844696
+    },
+    {
+      "step": 300,
+      "penalty_weight": 10000.0,
+      "objective": 6.853782542748377e-05,
+      "source_accuracy": 0.6911799907684326,
+      "source_nll": 0.5859594941139221,
+      "target_accuracy": 0.6600000262260437,
+      "target_nll": 0.6726474761962891
+    },
+    {
+      "step": 400,
+      "penalty_weight": 10000.0,
+      "objective": 6.826187745900825e-05,
+      "source_accuracy": 0.6934800148010254,
+      "source_nll": 0.5831641256809235,
+      "target_accuracy": 0.6593999862670898,
+      "target_nll": 0.6743740439414978
+    },
+    {
+      "step": 500,
+      "penalty_weight": 10000.0,
+      "objective": 6.794353248551488e-05,
+      "source_accuracy": 0.6966600120067596,
+      "source_nll": 0.5799327194690704,
+      "target_accuracy": 0.6601999998092651,
+      "target_nll": 0.6764113306999207
+    }
+  ],
+  "guard_steps": [],
+  "wall_seconds": 30.350435972213745
+}

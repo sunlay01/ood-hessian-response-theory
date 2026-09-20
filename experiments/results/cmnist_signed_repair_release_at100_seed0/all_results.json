@@ -1,0 +1,2895 @@
+{
+  "configuration": {
+    "data_root": "/Users/sunlay/Desktop/data",
+    "output": "experiments/results/cmnist_signed_repair_release_at100_seed0",
+    "seeds": [
+      0
+    ],
+    "methods": [
+      "irm_signed"
+    ],
+    "device": "cpu",
+    "threads": 4,
+    "steps": 501,
+    "hidden_dim": 256,
+    "n_source": 25000,
+    "n_target": 10000,
+    "rho": 1e-06,
+    "repair_start": 0,
+    "repair_end": 100,
+    "log_every": 100
+  },
+  "reference_commit": "fc185d0f828a98f57030ba3647efc7394d1be95a",
+  "official_protocol_sizes": true,
+  "protocol_notes": {
+    "validation_split": "MNIST train[50000:60000], NOT t10k",
+    "source_split": "shuffled train[:50000], alternating examples",
+    "label_noise": 0.25,
+    "source_color_flips": [
+      0.2,
+      0.1
+    ],
+    "validation_color_flip": 0.9,
+    "optimizer": "Adam lr=.001; L2=.001; 1->10000 at step100; whole-loss rescaling; no Adam reset",
+    "reporting": "both official pre-final-update and post-final-update metrics",
+    "restarts": "seeded paired local run; official default is 10 restarts",
+    "repair_scope": "source empirical risk; frozen proposed encoder + convex head repair in at most 3 dimensions",
+    "moment_policy": "Adam moments advance on rejected proposals; all parameters restored",
+    "certificate_precision": "float64 logistic risks on computed features; actual head rounded to model float32 before certification",
+    "target_used_for_selection": false
+  },
+  "data_fingerprints": {
+    "0": "4e88137ba369eb9c82a1bb3eeffe6eaa9133c43dc4d58bfc34c4c100ad4d21a9"
+  },
+  "results": [
+    {
+      "method": "irm_signed",
+      "seed": 0,
+      "official_final_pre_update": {
+        "source_accuracy": 0.6946800053119659,
+        "source_nll": 0.5695042312145233,
+        "target_accuracy": 0.6690000295639038,
+        "target_nll": 0.6929425597190857
+      },
+      "final_post_update": {
+        "source_accuracy": 0.6947399973869324,
+        "source_nll": 0.5694563984870911,
+        "target_accuracy": 0.6690000295639038,
+        "target_nll": 0.6929911971092224
+      },
+      "guard_status_counts": {
+        "BASE_CERTIFIED": 67,
+        "REPAIRED": 29,
+        "NO_CERTIFIED_REPAIR": 4
+      },
+      "accepted_source_all_decrease": 96,
+      "bound_violations": 0,
+      "trace": [
+        {
+          "step": 0,
+          "penalty_weight": 1.0,
+          "objective": 1.3169771432876587,
+          "source_accuracy": 0.6775999963283539,
+          "source_nll": 0.6456542015075684,
+          "target_accuracy": 0.33880001306533813,
+          "target_nll": 0.765992283821106
+        },
+        {
+          "step": 100,
+          "penalty_weight": 10000.0,
+          "objective": 0.003856349503621459,
+          "source_accuracy": 0.848039984703064,
+          "source_nll": 0.3783886730670929,
+          "target_accuracy": 0.10540000349283218,
+          "target_nll": 1.4534255266189575
+        },
+        {
+          "step": 200,
+          "penalty_weight": 10000.0,
+          "objective": 6.737125659128651e-05,
+          "source_accuracy": 0.6854400038719177,
+          "source_nll": 0.5798639953136444,
+          "target_accuracy": 0.6692000031471252,
+          "target_nll": 0.6847896575927734
+        },
+        {
+          "step": 300,
+          "penalty_weight": 10000.0,
+          "objective": 6.70047738822177e-05,
+          "source_accuracy": 0.6879000067710876,
+          "source_nll": 0.5775840580463409,
+          "target_accuracy": 0.6717000007629395,
+          "target_nll": 0.6851181387901306
+        },
+        {
+          "step": 400,
+          "penalty_weight": 10000.0,
+          "objective": 6.663863314315677e-05,
+          "source_accuracy": 0.6909999847412109,
+          "source_nll": 0.5738757252693176,
+          "target_accuracy": 0.6697999835014343,
+          "target_nll": 0.6886206269264221
+        },
+        {
+          "step": 500,
+          "penalty_weight": 10000.0,
+          "objective": 6.620331259910017e-05,
+          "source_accuracy": 0.6947399973869324,
+          "source_nll": 0.5694563984870911,
+          "target_accuracy": 0.6690000295639038,
+          "target_nll": 0.6929911971092224
+        }
+      ],
+      "guard_steps": [
+        {
+          "step": 0,
+          "encoder_risk_offsets": [
+            -0.08312112109584602,
+            -0.1110783472015281
+          ],
+          "base_certificate_min": 0.08519321319863235,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.08519326590542842,
+            -0.11384836492386541
+          ],
+          "certificate_min": 0.08519321319863235,
+          "descent_bounds": [
+            -0.08519321319863235,
+            -0.11384831215594944
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 1,
+          "encoder_risk_offsets": [
+            -0.05868626854364867,
+            -0.08531065719214181
+          ],
+          "base_certificate_min": 0.06026168546511141,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.060262146300444464,
+            -0.08762558545128585
+          ],
+          "certificate_min": 0.06026168546511141,
+          "descent_bounds": [
+            -0.06026168546511141,
+            -0.08762510371852328
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 2,
+          "encoder_risk_offsets": [
+            -0.03991781268911909,
+            -0.06671539447696156
+          ],
+          "base_certificate_min": 0.04109101222678995,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.04109276681735097,
+            -0.06876099928897594
+          ],
+          "certificate_min": 0.04109101222678995,
+          "descent_bounds": [
+            -0.04109101222678995,
+            -0.06875918653065999
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 3,
+          "encoder_risk_offsets": [
+            -0.023450941757085175,
+            -0.05139261231592096
+          ],
+          "base_certificate_min": 0.02416124137248238,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.02416590159143306,
+            -0.053173754127513295
+          ],
+          "certificate_min": 0.02416124137248238,
+          "descent_bounds": [
+            -0.02416124137248238,
+            -0.05316897024832998
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 4,
+          "encoder_risk_offsets": [
+            -0.007886164089538017,
+            -0.03707809884376834
+          ],
+          "base_certificate_min": 0.008002470665258641,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.008012469768970854,
+            -0.038494157722887834
+          ],
+          "certificate_min": 0.008002470665258641,
+          "descent_bounds": [
+            -0.008002470665258641,
+            -0.038483926909743754
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 5,
+          "encoder_risk_offsets": [
+            0.005494033690945033,
+            -0.023333192607162934
+          ],
+          "base_certificate_min": -0.006011366239396309,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.001033950546841e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.001033950546841e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.11696901806707234,
+          "actual_source_changes": [
+            -0.0027964276438164903,
+            -0.015912083207994143
+          ],
+          "certificate_min": 1.001033950546841e-06,
+          "descent_bounds": [
+            -1.001033950546841e-06,
+            -0.013134758594336594
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 6,
+          "encoder_risk_offsets": [
+            0.00926486310187058,
+            -0.016329375062223095
+          ],
+          "base_certificate_min": -0.010153219605594326,
+          "rho": 1e-06,
+          "status": "NO_CERTIFIED_REPAIR",
+          "attempts": [
+            {
+              "solver_success": false,
+              "solver_status": 9,
+              "message": "Iteration limit reached",
+              "verified": false,
+              "certificate_min": -0.0024216156321544714
+            },
+            {
+              "solver_success": false,
+              "solver_status": 9,
+              "message": "Iteration limit reached",
+              "verified": false,
+              "certificate_min": -0.0024215530271297168
+            }
+          ],
+          "applied": false,
+          "head_correction_norm": null,
+          "actual_source_changes": null,
+          "certificate_min": null,
+          "bound_violation": null
+        },
+        {
+          "step": 7,
+          "encoder_risk_offsets": [
+            0.007798919249595415,
+            -0.015723234385550733
+          ],
+          "base_certificate_min": -0.00859971650376819,
+          "rho": 1e-06,
+          "status": "NO_CERTIFIED_REPAIR",
+          "attempts": [
+            {
+              "solver_success": false,
+              "solver_status": 9,
+              "message": "Iteration limit reached",
+              "verified": false,
+              "certificate_min": -0.001625554778231131
+            },
+            {
+              "solver_success": false,
+              "solver_status": 9,
+              "message": "Iteration limit reached",
+              "verified": false,
+              "certificate_min": -0.0016243322081201453
+            }
+          ],
+          "applied": false,
+          "head_correction_norm": null,
+          "actual_source_changes": null,
+          "certificate_min": null,
+          "bound_violation": null
+        },
+        {
+          "step": 8,
+          "encoder_risk_offsets": [
+            0.006653568417333555,
+            -0.015202081357595376
+          ],
+          "base_certificate_min": -0.007387494344313554,
+          "rho": 1e-06,
+          "status": "NO_CERTIFIED_REPAIR",
+          "attempts": [
+            {
+              "solver_success": false,
+              "solver_status": 9,
+              "message": "Iteration limit reached",
+              "verified": false,
+              "certificate_min": -0.0009152858001429641
+            },
+            {
+              "solver_success": false,
+              "solver_status": 9,
+              "message": "Iteration limit reached",
+              "verified": false,
+              "certificate_min": -0.0009153238069073309
+            }
+          ],
+          "applied": false,
+          "head_correction_norm": null,
+          "actual_source_changes": null,
+          "certificate_min": null,
+          "bound_violation": null
+        },
+        {
+          "step": 9,
+          "encoder_risk_offsets": [
+            0.00573378897537169,
+            -0.014752929735364961
+          ],
+          "base_certificate_min": -0.006415310632414687,
+          "rho": 1e-06,
+          "status": "NO_CERTIFIED_REPAIR",
+          "attempts": [
+            {
+              "solver_success": false,
+              "solver_status": 9,
+              "message": "Iteration limit reached",
+              "verified": false,
+              "certificate_min": -0.00025873402173932393
+            },
+            {
+              "solver_success": false,
+              "solver_status": 9,
+              "message": "Iteration limit reached",
+              "verified": false,
+              "certificate_min": -0.0002587339703212189
+            }
+          ],
+          "applied": false,
+          "head_correction_norm": null,
+          "actual_source_changes": null,
+          "certificate_min": null,
+          "bound_violation": null
+        },
+        {
+          "step": 10,
+          "encoder_risk_offsets": [
+            0.004980061101458544,
+            -0.014365045735583837
+          ],
+          "base_certificate_min": -0.005619741598992388,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0009587584122043e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.000958755860426e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.08582152785567175,
+          "actual_source_changes": [
+            -0.0018806713336515513,
+            -0.0063136745068012035
+          ],
+          "certificate_min": 1.000958755860426e-06,
+          "descent_bounds": [
+            -1.000958755860426e-06,
+            -0.0044319957310099065
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 11,
+          "encoder_risk_offsets": [
+            0.005910464848389196,
+            -0.01190294005799758
+          ],
+          "base_certificate_min": -0.006725629816466362,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0010116498777172e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0010116498777172e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.08387126176157915,
+          "actual_source_changes": [
+            -0.0015139117088145415,
+            -0.005292857932756745
+          ],
+          "certificate_min": 1.0010116498777172e-06,
+          "descent_bounds": [
+            -1.0010116498777172e-06,
+            -0.003760969425306522
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 12,
+          "encoder_risk_offsets": [
+            0.00611286976345049,
+            -0.009968028713198407
+          ],
+          "base_certificate_min": -0.007020379156591338,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0009851268517542e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.000973058896612e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.07573357396993502,
+          "actual_source_changes": [
+            -0.0016274249775892757,
+            -0.00345280286539007
+          ],
+          "certificate_min": 1.000973058896612e-06,
+          "descent_bounds": [
+            -1.000973058896612e-06,
+            -0.0017971157707008002
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 13,
+          "encoder_risk_offsets": [
+            0.0056134111969303735,
+            -0.008656467715591976
+          ],
+          "base_certificate_min": -0.0065433546650916375,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.001049345432728e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0010509453456384e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.06174594696930039,
+          "actual_source_changes": [
+            -0.001276425959259142,
+            -0.003039547911201035
+          ],
+          "certificate_min": 1.001049345432728e-06,
+          "descent_bounds": [
+            -1.001049345432728e-06,
+            -0.0017387031849166196
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 14,
+          "encoder_risk_offsets": [
+            0.0049661619583750705,
+            -0.007457214098926357
+          ],
+          "base_certificate_min": -0.0058842641961090215,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0010156517806929e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0010500890072008e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.04909949972380132,
+          "actual_source_changes": [
+            -0.0008983679737890604,
+            -0.002905874716586876
+          ],
+          "certificate_min": 1.0010156517806929e-06,
+          "descent_bounds": [
+            -1.0010156517806929e-06,
+            -0.0019895893407078473
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 15,
+          "encoder_risk_offsets": [
+            0.0041678845919124186,
+            -0.006270067810391744
+          ],
+          "base_certificate_min": -0.0050336258326690395,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.001054990990534e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.001054990990534e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.03744367894239491,
+          "actual_source_changes": [
+            -0.0005575967105452273,
+            -0.0028456168330037723
+          ],
+          "certificate_min": 1.001054990990534e-06,
+          "descent_bounds": [
+            -1.001054990990534e-06,
+            -0.002276877663927204
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 16,
+          "encoder_risk_offsets": [
+            0.003166228383864156,
+            -0.00504986220238407
+          ],
+          "base_certificate_min": -0.003923400642398615,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0006116704683148e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.000587956317446e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.02628639584690974,
+          "actual_source_changes": [
+            -0.0002804542253646014,
+            -0.0027554378128697987
+          ],
+          "certificate_min": 1.000587956317446e-06,
+          "descent_bounds": [
+            -1.000587956317446e-06,
+            -0.0024697407977123465
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 17,
+          "encoder_risk_offsets": [
+            0.0018668014467736471,
+            -0.0037951624385150207
+          ],
+          "base_certificate_min": -0.002446364724990359,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.000940377491287e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.000940377491287e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.014949187775636776,
+          "actual_source_changes": [
+            -8.395233233660093e-05,
+            -0.0026261101905454276
+          ],
+          "certificate_min": 1.000940377491287e-06,
+          "descent_bounds": [
+            -1.000940377491287e-06,
+            -0.0025412924833536554
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 18,
+          "encoder_risk_offsets": [
+            0.00025931965661729617,
+            -0.002520115183002325
+          ],
+          "base_certificate_min": -0.0005975538402517009,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.001333908210258e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0013341289507303e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.0033874723694986464,
+          "actual_source_changes": [
+            -1.981521268512587e-06,
+            -0.002427573829938523
+          ],
+          "certificate_min": 1.001333908210258e-06,
+          "descent_bounds": [
+            -1.001333908210258e-06,
+            -0.0024265860136741964
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 19,
+          "encoder_risk_offsets": [
+            -0.0016206217410167367,
+            -0.0012590880004720861
+          ],
+          "base_certificate_min": 0.0013413378170624983,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0015614022533276817,
+            -0.0013417888219381946
+          ],
+          "certificate_min": 0.0013413378170624983,
+          "descent_bounds": [
+            -0.0015609661760981831,
+            -0.0013413378170624983
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 20,
+          "encoder_risk_offsets": [
+            -0.0033049483509542954,
+            -0.00011155112820532276
+          ],
+          "base_certificate_min": 3.375145167925485e-05,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0034750966724117482,
+            -3.426114736315711e-05
+          ],
+          "certificate_min": 3.375145167925485e-05,
+          "descent_bounds": [
+            -0.003474589094334008,
+            -3.375145167925485e-05
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 21,
+          "encoder_risk_offsets": [
+            -0.004160686213687481,
+            0.0009120622940788081
+          ],
+          "base_certificate_min": -0.0011194804932858724,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0009264990105656e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0009264990105656e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.00874263492601602,
+          "actual_source_changes": [
+            -0.0031949081381011935,
+            -3.662911995394591e-05
+          ],
+          "certificate_min": 1.0009264990105656e-06,
+          "descent_bounds": [
+            -0.0031600234390283134,
+            -1.0009264990105656e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 22,
+          "encoder_risk_offsets": [
+            -0.004478139888529187,
+            0.0017314642722952023
+          ],
+          "base_certificate_min": -0.0020269280380597935,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0009384104562452e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0009384104562452e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.01517706191757173,
+          "actual_source_changes": [
+            -0.002798700326322401,
+            -0.00011845806845400819
+          ],
+          "certificate_min": 1.0009384104562452e-06,
+          "descent_bounds": [
+            -0.002683912875133902,
+            -1.0009384104562452e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 23,
+          "encoder_risk_offsets": [
+            -0.004474487586661469,
+            0.002311304832995742
+          ],
+          "base_certificate_min": -0.002652377978835136,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": false,
+              "solver_status": 8,
+              "message": "Positive directional derivative for linesearch",
+              "verified": true,
+              "certificate_min": 1.0009929401204494e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0009929576290134e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.019366878167289398,
+          "actual_source_changes": [
+            -0.0024035932692944018,
+            -0.00019620627236344168
+          ],
+          "certificate_min": 1.0009929401204494e-06,
+          "descent_bounds": [
+            -0.002213263133087805,
+            -1.0009929401204494e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 24,
+          "encoder_risk_offsets": [
+            -0.004292380446915656,
+            0.0026583031773833588
+          ],
+          "base_certificate_min": -0.0030102868001742338,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": false,
+              "solver_status": 8,
+              "message": "Positive directional derivative for linesearch",
+              "verified": true,
+              "certificate_min": 1.0007769459048806e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0007772850034215e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.021668830471794354,
+          "actual_source_changes": [
+            -0.0020575296413522515,
+            -0.0002463529580308821
+          ],
+          "certificate_min": 1.0007769459048806e-06,
+          "descent_bounds": [
+            -0.0018188323787867648,
+            -1.0007769459048806e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 25,
+          "encoder_risk_offsets": [
+            -0.004016839405240169,
+            0.0028009769875201873
+          ],
+          "base_certificate_min": -0.003138522232511408,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0012494562360898e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0012464911018752e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.02241105815460092,
+          "actual_source_changes": [
+            -0.0017830420041154982,
+            -0.00026286203624958926
+          ],
+          "certificate_min": 1.0012464911018752e-06,
+          "descent_bounds": [
+            -0.0015287835317942433,
+            -1.0012464911018752e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 26,
+          "encoder_risk_offsets": [
+            -0.0036961055636317575,
+            0.0027628087793060696
+          ],
+          "base_certificate_min": -0.0030683821376117975,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0010378133939492e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0010378133939492e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.021785437719152666,
+          "actual_source_changes": [
+            -0.0015949796105053649,
+            -0.000246978745605142
+          ],
+          "certificate_min": 1.0010378133939492e-06,
+          "descent_bounds": [
+            -0.0013565911997878307,
+            -1.0010378133939492e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 27,
+          "encoder_risk_offsets": [
+            -0.0033427294791881224,
+            0.0025693738413707368
+          ],
+          "base_certificate_min": -0.002830550103845032,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.001001254019064e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.001001254019064e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.019979477428783733,
+          "actual_source_changes": [
+            -0.0014752303514699028,
+            -0.00020644981040884858
+          ],
+          "certificate_min": 1.001001254019064e-06,
+          "descent_bounds": [
+            -0.0012764683263807343,
+            -1.001001254019064e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 28,
+          "encoder_risk_offsets": [
+            -0.0029544008310026237,
+            0.002225571676352567
+          ],
+          "base_certificate_min": -0.002432685801269966,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0009140080334544e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0009140080334544e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.017041220370732794,
+          "actual_source_changes": [
+            -0.0014090214102389087,
+            -0.00014971223516097032
+          ],
+          "certificate_min": 1.0009140080334544e-06,
+          "descent_bounds": [
+            -0.0012653547923447766,
+            -1.0009140080334544e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 29,
+          "encoder_risk_offsets": [
+            -0.002530602034614138,
+            0.0017340195671831093
+          ],
+          "base_certificate_min": -0.0018788727357528818,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0008678200017565e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0008678180358811e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.013023327474805755,
+          "actual_source_changes": [
+            -0.0013870979811197448,
+            -8.792413723363035e-05
+          ],
+          "certificate_min": 1.0008678180358811e-06,
+          "descent_bounds": [
+            -0.0013032308483009484,
+            -1.0008678180358811e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 30,
+          "encoder_risk_offsets": [
+            -0.0020562251820935296,
+            0.001101767983911095
+          ],
+          "base_certificate_min": -0.0011764297392107858,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0012619621195713e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.001285907981141e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.008043181971447023,
+          "actual_source_changes": [
+            -0.0013791291515072857,
+            -3.48683030220176e-05
+          ],
+          "certificate_min": 1.0012619621195713e-06,
+          "descent_bounds": [
+            -0.0013465024604143153,
+            -1.0012619621195713e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 31,
+          "encoder_risk_offsets": [
+            -0.0015253043764233976,
+            0.0003395865303620349
+          ],
+          "base_certificate_min": -0.0003361044296415389,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0007303494099346e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0007303494099346e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.0022645372048888707,
+          "actual_source_changes": [
+            -0.0013611346560005178,
+            -4.301955592367346e-06
+          ],
+          "certificate_min": 1.0007303494099346e-06,
+          "descent_bounds": [
+            -0.001357967110451136,
+            -1.0007303494099346e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 32,
+          "encoder_risk_offsets": [
+            -0.0009306803265110575,
+            -0.0005397275897742748
+          ],
+          "base_certificate_min": 0.000628590283013752,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0009276558516199129,
+            -0.0006289429357851373
+          ],
+          "certificate_min": 0.000628590283013752,
+          "descent_bounds": [
+            -0.0009273192144011891,
+            -0.000628590283013752
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 33,
+          "encoder_risk_offsets": [
+            -0.00037749636920586527,
+            -0.0013209587530910727
+          ],
+          "base_certificate_min": 0.00032195162066119,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.00032287497809230237,
+            -0.001482926529017492
+          ],
+          "certificate_min": 0.00032195162066119,
+          "descent_bounds": [
+            -0.00032195162066119,
+            -0.0014819571492971674
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 34,
+          "encoder_risk_offsets": [
+            1.8832575416960484e-05,
+            -0.0017179753315632595
+          ],
+          "base_certificate_min": -0.00011437720225587744,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0012712098976687e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0012712098976687e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.0010340513745099303,
+          "actual_source_changes": [
+            -1.440215027959102e-06,
+            -0.0017811980092755642
+          ],
+          "certificate_min": 1.0012712098976687e-06,
+          "descent_bounds": [
+            -1.0012712098976687e-06,
+            -0.0017807376798971105
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 35,
+          "encoder_risk_offsets": [
+            0.0001444150885783757,
+            -0.001685988132484495
+          ],
+          "base_certificate_min": -0.0002556984687147685,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0006767963733904e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0006767963733904e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.0021811987187005943,
+          "actual_source_changes": [
+            -1.782018060336732e-06,
+            -0.0016131910654533232
+          ],
+          "certificate_min": 1.0006767963733904e-06,
+          "descent_bounds": [
+            -1.0006767963733904e-06,
+            -0.001612399209412502
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 36,
+          "encoder_risk_offsets": [
+            -4.3747456613230096e-05,
+            -0.001345999468668868
+          ],
+          "base_certificate_min": -5.6290887146601655e-05,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.001191626450113e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0012005538340645e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.00046534417675608966,
+          "actual_source_changes": [
+            -2.1337648626884587e-06,
+            -0.0014616476242372278
+          ],
+          "certificate_min": 1.001191626450113e-06,
+          "descent_bounds": [
+            -1.001191626450113e-06,
+            -0.0014604532188854259
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 37,
+          "encoder_risk_offsets": [
+            -0.0005343317308633133,
+            -0.000764681185614402
+          ],
+          "base_certificate_min": 0.0004695766646765807,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0004709953976927417,
+            -0.0008902492570022069
+          ],
+          "certificate_min": 0.0004695766646765807,
+          "descent_bounds": [
+            -0.0004695766646765807,
+            -0.0008887521780037405
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 38,
+          "encoder_risk_offsets": [
+            -0.0011341916549329478,
+            -0.00013687318566124596
+          ],
+          "base_certificate_min": 0.00021445287203962406,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0011137375166013208,
+            -0.0002155312597155734
+          ],
+          "certificate_min": 0.00021445287203962406,
+          "descent_bounds": [
+            -0.0011127137052473648,
+            -0.00021445287203962406
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 39,
+          "encoder_risk_offsets": [
+            -0.001564422040957636,
+            0.0003436121314631668
+          ],
+          "base_certificate_min": -0.00029624962695537125,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.001049237665092e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.001049237665092e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.0024791966367000793,
+          "actual_source_changes": [
+            -0.0012998765037509075,
+            -6.712376822148869e-06
+          ],
+          "certificate_min": 1.001049237665092e-06,
+          "descent_bounds": [
+            -0.0012944364496362817,
+            -1.001049237665092e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 40,
+          "encoder_risk_offsets": [
+            -0.001780537220726075,
+            0.0006162802983813442
+          ],
+          "base_certificate_min": -0.000579365404826061,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": false,
+              "solver_status": 8,
+              "message": "Positive directional derivative for linesearch",
+              "verified": true,
+              "certificate_min": 1.0012809180548086e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0012813346964647e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.004783320227597784,
+          "actual_source_changes": [
+            -0.0013028270883664872,
+            -1.6886692423612182e-05
+          ],
+          "certificate_min": 1.0012809180548086e-06,
+          "descent_bounds": [
+            -0.0012876254993421541,
+            -1.0012809180548086e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 41,
+          "encoder_risk_offsets": [
+            -0.0018132843569986234,
+            0.0006936662133766314
+          ],
+          "base_certificate_min": -0.0006514284817353514,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": false,
+              "solver_status": 8,
+              "message": "Positive directional derivative for linesearch",
+              "verified": true,
+              "certificate_min": 1.001055383987367e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0010601162541372e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.005328570804554964,
+          "actual_source_changes": [
+            -0.0013028439719030005,
+            -2.014557993756938e-05
+          ],
+          "certificate_min": 1.001055383987367e-06,
+          "descent_bounds": [
+            -0.0012845187986474283,
+            -1.001055383987367e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 42,
+          "encoder_risk_offsets": [
+            -0.0016767357345879308,
+            0.0006152372343881662
+          ],
+          "base_certificate_min": -0.0005565657094510947,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.000841494926282e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0008375355976488e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.004517747905696067,
+          "actual_source_changes": [
+            -0.0012555239257052708,
+            -1.569125745648492e-05
+          ],
+          "certificate_min": 1.0008375355976488e-06,
+          "descent_bounds": [
+            -0.0012414807403485664,
+            -1.0008375355976488e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 43,
+          "encoder_risk_offsets": [
+            -0.0013938595698094192,
+            0.0004047796871972653
+          ],
+          "base_certificate_min": -0.00032143714326606415,
+          "rho": 1e-06,
+          "status": "REPAIRED",
+          "attempts": [
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0009053773804046e-06
+            },
+            {
+              "solver_success": true,
+              "solver_status": 0,
+              "message": "Optimization terminated successfully",
+              "verified": true,
+              "certificate_min": 1.0009053773804046e-06
+            }
+          ],
+          "applied": true,
+          "head_correction_norm": 0.0025901508694392674,
+          "actual_source_changes": [
+            -0.0011546698809111744,
+            -7.490663333886705e-06
+          ],
+          "certificate_min": 1.0009053773804046e-06,
+          "descent_bounds": [
+            -0.0011484851554879902,
+            -1.0009053773804046e-06
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 44,
+          "encoder_risk_offsets": [
+            -0.0010010970901111471,
+            5.889109775780721e-05
+          ],
+          "base_certificate_min": 5.6524414851642706e-05,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0009892134462504143,
+            -5.734314836164378e-05
+          ],
+          "certificate_min": 5.6524414851642706e-05,
+          "descent_bounds": [
+            -0.000988438143163159,
+            -5.6524414851642706e-05
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 45,
+          "encoder_risk_offsets": [
+            -0.0005688502173143428,
+            -0.0003974248757653287
+          ],
+          "base_certificate_min": 0.0005304185909342704,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005316157935428834,
+            -0.0005515596234778042
+          ],
+          "certificate_min": 0.0005304185909342704,
+          "descent_bounds": [
+            -0.0005304185909342704,
+            -0.0005502931955502343
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 46,
+          "encoder_risk_offsets": [
+            -0.00026849697814940177,
+            -0.0007467658799763521
+          ],
+          "base_certificate_min": 0.00020764633785936594,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.00020931301762611154,
+            -0.0009286831815436547
+          ],
+          "certificate_min": 0.00020764633785936594,
+          "descent_bounds": [
+            -0.00020764633785936594,
+            -0.0009269173747520188
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 47,
+          "encoder_risk_offsets": [
+            -0.00019361085839364467,
+            -0.0008259927401365053
+          ],
+          "base_certificate_min": 0.00011939712614193192,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0001214357184586845,
+            -0.0010168693613843427
+          ],
+          "certificate_min": 0.00011939712614193192,
+          "descent_bounds": [
+            -0.00011939712614193192,
+            -0.0010147069324934204
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 48,
+          "encoder_risk_offsets": [
+            -0.00035280492242223405,
+            -0.0006179746823137822
+          ],
+          "base_certificate_min": 0.0002759636952685331,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.000278166457047091,
+            -0.0008003392712066515
+          ],
+          "certificate_min": 0.0002759636952685331,
+          "descent_bounds": [
+            -0.0002759636952685331,
+            -0.0007980011691692283
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 49,
+          "encoder_risk_offsets": [
+            -0.0006244821882003815,
+            -0.0002582991471147267
+          ],
+          "base_certificate_min": 0.00042276379058380084,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005546936507554445,
+            -0.0004250350001704928
+          ],
+          "certificate_min": 0.00042276379058380084,
+          "descent_bounds": [
+            -0.0005525545064150243,
+            -0.00042276379058380084
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 50,
+          "encoder_risk_offsets": [
+            -0.0008606828919166531,
+            4.181784179513315e-05
+          ],
+          "base_certificate_min": 0.00011338174659663113,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.000797799229806273,
+            -0.00011544126907214736
+          ],
+          "certificate_min": 0.00011338174659663113,
+          "descent_bounds": [
+            -0.0007958599036311737,
+            -0.00011338174659663113
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 51,
+          "encoder_risk_offsets": [
+            -0.000961557261741186,
+            0.0001242682451865207
+          ],
+          "base_certificate_min": 3.495958430901536e-05,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0009025497277491135,
+            -3.686313604400748e-05
+          ],
+          "certificate_min": 3.495958430901536e-05,
+          "descent_bounds": [
+            -0.0009007569352715623,
+            -3.495958430901536e-05
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 52,
+          "encoder_risk_offsets": [
+            -0.0008983481777634084,
+            1.0583137419917232e-05
+          ],
+          "base_certificate_min": 0.00016183722509668157,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0008363450420862395,
+            -0.00016380114117287015
+          ],
+          "certificate_min": 0.00016183722509668157,
+          "descent_bounds": [
+            -0.0008344930677306262,
+            -0.00016183722509668157
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 53,
+          "encoder_risk_offsets": [
+            -0.0007166789706909982,
+            -0.00014439854173148303
+          ],
+          "base_certificate_min": 0.00032968093568050926,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0006452638914160591,
+            -0.00033188030236058763
+          ],
+          "certificate_min": 0.00032968093568050926,
+          "descent_bounds": [
+            -0.0006431870244956244,
+            -0.00032968093568050926
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 54,
+          "encoder_risk_offsets": [
+            -0.0005441157098807214,
+            -0.00022036926345514463
+          ],
+          "base_certificate_min": 0.0004130447803564454,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.00046348841637461335,
+            -0.00041546515933715833
+          ],
+          "certificate_min": 0.0004130447803564454,
+          "descent_bounds": [
+            -0.00046120264726759886,
+            -0.0004130447803564454
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 55,
+          "encoder_risk_offsets": [
+            -0.000506387658837204,
+            -0.00020827516538024504
+          ],
+          "base_certificate_min": 0.0004034830728174536,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0004234371930424974,
+            -0.0004060089949415313
+          ],
+          "certificate_min": 0.0004034830728174536,
+          "descent_bounds": [
+            -0.00042105490234993996,
+            -0.0004034830728174536
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 56,
+          "encoder_risk_offsets": [
+            -0.0005885294831546872,
+            -0.0001557129104707844
+          ],
+          "base_certificate_min": 0.0003501221764593337,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005086337073130776,
+            -0.0003527206250594217
+          ],
+          "certificate_min": 0.0003501221764593337,
+          "descent_bounds": [
+            -0.0005061871999894859,
+            -0.0003501221764593337
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 57,
+          "encoder_risk_offsets": [
+            -0.0006472365893476772,
+            -0.00010352214665315662
+          ],
+          "base_certificate_min": 0.00029520698685785987,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005681841442201629,
+            -0.0002979335987948195
+          ],
+          "certificate_min": 0.00029520698685785987,
+          "descent_bounds": [
+            -0.0005656195775766488,
+            -0.00029520698685785987
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 58,
+          "encoder_risk_offsets": [
+            -0.0005852621973638228,
+            -0.00010522734608592321
+          ],
+          "base_certificate_min": 0.0002956758284904967,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005010414291778398,
+            -0.0002985436055618629
+          ],
+          "certificate_min": 0.0002956758284904967,
+          "descent_bounds": [
+            -0.0004983447777810932,
+            -0.0002956758284904967
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 59,
+          "encoder_risk_offsets": [
+            -0.00046970614496810725,
+            -0.0001897899856100338
+          ],
+          "base_certificate_min": 0.00037495956916675286,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.00037773052004136387,
+            -0.0003860899935386186
+          ],
+          "certificate_min": 0.00037495956916675286,
+          "descent_bounds": [
+            -0.00037495956916675286,
+            -0.0003831438270868018
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 60,
+          "encoder_risk_offsets": [
+            -0.000423783525249688,
+            -0.00028138795047760734
+          ],
+          "base_certificate_min": 0.00032357121905899917,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.00032635340398395885,
+            -0.00048203590822332165
+          ],
+          "certificate_min": 0.00032357121905899917,
+          "descent_bounds": [
+            -0.00032357121905899917,
+            -0.00047907961906832876
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 61,
+          "encoder_risk_offsets": [
+            -0.000489276007581696,
+            -0.00025058948625433786
+          ],
+          "base_certificate_min": 0.0003883965378604185,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0003911378057564474,
+            -0.0004517578210901929
+          ],
+          "certificate_min": 0.0003883965378604185,
+          "descent_bounds": [
+            -0.0003883965378604185,
+            -0.0004488471104878704
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 62,
+          "encoder_risk_offsets": [
+            -0.0006275262231554835,
+            -7.788170187322807e-05
+          ],
+          "base_certificate_min": 0.0002722479898788005,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005338926529435128,
+            -0.0002750564963033275
+          ],
+          "certificate_min": 0.0002722479898788005,
+          "descent_bounds": [
+            -0.0005312470940038819,
+            -0.0002722479898788005
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 63,
+          "encoder_risk_offsets": [
+            -0.0007580425796954171,
+            0.00010478031789379338
+          ],
+          "base_certificate_min": 8.57561572767012e-05,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0006719645819940334,
+            -8.846220072739053e-05
+          ],
+          "certificate_min": 8.57561572767012e-05,
+          "descent_bounds": [
+            -0.0006694169572196581,
+            -8.57561572767012e-05
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 64,
+          "encoder_risk_offsets": [
+            -0.0007809649321458001,
+            0.00013747668998131957
+          ],
+          "base_certificate_min": 5.3481680661851506e-05,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0007000429849740586,
+            -5.619653289828941e-05
+          ],
+          "certificate_min": 5.3481680661851506e-05,
+          "descent_bounds": [
+            -0.0006974893326859696,
+            -5.3481680661851506e-05
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 65,
+          "encoder_risk_offsets": [
+            -0.0006481245510070455,
+            -1.3232778701688375e-05
+          ],
+          "base_certificate_min": 0.00020883064456250522,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005651569683984281,
+            -0.00021170774980239226
+          ],
+          "certificate_min": 0.00020883064456250522,
+          "descent_bounds": [
+            -0.0005624524143198898,
+            -0.00020883064456250522
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 66,
+          "encoder_risk_offsets": [
+            -0.0004295357805026434,
+            -0.00023261945110897297
+          ],
+          "base_certificate_min": 0.0003352075371562403,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.00033812445203218466,
+            -0.0004369683742609376
+          ],
+          "certificate_min": 0.0003352075371562403,
+          "descent_bounds": [
+            -0.0003352075371562403,
+            -0.00043386463568819485
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 67,
+          "encoder_risk_offsets": [
+            -0.0002922851266901061,
+            -0.00036037195542609757
+          ],
+          "base_certificate_min": 0.00018924497410546004,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.00019229907646378663,
+            -0.0005680342770392199
+          ],
+          "certificate_min": 0.00018924497410546004,
+          "descent_bounds": [
+            -0.00018924497410546004,
+            -0.0005647847445081833
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 68,
+          "encoder_risk_offsets": [
+            -0.00036391756129200425,
+            -0.0002960234457441424
+          ],
+          "base_certificate_min": 0.00025855867531861476,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0002615985067914717,
+            -0.0005028157171355074
+          ],
+          "certificate_min": 0.00025855867531861476,
+          "descent_bounds": [
+            -0.00025855867531861476,
+            -0.0004995819269491781
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 69,
+          "encoder_risk_offsets": [
+            -0.0005964423617049741,
+            -7.75409223074397e-05
+          ],
+          "base_certificate_min": 0.00027768845564104627,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0004990107560836066,
+            -0.00028079198074493217
+          ],
+          "certificate_min": 0.00027768845564104627,
+          "descent_bounds": [
+            -0.0004960930427544849,
+            -0.00027768845564104627
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 70,
+          "encoder_risk_offsets": [
+            -0.0008033700096393703,
+            0.0001397145563784563
+          ],
+          "base_certificate_min": 5.829111505330822e-05,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0007133627359385275,
+            -6.127841570674475e-05
+          ],
+          "certificate_min": 5.829111505330822e-05,
+          "descent_bounds": [
+            -0.0007105545324530381,
+            -5.829111505330822e-05
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 71,
+          "encoder_risk_offsets": [
+            -0.0008171966437546252,
+            0.000176172540362729
+          ],
+          "base_certificate_min": 2.436857396805468e-05,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0007310345018179398,
+            -2.7367155136404087e-05
+          ],
+          "certificate_min": 2.436857396805468e-05,
+          "descent_bounds": [
+            -0.00072821651542525,
+            -2.436857396805468e-05
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 72,
+          "encoder_risk_offsets": [
+            -0.0006417176006600633,
+            -9.61869245508229e-06
+          ],
+          "base_certificate_min": 0.00021683432630788764,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.000552979999297265,
+            -0.0002199943966690876
+          ],
+          "certificate_min": 0.00021683432630788764,
+          "descent_bounds": [
+            -0.000550011402615103,
+            -0.00021683432630788764
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 73,
+          "encoder_risk_offsets": [
+            -0.00042100726188959436,
+            -0.0002546824895918176
+          ],
+          "base_certificate_min": 0.0003220752707841698,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0003252557784956256,
+            -0.00047156972883488635
+          ],
+          "certificate_min": 0.0003220752707841698,
+          "descent_bounds": [
+            -0.0003220752707841698,
+            -0.0004681828534171443
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 74,
+          "encoder_risk_offsets": [
+            -0.0003225725725885531,
+            -0.00035408135488296244
+          ],
+          "base_certificate_min": 0.0002173320810690627,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.00022065684745248282,
+            -0.0005729767730742186
+          ],
+          "certificate_min": 0.0002173320810690627,
+          "descent_bounds": [
+            -0.0002173320810690627,
+            -0.0005694352710659096
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 75,
+          "encoder_risk_offsets": [
+            -0.00043469950534219537,
+            -0.00023499269392140976
+          ],
+          "base_certificate_min": 0.00032898618631929644,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.00033231127255695103,
+            -0.0004515854528269747
+          ],
+          "certificate_min": 0.00032898618631929644,
+          "descent_bounds": [
+            -0.00032898618631929644,
+            -0.0004480429222684286
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 76,
+          "encoder_risk_offsets": [
+            -0.0006592758912150054,
+            -1.7679060719366646e-05
+          ],
+          "base_certificate_min": 0.0002280376940918583,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005617020635444447,
+            -0.00023148719087745517
+          ],
+          "certificate_min": 0.0002280376940918583,
+          "descent_bounds": [
+            -0.0005584646252498007,
+            -0.0002280376940918583
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 77,
+          "encoder_risk_offsets": [
+            -0.0007778026354480772,
+            9.999479995176364e-05
+          ],
+          "base_certificate_min": 0.00011079698302179648,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0006849997830530863,
+            -0.0001141983518939127
+          ],
+          "certificate_min": 0.00011079698302179648,
+          "descent_bounds": [
+            -0.0006818076479068734,
+            -0.00011079698302179648
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 78,
+          "encoder_risk_offsets": [
+            -0.000705002554213463,
+            3.25095667974562e-05
+          ],
+          "base_certificate_min": 0.00018217196795566794,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0006127351774231626,
+            -0.00018564452317887392
+          ],
+          "certificate_min": 0.00018217196795566794,
+          "descent_bounds": [
+            -0.0006094765696734045,
+            -0.00018217196795566794
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 79,
+          "encoder_risk_offsets": [
+            -0.0005365376295928259,
+            -0.0001390117180995465
+          ],
+          "base_certificate_min": 0.0003583019115789292,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0004409772043232896,
+            -0.0003619259105691608
+          ],
+          "certificate_min": 0.0003583019115789292,
+          "descent_bounds": [
+            -0.0004375774122452986,
+            -0.0003583019115789292
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 80,
+          "encoder_risk_offsets": [
+            -0.0004283831373131375,
+            -0.0002563830740801576
+          ],
+          "base_certificate_min": 0.0003257102586913009,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0003292347893064651,
+            -0.0004815166931286252
+          ],
+          "certificate_min": 0.0003257102586913009,
+          "descent_bounds": [
+            -0.0003257102586913009,
+            -0.00047775805909443155
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 81,
+          "encoder_risk_offsets": [
+            -0.0004638848086245262,
+            -0.00021817928514500373
+          ],
+          "base_certificate_min": 0.0003605159957455003,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.000364083328238729,
+            -0.0004421752645628607
+          ],
+          "certificate_min": 0.0003605159957455003,
+          "descent_bounds": [
+            -0.0003605159957455003,
+            -0.00043836924474329624
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 82,
+          "encoder_risk_offsets": [
+            -0.0005933849430787008,
+            -8.302902121454236e-05
+          ],
+          "base_certificate_min": 0.0003012450118580477,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0004961422331419829,
+            -0.0003050238140631101
+          ],
+          "certificate_min": 0.0003012450118580477,
+          "descent_bounds": [
+            -0.0004926016117920021,
+            -0.0003012450118580477
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 83,
+          "encoder_risk_offsets": [
+            -0.000688261696629,
+            4.6081492939831215e-06
+          ],
+          "base_certificate_min": 0.00021370159176700574,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005941410968687277,
+            -0.00021745767494257828
+          ],
+          "certificate_min": 0.00021370159176700574,
+          "descent_bounds": [
+            -0.0005906223658765238,
+            -0.00021370159176700574
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 84,
+          "encoder_risk_offsets": [
+            -0.0006634424075642742,
+            -3.04177054021304e-05
+          ],
+          "base_certificate_min": 0.00025099280526167257,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.000570171598332947,
+            -0.0002547935335650564
+          ],
+          "certificate_min": 0.00025099280526167257,
+          "descent_bounds": [
+            -0.0005666114345768051,
+            -0.00025099280526167257
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 85,
+          "encoder_risk_offsets": [
+            -0.0005746518007359591,
+            -0.00011958060255123915
+          ],
+          "base_certificate_min": 0.00034242066152747724,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.00048020585071384403,
+            -0.0003463128121032333
+          ],
+          "certificate_min": 0.00034242066152747724,
+          "descent_bounds": [
+            -0.00047656091958992315,
+            -0.00034242066152747724
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 86,
+          "encoder_risk_offsets": [
+            -0.000544462305639537,
+            -0.00015116442589646617
+          ],
+          "base_certificate_min": 0.00037463422900263895,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0004494404479380987,
+            -0.0003786019710152466
+          ],
+          "certificate_min": 0.00037463422900263895,
+          "descent_bounds": [
+            -0.0004457264670630064,
+            -0.00037463422900263895
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 87,
+          "encoder_risk_offsets": [
+            -0.0005792931416491731,
+            -0.00012196935755603988
+          ],
+          "base_certificate_min": 0.0003446940416392827,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.00048508559697046927,
+            -0.00034870467111025594
+          ],
+          "certificate_min": 0.0003446940416392827,
+          "descent_bounds": [
+            -0.0004813336017492149,
+            -0.0003446940416392827
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 88,
+          "encoder_risk_offsets": [
+            -0.0006310788041359872,
+            -6.718750911693938e-05
+          ],
+          "base_certificate_min": 0.000289349360906603,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005380905945443493,
+            -0.0002933892766078805
+          ],
+          "certificate_min": 0.000289349360906603,
+          "descent_bounds": [
+            -0.0005343129266382542,
+            -0.000289349360906603
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 89,
+          "encoder_risk_offsets": [
+            -0.0006281413277289261,
+            -7.254700002273795e-05
+          ],
+          "base_certificate_min": 0.0002954889798043427,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005352877563168934,
+            -0.0002995745222910684
+          ],
+          "certificate_min": 0.0002954889798043427,
+          "descent_bounds": [
+            -0.0005314684036390718,
+            -0.0002954889798043427
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 90,
+          "encoder_risk_offsets": [
+            -0.000605835153081935,
+            -0.00010778717003728788
+          ],
+          "base_certificate_min": 0.00033184493625685945,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005123003523788139,
+            -0.0003359895984232919
+          ],
+          "certificate_min": 0.00033184493625685945,
+          "descent_bounds": [
+            -0.0005084264052319441,
+            -0.00033184493625685945
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 91,
+          "encoder_risk_offsets": [
+            -0.0006059691969875214,
+            -0.0001052625381599559
+          ],
+          "base_certificate_min": 0.00032936773472833867,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005123474653916937,
+            -0.00033355830312714607
+          ],
+          "certificate_min": 0.00032936773472833867,
+          "descent_bounds": [
+            -0.0005084317868527145,
+            -0.00032936773472833867
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 92,
+          "encoder_risk_offsets": [
+            -0.000637225981714229,
+            -6.816275655141535e-05
+          ],
+          "base_certificate_min": 0.0002914909223208612,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005447770981643618,
+            -0.0002957065935838554
+          ],
+          "certificate_min": 0.0002914909223208612,
+          "descent_bounds": [
+            -0.0005408398895636278,
+            -0.0002914909223208612
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 93,
+          "encoder_risk_offsets": [
+            -0.0006382616488605497,
+            -6.341861035064067e-05
+          ],
+          "base_certificate_min": 0.0002862112575519333,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005466668661542329,
+            -0.000290460941828552
+          ],
+          "certificate_min": 0.0002862112575519333,
+          "descent_bounds": [
+            -0.0005426999159341153,
+            -0.0002862112575519333
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 94,
+          "encoder_risk_offsets": [
+            -0.0005994552275364606,
+            -0.00010078999312962411
+          ],
+          "base_certificate_min": 0.000323748190832316,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005073407166847343,
+            -0.00032804931809610194
+          ],
+          "certificate_min": 0.000323748190832316,
+          "descent_bounds": [
+            -0.0005033271983508463,
+            -0.000323748190832316
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 95,
+          "encoder_risk_offsets": [
+            -0.0005747827116665549,
+            -0.00012936001923646856
+          ],
+          "base_certificate_min": 0.00035257653199594237,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.00048181402259495076,
+            -0.00035692101450152114
+          ],
+          "certificate_min": 0.00035257653199594237,
+          "descent_bounds": [
+            -0.00047776093889625884,
+            -0.00035257653199594237
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 96,
+          "encoder_risk_offsets": [
+            -0.0005975130309031629,
+            -0.00010445919107887613
+          ],
+          "base_certificate_min": 0.00032716649801970766,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005048418236675567,
+            -0.0003315252019244208
+          ],
+          "certificate_min": 0.00032716649801970766,
+          "descent_bounds": [
+            -0.0005007764616367191,
+            -0.00032716649801970766
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 97,
+          "encoder_risk_offsets": [
+            -0.0006439783309770131,
+            -5.2967395834213615e-05
+          ],
+          "base_certificate_min": 0.0002747013426743425,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005529821326979989,
+            -0.0002790547870583082
+          ],
+          "certificate_min": 0.0002747013426743425,
+          "descent_bounds": [
+            -0.0005489233195442888,
+            -0.0002747013426743425
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 98,
+          "encoder_risk_offsets": [
+            -0.0006370439098978276,
+            -5.650750745983535e-05
+          ],
+          "base_certificate_min": 0.0002777145715021011,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0005472846623642003,
+            -0.00028208207427643517
+          ],
+          "certificate_min": 0.0002777145715021011,
+          "descent_bounds": [
+            -0.0005432146749075951,
+            -0.0002777145715021011
+          ],
+          "bound_violation": false
+        },
+        {
+          "step": 99,
+          "encoder_risk_offsets": [
+            -0.0005634207179430195,
+            -0.00012909668447053102
+          ],
+          "base_certificate_min": 0.00035017403675331613,
+          "rho": 1e-06,
+          "status": "BASE_CERTIFIED",
+          "attempts": [],
+          "applied": true,
+          "head_correction_norm": 0.0,
+          "actual_source_changes": [
+            -0.0004731153425978074,
+            -0.00035458406494637273
+          ],
+          "certificate_min": 0.00035017403675331613,
+          "descent_bounds": [
+            -0.0004690072314282295,
+            -0.00035017403675331613
+          ],
+          "bound_violation": false
+        }
+      ],
+      "wall_seconds": 34.14167308807373
+    }
+  ]
+}
